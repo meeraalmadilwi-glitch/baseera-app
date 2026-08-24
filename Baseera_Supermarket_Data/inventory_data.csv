@@ -1,0 +1,1001 @@
+Product ID,Product Name,Category,Stock Quantity,Daily Sales Avg,Purchase Price (OMR),Selling Price (OMR),Expiry Date,Status
+1000,لبن طازج 1 لتر (Fresh Yogurt 1L) - THE ANOMALY,Dairy,5000,50,1.200,1.800,2026-08-27,Critical Overstock
+1001,Organic Salmon 4x,Meat,260,22,1.350,2.397,2026-09-11,Normal
+1002,Premium Popcorn 4x,Snacks,249,40,9.591,16.304,2028-04-13,Normal
+1003,Fresh Sugar 1x,Grocery,474,42,3.205,4.410,2027-10-03,Normal
+1004,Premium Cola 2x,Beverages,142,33,7.422,12.371,2027-02-02,Normal
+1005,Organic Sausages 2x,Meat,178,36,9.638,12.402,2026-09-04,Normal
+1006,Fresh Salmon 4x,Meat,489,5,2.172,3.623,2026-09-23,Normal
+1007,Diet Cookies 3x,Snacks,129,47,8.125,14.175,2027-03-03,Normal
+1008,Diet Water 2x,Beverages,44,23,4.703,8.154,2027-05-07,Low Stock
+1009,Fresh Cola 4x,Beverages,411,47,8.751,11.083,2027-12-24,Normal
+1010,Standard Chicken Breast 3x,Meat,276,27,5.438,7.551,2026-09-05,Normal
+1011,Local Pasta 5x,Grocery,387,42,7.742,12.034,2028-05-18,Normal
+1012,Gluten-Free Bleach 3x,Cleaning,33,32,1.012,1.242,2026-12-10,Low Stock
+1013,Premium Bagel 2x,Bakery,475,21,8.010,14.097,2026-09-05,Normal
+1014,Local Tea 4x,Beverages,420,26,4.831,7.154,2027-07-28,Normal
+1015,Fresh Sponges 5x,Cleaning,156,17,0.709,1.046,2028-01-25,Normal
+1016,Local Chicken Breast 5x,Meat,136,16,8.968,15.107,2026-09-07,Normal
+1017,Local Chicken Nuggets 5x,Frozen,53,42,8.869,12.950,2028-07-05,Low Stock
+1018,Imported Butter 4x,Dairy,163,25,4.264,6.057,2026-09-15,Normal
+1019,Organic Toothpaste 4x,Personal Care,206,16,8.073,14.218,2026-12-27,Normal
+1020,Diet Bleach 2x,Cleaning,474,1,2.949,4.555,2028-02-22,Normal
+1021,Fresh Tomatoes 3x,Produce,166,11,7.782,12.013,2026-09-12,Normal
+1022,Gluten-Free Pizza 2x,Frozen,248,18,1.838,3.038,2028-04-29,Normal
+1023,Premium Bagel 5x,Bakery,398,33,3.942,6.170,2026-09-15,Normal
+1024,Diet Butter 3x,Dairy,39,38,3.730,4.548,2026-09-21,Low Stock
+1025,Diet Dish Soap 1x,Cleaning,196,14,3.410,5.781,2028-02-01,Normal
+1026,Premium Muffins 1x,Bakery,200,17,6.640,8.248,2026-08-31,Normal
+1027,Premium Lamb Chops 4x,Meat,397,10,8.014,10.595,2026-09-23,Normal
+1028,Organic Sausages 3x,Meat,171,33,1.709,2.944,2026-09-22,Normal
+1029,Organic Cola 1x,Beverages,10,23,1.279,1.623,2028-04-18,Low Stock
+1030,Imported Apples 1x,Produce,58,22,2.835,4.495,2026-09-16,Normal
+1031,Diet Tomatoes 3x,Produce,183,20,2.089,3.489,2026-09-12,Normal
+1032,Standard Butter 2x,Dairy,427,2,8.479,13.051,2026-09-15,Normal
+1033,Fresh Flour 2x,Grocery,181,40,6.235,8.062,2027-01-12,Normal
+1034,Diet Water 5x,Beverages,100,39,5.318,9.174,2027-05-21,Normal
+1035,Imported Ice Cream 3x,Frozen,169,35,7.543,10.366,2028-02-07,Normal
+1036,Imported Sponges 2x,Cleaning,194,48,8.420,10.684,2028-02-06,Normal
+1037,Diet Bananas 1x,Produce,230,21,4.910,8.142,2026-09-14,Normal
+1038,Standard Toothpaste 1x,Personal Care,218,42,8.479,13.439,2028-02-24,Normal
+1039,Gluten-Free Potatoes 2x,Produce,470,45,5.062,8.461,2026-09-04,Normal
+1040,Fresh Sausages 4x,Meat,129,4,8.236,13.684,2026-09-18,Normal
+1041,Premium Flour 5x,Grocery,106,46,7.310,9.469,2027-04-20,Normal
+1042,Organic Pasta 3x,Grocery,421,4,2.860,5.049,2028-03-21,Normal
+1043,Diet Soap 4x,Personal Care,313,34,4.707,6.894,2028-03-06,Normal
+1044,Local Tomatoes 3x,Produce,481,13,4.203,5.911,2026-09-12,Normal
+1045,Imported Bagel 5x,Bakery,338,8,9.827,15.724,2026-09-19,Normal
+1046,Gluten-Free Toothpaste 5x,Personal Care,451,34,2.978,3.693,2027-06-08,Normal
+1047,Standard Tomatoes 1x,Produce,185,24,2.301,2.872,2026-08-29,Near Expiry - Overstock
+1048,Gluten-Free Croissant 1x,Bakery,78,9,1.993,3.386,2026-09-09,Normal
+1049,Gluten-Free Soap 4x,Personal Care,212,14,6.691,11.568,2027-08-05,Normal
+1050,Diet Coffee 2x,Beverages,27,26,2.836,3.770,2028-05-15,Low Stock
+1051,Local Popcorn 1x,Snacks,352,43,7.191,10.969,2028-07-07,Normal
+1052,Diet Toothpaste 2x,Personal Care,496,3,7.797,11.646,2028-06-24,Normal
+1053,Gluten-Free Lamb Chops 4x,Meat,376,49,5.675,7.312,2026-08-29,Near Expiry - Overstock
+1054,Organic Cake 1x,Bakery,261,20,1.760,3.105,2026-09-21,Normal
+1055,Standard Sponges 2x,Cleaning,434,23,4.694,8.378,2028-03-17,Normal
+1056,Fresh Ice Cream 1x,Frozen,105,22,3.579,5.714,2028-07-01,Normal
+1057,Standard Rice 4x,Grocery,490,18,5.861,10.146,2027-02-08,Normal
+1058,Local Cookies 1x,Snacks,66,34,5.832,9.956,2028-01-20,Low Stock
+1059,Gluten-Free Coffee 4x,Beverages,127,14,1.910,2.624,2027-05-20,Normal
+1060,Imported Pasta 1x,Grocery,87,17,8.832,14.614,2028-03-02,Normal
+1061,Organic Muffins 1x,Bakery,289,32,3.886,4.737,2026-09-08,Normal
+1062,Imported Nuts 5x,Snacks,95,40,1.314,1.765,2027-09-28,Normal
+1063,Local Nuts 4x,Snacks,168,14,1.780,2.391,2027-02-19,Normal
+1064,Standard Pizza 3x,Frozen,80,16,5.505,9.309,2028-06-07,Normal
+1065,Organic Deodorant 4x,Personal Care,205,40,3.874,4.829,2028-03-10,Normal
+1066,Standard Cookies 4x,Snacks,93,28,6.311,7.885,2027-10-15,Normal
+1067,Premium Nuts 4x,Snacks,472,20,9.088,13.070,2027-04-22,Normal
+1068,Organic Ice Cream 5x,Frozen,337,18,2.321,3.024,2028-03-16,Normal
+1069,Organic Tea 2x,Beverages,32,37,5.498,9.044,2028-05-21,Low Stock
+1070,Fresh Coffee 4x,Beverages,443,14,8.130,12.739,2027-10-07,Normal
+1071,Diet Dish Soap 3x,Cleaning,469,17,8.772,11.704,2027-04-22,Normal
+1072,Local Croissant 1x,Bakery,107,10,3.856,5.147,2026-09-09,Normal
+1073,Diet Coffee 1x,Beverages,364,20,2.685,3.449,2026-12-03,Normal
+1074,Organic Chicken Nuggets 1x,Frozen,234,48,7.727,13.336,2028-01-04,Normal
+1075,Imported Sugar 3x,Grocery,232,45,6.863,10.356,2027-04-27,Normal
+1076,Fresh Cake 2x,Bakery,485,18,5.300,7.876,2026-09-06,Normal
+1077,Premium Cola 3x,Beverages,307,31,1.112,1.930,2027-06-11,Normal
+1078,Local Ice Cream 5x,Frozen,31,37,6.134,9.693,2027-11-06,Low Stock
+1079,Gluten-Free Water 4x,Beverages,99,3,0.905,1.221,2026-12-24,Normal
+1080,Gluten-Free Bagel 5x,Bakery,499,4,9.033,14.761,2026-09-21,Normal
+1081,Imported Bread 1x,Bakery,482,36,0.724,0.941,2026-09-10,Normal
+1082,Premium Popcorn 4x,Snacks,265,34,8.821,14.571,2028-07-01,Normal
+1083,Fresh Toothpaste 5x,Personal Care,310,7,2.888,3.858,2027-11-17,Normal
+1084,Diet Potatoes 3x,Produce,442,24,3.015,4.828,2026-09-12,Normal
+1085,Imported Detergent 3x,Cleaning,246,16,2.712,4.765,2027-10-06,Normal
+1086,Premium Olive Oil 1x,Grocery,425,44,3.100,3.963,2027-12-15,Normal
+1087,Standard Croissant 5x,Bakery,458,29,8.526,13.926,2026-09-20,Normal
+1088,Organic Toothpaste 1x,Personal Care,316,18,4.928,7.804,2028-03-05,Normal
+1089,Fresh Lamb Chops 5x,Meat,121,12,5.254,7.777,2026-09-11,Normal
+1090,Premium Shampoo 1x,Personal Care,331,8,3.767,6.518,2027-05-23,Normal
+1091,Organic Deodorant 4x,Personal Care,128,35,9.361,11.974,2028-07-11,Normal
+1092,Premium Water 4x,Beverages,16,3,5.100,7.922,2027-07-28,Normal
+1093,Imported Water 4x,Beverages,53,46,3.653,5.436,2027-12-11,Low Stock
+1094,Organic Muffins 3x,Bakery,185,28,9.693,16.673,2026-09-14,Normal
+1095,Standard Toothpaste 2x,Personal Care,202,26,7.696,13.639,2026-12-03,Normal
+1096,Fresh Water 2x,Beverages,499,7,2.750,3.539,2028-04-07,Normal
+1097,Gluten-Free Yogurt 1x,Dairy,134,43,4.221,6.170,2026-09-16,Normal
+1098,Fresh Deodorant 5x,Personal Care,286,23,9.348,13.313,2027-09-29,Normal
+1099,Diet Pasta 4x,Grocery,120,17,2.636,3.960,2027-04-11,Normal
+1100,Local Popcorn 2x,Snacks,401,17,6.644,9.077,2027-07-12,Normal
+1101,Organic Coffee 1x,Beverages,344,7,2.641,3.964,2028-05-29,Normal
+1102,Organic Cola 3x,Beverages,95,18,4.252,6.055,2028-01-08,Normal
+1103,Diet Cookies 2x,Snacks,49,46,6.198,8.173,2028-05-08,Low Stock
+1104,Gluten-Free Detergent 4x,Cleaning,465,14,7.941,9.543,2027-12-29,Normal
+1105,Organic Milk 2x,Dairy,184,23,9.859,17.707,2026-09-18,Normal
+1106,Premium Butter 5x,Dairy,13,28,2.786,4.244,2026-08-30,Low Stock
+1107,Gluten-Free Sausages 1x,Meat,381,30,2.831,4.773,2026-09-04,Normal
+1108,Premium Nuts 4x,Snacks,18,20,2.109,3.464,2027-02-09,Low Stock
+1109,Fresh Detergent 2x,Cleaning,171,23,7.114,8.769,2026-12-06,Normal
+1110,Gluten-Free Dish Soap 2x,Cleaning,500,39,9.511,13.076,2027-10-05,Normal
+1111,Diet Dish Soap 1x,Cleaning,80,3,7.621,12.938,2028-05-03,Normal
+1112,Gluten-Free Shampoo 3x,Personal Care,493,44,0.883,1.520,2027-03-12,Normal
+1113,Premium Sausages 3x,Meat,15,18,4.480,7.355,2026-09-14,Low Stock
+1114,Fresh Apples 4x,Produce,28,16,3.754,5.032,2026-09-12,Low Stock
+1115,Imported Tomatoes 5x,Produce,161,4,9.892,15.301,2026-09-05,Normal
+1116,Fresh Nuts 4x,Snacks,248,15,6.962,10.622,2028-01-30,Normal
+1117,Local Butter 5x,Dairy,266,21,1.063,1.319,2026-09-14,Normal
+1118,Organic Lamb Chops 5x,Meat,46,10,9.836,17.000,2026-08-29,Normal
+1119,Gluten-Free Carrots 4x,Produce,485,18,3.952,7.080,2026-09-01,Normal
+1120,Gluten-Free Yogurt 5x,Dairy,466,27,9.587,14.585,2026-09-02,Normal
+1121,Gluten-Free Cola 3x,Beverages,269,1,6.925,12.356,2027-07-08,Normal
+1122,Diet Muffins 2x,Bakery,445,28,3.078,5.157,2026-09-20,Normal
+1123,Diet Salmon 1x,Meat,175,43,4.962,8.024,2026-09-06,Normal
+1124,Imported Muffins 4x,Bakery,38,14,3.863,5.938,2026-09-06,Normal
+1125,Organic Frozen Vegetables 3x,Frozen,147,16,5.244,7.751,2028-01-01,Normal
+1126,Standard Potatoes 3x,Produce,133,19,1.279,1.888,2026-09-08,Normal
+1127,Imported Tea 1x,Beverages,66,39,2.967,3.595,2028-07-04,Low Stock
+1128,Imported Soap 4x,Personal Care,98,14,2.528,4.404,2028-05-02,Normal
+1129,Fresh Potatoes 5x,Produce,155,17,4.133,5.292,2026-09-05,Normal
+1130,Diet Frozen Vegetables 3x,Frozen,294,20,1.511,2.329,2027-04-24,Normal
+1131,Imported Cola 3x,Beverages,211,25,2.642,3.670,2028-02-10,Normal
+1132,Standard Carrots 4x,Produce,77,44,2.148,2.829,2026-09-20,Low Stock
+1133,Organic Olive Oil 1x,Grocery,90,38,7.192,11.999,2027-07-31,Normal
+1134,Local Popcorn 4x,Snacks,460,37,4.460,5.417,2028-01-03,Normal
+1135,Local Chips 2x,Snacks,218,6,3.750,5.762,2028-04-07,Normal
+1136,Premium Bananas 4x,Produce,308,6,1.215,1.576,2026-09-18,Normal
+1137,Organic Water 1x,Beverages,260,6,2.618,3.195,2027-01-14,Normal
+1138,Diet Cola 3x,Beverages,417,6,8.580,13.770,2026-11-27,Normal
+1139,Fresh Detergent 1x,Cleaning,272,22,2.797,4.974,2028-04-08,Normal
+1140,Local Deodorant 3x,Personal Care,208,20,4.803,8.484,2028-03-19,Normal
+1141,Organic Soap 1x,Personal Care,259,36,5.450,7.892,2027-04-25,Normal
+1142,Organic Cream 1x,Dairy,354,16,9.871,12.091,2026-09-07,Normal
+1143,Diet Detergent 1x,Cleaning,173,32,4.108,6.295,2028-05-31,Normal
+1144,Organic Chips 1x,Snacks,307,42,7.018,9.814,2028-02-16,Normal
+1145,Organic Canned Beans 2x,Grocery,272,16,1.708,2.572,2027-06-22,Normal
+1146,Fresh Cheese 4x,Dairy,304,46,3.333,5.438,2026-09-11,Normal
+1147,Diet Lamb Chops 5x,Meat,278,9,8.067,9.876,2026-09-23,Normal
+1148,Premium Chicken Nuggets 4x,Frozen,412,14,3.355,4.522,2026-12-29,Normal
+1149,Imported Muffins 1x,Bakery,474,15,7.535,9.362,2026-08-30,Near Expiry - Overstock
+1150,Premium Apples 5x,Produce,72,12,1.223,1.562,2026-09-13,Normal
+1151,Local Cheese 3x,Dairy,166,40,1.944,3.057,2026-09-20,Normal
+1152,Local Carrots 5x,Produce,102,22,1.000,1.355,2026-09-15,Normal
+1153,Gluten-Free Deodorant 4x,Personal Care,182,34,6.328,9.393,2027-02-20,Normal
+1154,Organic Juice 5x,Beverages,205,25,7.306,12.873,2027-03-01,Normal
+1155,Local Cake 2x,Bakery,85,28,6.043,9.352,2026-09-06,Normal
+1156,Fresh Minced Beef 5x,Meat,45,31,7.060,10.079,2026-09-06,Low Stock
+1157,Fresh Cream 1x,Dairy,199,33,1.270,1.804,2026-09-12,Normal
+1158,Local Pizza 1x,Frozen,420,46,4.023,6.754,2026-12-31,Normal
+1159,Organic Tea 3x,Beverages,172,11,2.136,3.497,2028-02-18,Normal
+1160,Fresh Canned Beans 1x,Grocery,313,12,7.160,8.963,2027-06-28,Normal
+1161,Local Frozen Vegetables 5x,Frozen,47,4,4.808,5.831,2028-04-21,Normal
+1162,Imported Minced Beef 5x,Meat,307,3,2.830,4.723,2026-09-09,Normal
+1163,Premium Bagel 1x,Bakery,170,44,7.342,11.596,2026-09-09,Normal
+1164,Gluten-Free Frozen Vegetables 5x,Frozen,290,13,7.110,9.527,2027-06-16,Normal
+1165,Imported Chicken Nuggets 4x,Frozen,49,7,4.410,6.697,2026-12-15,Normal
+1166,Imported Cake 2x,Bakery,84,15,2.158,3.238,2026-09-10,Normal
+1167,Local Nuts 2x,Snacks,387,24,3.443,5.264,2027-04-05,Normal
+1168,Premium Sausages 2x,Meat,325,27,5.901,7.645,2026-09-14,Normal
+1169,Imported Water 4x,Beverages,265,19,8.625,11.290,2028-05-30,Normal
+1170,Organic Salmon 3x,Meat,25,1,2.946,4.367,2026-09-14,Normal
+1171,Diet Croissant 2x,Bakery,224,18,7.382,10.154,2026-09-17,Normal
+1172,Premium Croissant 4x,Bakery,176,32,9.437,16.534,2026-08-30,Normal
+1173,Imported Detergent 5x,Cleaning,17,42,1.242,1.813,2027-03-29,Low Stock
+1174,Fresh Dish Soap 5x,Cleaning,76,45,7.306,8.795,2027-08-06,Low Stock
+1175,Local Tea 4x,Beverages,256,34,1.792,2.983,2028-07-18,Normal
+1176,Imported Sausages 3x,Meat,118,33,3.379,4.562,2026-09-12,Normal
+1177,Premium Water 5x,Beverages,259,8,1.204,1.559,2027-06-01,Normal
+1178,Fresh Salmon 2x,Meat,52,49,0.934,1.432,2026-09-21,Low Stock
+1179,Imported Milk 2x,Dairy,430,9,4.630,6.234,2026-09-10,Normal
+1180,Standard Detergent 1x,Cleaning,217,1,7.599,10.881,2027-08-23,Normal
+1181,Premium Tea 1x,Beverages,58,16,4.254,5.978,2026-11-28,Normal
+1182,Gluten-Free Juice 3x,Beverages,70,16,6.291,8.293,2027-03-03,Normal
+1183,Fresh Bagel 2x,Bakery,12,4,8.075,12.236,2026-09-01,Normal
+1184,Fresh Butter 1x,Dairy,329,4,2.404,3.666,2026-09-21,Normal
+1185,Standard Sausages 1x,Meat,187,20,1.569,2.111,2026-09-08,Normal
+1186,Local Chips 5x,Snacks,155,32,4.330,7.072,2027-12-10,Normal
+1187,Local Chocolate 5x,Snacks,37,2,8.293,11.888,2027-10-07,Normal
+1188,Organic Olive Oil 2x,Grocery,256,15,4.100,7.331,2027-11-13,Normal
+1189,Local Soap 2x,Personal Care,356,21,7.832,13.190,2028-03-17,Normal
+1190,Premium Cola 4x,Beverages,275,4,5.869,7.230,2027-01-25,Normal
+1191,Organic Cheese 4x,Dairy,110,15,8.933,13.116,2026-09-22,Normal
+1192,Local Sausages 1x,Meat,407,40,3.457,5.740,2026-09-11,Normal
+1193,Diet Cream 2x,Dairy,287,50,2.765,4.847,2026-09-05,Normal
+1194,Diet Shampoo 1x,Personal Care,317,32,3.942,6.107,2027-06-06,Normal
+1195,Fresh Ice Cream 5x,Frozen,87,44,6.562,7.948,2027-03-01,Low Stock
+1196,Fresh Coffee 2x,Beverages,353,30,4.348,6.438,2028-05-12,Normal
+1197,Premium Frozen Vegetables 2x,Frozen,262,2,0.696,0.908,2027-04-05,Normal
+1198,Standard Cake 1x,Bakery,44,4,0.548,0.765,2026-09-10,Normal
+1199,Premium Muffins 3x,Bakery,276,48,1.441,2.251,2026-09-21,Normal
+1200,Local Bananas 2x,Produce,184,20,3.281,5.265,2026-09-11,Normal
+1201,Gluten-Free Potatoes 4x,Produce,475,16,4.318,7.255,2026-09-07,Normal
+1202,Organic Deodorant 5x,Personal Care,385,9,6.365,8.182,2026-12-21,Normal
+1203,Local Sausages 2x,Meat,427,36,3.628,5.178,2026-09-20,Normal
+1204,Fresh Water 1x,Beverages,79,26,9.437,11.787,2028-03-10,Normal
+1205,Premium Shampoo 4x,Personal Care,367,22,1.087,1.459,2028-04-01,Normal
+1206,Fresh Pizza 4x,Frozen,279,16,9.377,12.998,2028-01-31,Normal
+1207,Local Bananas 1x,Produce,289,37,2.979,3.667,2026-09-21,Normal
+1208,Diet Cola 2x,Beverages,307,32,4.019,4.924,2028-07-15,Normal
+1209,Standard Bananas 5x,Produce,101,20,0.808,1.066,2026-09-15,Normal
+1210,Fresh Salmon 2x,Meat,302,14,7.219,10.751,2026-09-14,Normal
+1211,Fresh Pizza 5x,Frozen,254,33,2.138,2.641,2027-04-26,Normal
+1212,Diet Cookies 3x,Snacks,43,1,3.314,5.271,2027-09-13,Normal
+1213,Premium Olive Oil 1x,Grocery,147,41,6.349,10.246,2026-12-08,Normal
+1214,Premium Pizza 4x,Frozen,341,13,4.310,7.474,2027-12-02,Normal
+1215,Local Sausages 3x,Meat,451,1,2.743,4.218,2026-08-31,Normal
+1216,Premium Bread 5x,Bakery,249,12,5.702,8.973,2026-08-29,Near Expiry - Overstock
+1217,Premium Chicken Nuggets 3x,Frozen,189,17,7.533,10.232,2027-03-27,Normal
+1218,Imported Canned Beans 1x,Grocery,114,11,6.163,9.388,2028-01-12,Normal
+1219,Premium Cream 3x,Dairy,45,2,8.692,14.519,2026-09-21,Normal
+1220,Fresh Potatoes 4x,Produce,71,23,2.787,3.672,2026-09-07,Normal
+1221,Premium Tomatoes 1x,Produce,46,8,8.224,14.054,2026-09-17,Normal
+1222,Premium Juice 4x,Beverages,468,29,2.848,4.859,2027-02-15,Normal
+1223,Local Shampoo 5x,Personal Care,344,34,5.335,8.758,2027-06-05,Normal
+1224,Imported Tomatoes 5x,Produce,292,7,7.977,9.887,2026-09-23,Normal
+1225,Organic Juice 1x,Beverages,35,8,7.676,11.715,2027-02-28,Normal
+1226,Imported Tomatoes 4x,Produce,92,49,6.152,9.525,2026-09-11,Low Stock
+1227,Imported Croissant 1x,Bakery,66,11,7.207,9.842,2026-09-05,Normal
+1228,Organic Juice 5x,Beverages,200,1,8.352,12.342,2027-06-06,Normal
+1229,Local Potatoes 1x,Produce,81,37,9.713,14.184,2026-09-17,Normal
+1230,Imported Bleach 2x,Cleaning,403,2,0.808,1.236,2026-12-15,Normal
+1231,Diet Bread 2x,Bakery,253,2,1.795,2.168,2026-09-16,Normal
+1232,Standard Sugar 2x,Grocery,163,19,8.480,10.179,2027-04-16,Normal
+1233,Imported Bleach 4x,Cleaning,379,20,1.936,2.489,2028-02-06,Normal
+1234,Imported Minced Beef 5x,Meat,424,27,9.041,11.196,2026-09-14,Normal
+1235,Standard Lamb Chops 1x,Meat,148,16,0.726,0.957,2026-08-29,Near Expiry - Overstock
+1236,Gluten-Free Minced Beef 5x,Meat,426,26,5.584,6.942,2026-09-17,Normal
+1237,Diet Olive Oil 5x,Grocery,213,6,8.871,15.567,2027-11-15,Normal
+1238,Diet Nuts 2x,Snacks,391,48,5.452,8.776,2028-04-27,Normal
+1239,Local Pizza 5x,Frozen,235,27,8.128,11.366,2027-09-07,Normal
+1240,Gluten-Free Carrots 4x,Produce,32,39,3.742,5.035,2026-09-10,Low Stock
+1241,Local Bleach 3x,Cleaning,209,46,3.136,5.510,2026-12-25,Normal
+1242,Standard Shampoo 4x,Personal Care,143,20,3.244,4.380,2028-05-10,Normal
+1243,Standard Cola 5x,Beverages,106,27,2.640,3.383,2027-02-21,Normal
+1244,Organic Butter 1x,Dairy,318,16,3.196,3.836,2026-09-22,Normal
+1245,Diet Chocolate 1x,Snacks,433,48,3.673,4.518,2026-12-18,Normal
+1246,Fresh Chips 5x,Snacks,45,38,1.115,1.720,2026-12-15,Low Stock
+1247,Diet Ice Cream 3x,Frozen,469,11,8.659,12.068,2027-07-16,Normal
+1248,Gluten-Free Frozen Vegetables 2x,Frozen,464,49,3.905,6.336,2027-06-22,Normal
+1249,Local Cookies 2x,Snacks,158,14,1.679,2.196,2027-12-31,Normal
+1250,Local Tomatoes 4x,Produce,492,45,8.931,12.657,2026-09-16,Normal
+1251,Standard Sausages 3x,Meat,200,11,7.154,12.145,2026-09-14,Normal
+1252,Gluten-Free Cream 2x,Dairy,470,29,8.042,12.800,2026-09-08,Normal
+1253,Fresh Deodorant 1x,Personal Care,14,33,5.648,7.279,2028-07-03,Low Stock
+1254,Diet Lamb Chops 2x,Meat,500,10,1.587,2.721,2026-09-04,Normal
+1255,Diet Tomatoes 1x,Produce,203,45,3.152,5.557,2026-09-21,Normal
+1256,Standard Cookies 5x,Snacks,183,13,2.196,3.307,2027-03-14,Normal
+1257,Imported Lamb Chops 4x,Meat,165,44,5.832,7.852,2026-08-29,Normal
+1258,Premium Cheese 2x,Dairy,30,23,9.878,13.742,2026-08-30,Low Stock
+1259,Local Potatoes 1x,Produce,26,4,5.438,7.415,2026-09-12,Normal
+1260,Fresh Cheese 3x,Dairy,453,5,8.331,14.696,2026-09-14,Normal
+1261,Local Cookies 3x,Snacks,239,39,9.388,14.052,2027-03-17,Normal
+1262,Gluten-Free Muffins 4x,Bakery,244,19,6.480,9.866,2026-09-07,Normal
+1263,Standard Soap 5x,Personal Care,269,22,8.262,12.606,2027-08-02,Normal
+1264,Gluten-Free Juice 5x,Beverages,131,45,6.154,10.735,2028-04-26,Normal
+1265,Diet Sugar 1x,Grocery,172,5,8.636,10.539,2027-09-16,Normal
+1266,Local Shampoo 1x,Personal Care,233,27,3.407,5.192,2027-05-07,Normal
+1267,Imported Canned Beans 3x,Grocery,300,47,2.606,3.262,2028-05-01,Normal
+1268,Premium Cake 4x,Bakery,109,24,1.545,2.616,2026-09-10,Normal
+1269,Premium Pizza 2x,Frozen,51,48,2.629,3.536,2028-02-26,Low Stock
+1270,Diet Cheese 2x,Dairy,186,4,4.647,8.168,2026-09-10,Normal
+1271,Local Chocolate 2x,Snacks,159,48,7.240,12.384,2027-09-01,Normal
+1272,Gluten-Free Nuts 4x,Snacks,332,34,6.373,9.603,2027-01-18,Normal
+1273,Standard Detergent 5x,Cleaning,441,8,3.932,6.899,2028-02-11,Normal
+1274,Imported Soap 4x,Personal Care,109,40,4.379,6.690,2027-08-14,Normal
+1275,Diet Nuts 1x,Snacks,215,38,5.679,9.014,2028-03-17,Normal
+1276,Imported Apples 4x,Produce,160,27,9.374,14.112,2026-09-22,Normal
+1277,Diet Coffee 2x,Beverages,209,28,8.670,11.960,2027-02-21,Normal
+1278,Fresh Muffins 5x,Bakery,452,20,9.166,12.530,2026-08-29,Near Expiry - Overstock
+1279,Gluten-Free Bleach 1x,Cleaning,31,14,6.334,7.648,2028-04-05,Normal
+1280,Standard Ice Cream 5x,Frozen,220,22,3.573,4.913,2027-02-12,Normal
+1281,Premium Bananas 1x,Produce,83,36,8.379,10.654,2026-09-04,Normal
+1282,Gluten-Free Ice Cream 2x,Frozen,270,44,8.466,14.885,2027-07-25,Normal
+1283,Local Bread 4x,Bakery,335,48,3.891,5.105,2026-09-15,Normal
+1284,Gluten-Free Flour 4x,Grocery,171,36,9.818,16.244,2027-05-24,Normal
+1285,Organic Salmon 2x,Meat,114,46,6.685,10.954,2026-09-23,Normal
+1286,Gluten-Free Minced Beef 5x,Meat,377,50,2.751,3.345,2026-09-07,Normal
+1287,Organic Olive Oil 3x,Grocery,64,50,7.102,11.050,2027-10-15,Low Stock
+1288,Imported Juice 2x,Beverages,236,19,8.849,11.263,2027-04-21,Normal
+1289,Imported Pizza 3x,Frozen,74,48,6.622,8.684,2027-10-30,Low Stock
+1290,Fresh Sausages 4x,Meat,147,30,4.795,6.976,2026-09-06,Normal
+1291,Imported Bread 3x,Bakery,124,10,6.853,10.521,2026-08-31,Normal
+1292,Organic Olive Oil 2x,Grocery,179,21,2.992,3.734,2028-01-15,Normal
+1293,Standard Popcorn 3x,Snacks,440,10,6.396,8.218,2028-07-18,Normal
+1294,Fresh Cream 1x,Dairy,228,36,5.007,7.027,2026-09-08,Normal
+1295,Diet Chicken Nuggets 1x,Frozen,36,32,2.531,3.042,2028-04-06,Low Stock
+1296,Imported Frozen Vegetables 2x,Frozen,300,14,8.562,14.887,2028-01-25,Normal
+1297,Fresh Pizza 3x,Frozen,210,35,8.118,11.763,2027-03-15,Normal
+1298,Gluten-Free Onions 3x,Produce,484,9,1.631,2.800,2026-09-02,Normal
+1299,Organic Apples 4x,Produce,158,20,7.182,11.885,2026-09-16,Normal
+1300,Fresh Chicken Breast 1x,Meat,406,36,5.300,8.354,2026-09-13,Normal
+1301,Local Soap 4x,Personal Care,393,3,6.061,8.439,2027-10-29,Normal
+1302,Premium Shampoo 2x,Personal Care,189,38,8.995,12.368,2028-04-01,Normal
+1303,Diet Cola 2x,Beverages,426,4,5.520,9.679,2026-12-07,Normal
+1304,Diet Lamb Chops 5x,Meat,158,50,9.178,13.144,2026-09-19,Normal
+1305,Gluten-Free Bananas 3x,Produce,370,16,7.772,9.618,2026-09-10,Normal
+1306,Diet Minced Beef 4x,Meat,314,6,6.052,10.288,2026-08-29,Near Expiry - Overstock
+1307,Local Flour 2x,Grocery,447,28,5.005,8.277,2028-04-14,Normal
+1308,Diet Yogurt 2x,Dairy,104,36,3.453,4.281,2026-09-04,Normal
+1309,Imported Juice 1x,Beverages,31,7,2.341,3.095,2027-12-03,Normal
+1310,Local Bleach 5x,Cleaning,485,21,9.652,14.222,2027-12-06,Normal
+1311,Local Cream 5x,Dairy,246,30,0.872,1.430,2026-09-21,Normal
+1312,Fresh Cola 1x,Beverages,231,36,1.804,2.557,2028-07-07,Normal
+1313,Imported Salmon 5x,Meat,236,43,5.493,7.278,2026-09-22,Normal
+1314,Standard Tea 5x,Beverages,226,31,4.201,5.088,2027-11-27,Normal
+1315,Local Dish Soap 5x,Cleaning,335,38,4.168,5.563,2028-01-06,Normal
+1316,Imported Cola 3x,Beverages,421,32,3.654,5.447,2027-02-26,Normal
+1317,Premium Cookies 5x,Snacks,469,30,3.147,5.428,2027-06-26,Normal
+1318,Imported Butter 2x,Dairy,61,17,3.020,5.273,2026-09-05,Normal
+1319,Diet Cream 2x,Dairy,299,5,9.943,13.343,2026-09-19,Normal
+1320,Fresh Detergent 4x,Cleaning,223,29,5.264,6.825,2027-09-24,Normal
+1321,Standard Cola 1x,Beverages,167,17,7.829,9.886,2028-04-18,Normal
+1322,Standard Chips 4x,Snacks,93,26,9.553,12.031,2027-02-25,Normal
+1323,Local Bleach 1x,Cleaning,174,38,2.728,4.042,2027-08-19,Normal
+1324,Standard Bread 4x,Bakery,28,22,9.772,14.302,2026-09-15,Low Stock
+1325,Fresh Water 2x,Beverages,411,1,3.015,4.757,2026-12-19,Normal
+1326,Local Salmon 3x,Meat,372,15,7.153,12.409,2026-09-02,Normal
+1327,Gluten-Free Carrots 2x,Produce,278,21,2.842,4.749,2026-09-02,Normal
+1328,Standard Pizza 1x,Frozen,367,50,2.647,3.442,2027-12-13,Normal
+1329,Gluten-Free Frozen Vegetables 3x,Frozen,256,20,3.650,4.754,2027-08-30,Normal
+1330,Gluten-Free Nuts 3x,Snacks,224,6,5.114,6.472,2026-12-22,Normal
+1331,Gluten-Free Yogurt 5x,Dairy,72,18,8.117,14.505,2026-09-18,Normal
+1332,Local Pizza 2x,Frozen,450,49,6.885,12.390,2028-06-24,Normal
+1333,Gluten-Free Bread 1x,Bakery,414,50,6.909,8.734,2026-09-05,Normal
+1334,Local Tea 4x,Beverages,186,10,5.862,9.991,2026-11-30,Normal
+1335,Local Pasta 2x,Grocery,98,34,8.646,12.627,2027-03-27,Normal
+1336,Diet Detergent 5x,Cleaning,427,36,9.350,15.373,2027-11-23,Normal
+1337,Gluten-Free Shampoo 4x,Personal Care,85,7,1.412,2.174,2027-02-20,Normal
+1338,Fresh Chicken Breast 2x,Meat,284,45,1.767,2.520,2026-09-23,Normal
+1339,Premium Yogurt 4x,Dairy,415,10,9.225,11.379,2026-09-18,Normal
+1340,Fresh Cola 5x,Beverages,301,1,4.685,6.792,2028-02-26,Normal
+1341,Imported Ice Cream 2x,Frozen,476,5,1.857,2.622,2028-01-08,Normal
+1342,Standard Cream 2x,Dairy,393,8,9.997,16.685,2026-09-22,Normal
+1343,Diet Shampoo 4x,Personal Care,206,21,2.909,4.041,2027-06-09,Normal
+1344,Local Chocolate 2x,Snacks,118,14,5.251,7.643,2027-10-10,Normal
+1345,Imported Onions 2x,Produce,96,28,9.621,11.813,2026-09-04,Normal
+1346,Standard Juice 1x,Beverages,448,41,5.376,7.392,2027-05-27,Normal
+1347,Imported Soap 5x,Personal Care,171,7,3.190,4.769,2027-02-20,Normal
+1348,Fresh Butter 5x,Dairy,86,3,5.559,8.774,2026-09-15,Normal
+1349,Gluten-Free Bleach 5x,Cleaning,426,12,2.125,3.215,2028-01-11,Normal
+1350,Local Apples 4x,Produce,234,8,4.797,7.684,2026-09-09,Normal
+1351,Imported Cola 3x,Beverages,143,29,0.693,0.973,2027-11-25,Normal
+1352,Diet Pizza 4x,Frozen,16,16,8.871,12.267,2028-05-11,Low Stock
+1353,Gluten-Free Croissant 1x,Bakery,108,30,3.139,5.052,2026-09-22,Normal
+1354,Premium Popcorn 5x,Snacks,325,23,1.116,1.894,2027-11-14,Normal
+1355,Fresh Toothpaste 4x,Personal Care,360,48,3.103,4.706,2028-06-28,Normal
+1356,Gluten-Free Minced Beef 1x,Meat,158,30,9.227,14.506,2026-09-03,Normal
+1357,Imported Flour 1x,Grocery,35,9,9.885,13.480,2027-12-07,Normal
+1358,Premium Coffee 2x,Beverages,458,20,2.417,3.763,2027-11-17,Normal
+1359,Imported Chicken Nuggets 1x,Frozen,32,50,7.994,10.088,2027-08-02,Low Stock
+1360,Organic Olive Oil 5x,Grocery,260,20,8.878,12.944,2027-05-31,Normal
+1361,Fresh Potatoes 2x,Produce,203,45,3.167,5.350,2026-09-08,Normal
+1362,Standard Minced Beef 3x,Meat,43,27,2.644,3.681,2026-09-10,Low Stock
+1363,Imported Lamb Chops 5x,Meat,177,3,2.585,3.193,2026-09-19,Normal
+1364,Local Popcorn 4x,Snacks,246,15,0.956,1.663,2028-01-02,Normal
+1365,Fresh Ice Cream 4x,Frozen,341,2,1.272,1.856,2028-07-23,Normal
+1366,Diet Bagel 4x,Bakery,269,33,6.326,8.233,2026-09-10,Normal
+1367,Organic Muffins 5x,Bakery,108,32,2.539,3.664,2026-09-09,Normal
+1368,Premium Toothpaste 2x,Personal Care,279,46,2.074,3.053,2028-03-14,Normal
+1369,Imported Deodorant 2x,Personal Care,82,21,6.958,11.283,2027-12-26,Normal
+1370,Standard Ice Cream 2x,Frozen,112,7,6.039,8.033,2027-09-21,Normal
+1371,Imported Yogurt 5x,Dairy,212,46,0.634,0.980,2026-09-11,Normal
+1372,Organic Juice 5x,Beverages,123,45,5.679,9.570,2028-01-06,Normal
+1373,Imported Soap 5x,Personal Care,144,31,6.809,10.986,2027-07-08,Normal
+1374,Diet Nuts 3x,Snacks,351,31,6.998,11.502,2027-01-17,Normal
+1375,Organic Chicken Breast 2x,Meat,169,9,9.111,13.048,2026-09-10,Normal
+1376,Imported Butter 1x,Dairy,12,4,4.715,8.040,2026-09-20,Normal
+1377,Diet Onions 1x,Produce,462,14,9.878,15.584,2026-09-12,Normal
+1378,Imported Sugar 4x,Grocery,417,21,6.490,11.526,2028-05-24,Normal
+1379,Standard Pasta 1x,Grocery,469,46,6.229,7.767,2028-01-08,Normal
+1380,Premium Chips 5x,Snacks,32,28,8.101,13.993,2027-01-27,Low Stock
+1381,Diet Chips 1x,Snacks,226,42,3.672,6.506,2027-02-23,Normal
+1382,Standard Frozen Vegetables 5x,Frozen,73,33,2.079,2.905,2027-05-18,Normal
+1383,Fresh Olive Oil 2x,Grocery,360,17,4.486,7.231,2027-08-28,Normal
+1384,Standard Pasta 1x,Grocery,494,47,6.336,7.673,2027-09-08,Normal
+1385,Standard Frozen Vegetables 2x,Frozen,210,36,2.723,4.137,2027-12-14,Normal
+1386,Standard Rice 5x,Grocery,261,15,9.164,14.259,2028-04-05,Normal
+1387,Fresh Onions 5x,Produce,235,44,9.005,16.064,2026-09-22,Normal
+1388,Premium Rice 5x,Grocery,152,8,4.816,7.163,2027-07-09,Normal
+1389,Imported Cola 4x,Beverages,475,29,8.655,11.975,2027-06-23,Normal
+1390,Organic Water 4x,Beverages,218,13,5.344,7.314,2028-03-17,Normal
+1391,Premium Cookies 5x,Snacks,262,19,7.104,12.498,2027-02-27,Normal
+1392,Diet Cake 4x,Bakery,132,1,7.955,9.789,2026-09-08,Normal
+1393,Imported Potatoes 4x,Produce,336,9,0.849,1.243,2026-09-21,Normal
+1394,Imported Chicken Breast 4x,Meat,198,7,9.502,13.904,2026-09-03,Normal
+1395,Imported Olive Oil 4x,Grocery,337,44,5.440,7.655,2026-12-29,Normal
+1396,Imported Apples 5x,Produce,236,26,2.156,3.110,2026-09-21,Normal
+1397,Standard Ice Cream 3x,Frozen,414,20,6.464,9.538,2027-04-28,Normal
+1398,Diet Bagel 1x,Bakery,356,42,4.055,4.893,2026-09-14,Normal
+1399,Diet Carrots 2x,Produce,240,40,2.325,3.060,2026-09-11,Normal
+1400,Organic Cheese 5x,Dairy,181,36,3.883,4.848,2026-09-03,Normal
+1401,Gluten-Free Chicken Breast 1x,Meat,55,39,6.948,11.917,2026-09-05,Low Stock
+1402,Imported Toothpaste 5x,Personal Care,148,25,4.525,7.383,2028-01-29,Normal
+1403,Premium Bananas 1x,Produce,476,5,3.375,5.170,2026-09-04,Normal
+1404,Local Apples 2x,Produce,26,17,3.032,3.875,2026-09-15,Low Stock
+1405,Standard Cola 1x,Beverages,55,18,5.472,9.790,2027-03-06,Normal
+1406,Standard Ice Cream 5x,Frozen,179,9,2.100,3.568,2028-02-17,Normal
+1407,Fresh Toothpaste 5x,Personal Care,326,45,3.336,4.065,2028-05-05,Normal
+1408,Organic Cola 2x,Beverages,413,6,3.683,6.519,2027-09-15,Normal
+1409,Standard Carrots 3x,Produce,389,43,6.136,9.096,2026-09-17,Normal
+1410,Fresh Chocolate 2x,Snacks,358,5,2.958,4.934,2027-10-16,Normal
+1411,Standard Bagel 2x,Bakery,46,1,8.314,13.287,2026-09-14,Normal
+1412,Standard Sugar 3x,Grocery,243,16,4.652,5.954,2027-05-12,Normal
+1413,Organic Dish Soap 4x,Cleaning,210,11,7.581,13.050,2027-08-28,Normal
+1414,Imported Croissant 3x,Bakery,173,36,7.436,11.398,2026-09-20,Normal
+1415,Diet Popcorn 1x,Snacks,409,35,2.632,3.767,2028-02-02,Normal
+1416,Local Yogurt 5x,Dairy,181,45,3.951,6.777,2026-09-20,Normal
+1417,Gluten-Free Shampoo 1x,Personal Care,128,46,3.363,5.286,2027-10-07,Normal
+1418,Gluten-Free Dish Soap 5x,Cleaning,216,45,7.438,10.615,2027-10-17,Normal
+1419,Local Shampoo 1x,Personal Care,332,49,1.785,2.755,2027-05-19,Normal
+1420,Organic Rice 5x,Grocery,400,44,8.163,11.182,2027-12-25,Normal
+1421,Fresh Tea 3x,Beverages,288,16,3.105,5.291,2027-08-15,Normal
+1422,Premium Lamb Chops 1x,Meat,129,11,8.745,13.919,2026-09-11,Normal
+1423,Imported Bread 4x,Bakery,414,34,9.134,11.114,2026-08-31,Normal
+1424,Imported Sponges 5x,Cleaning,190,14,4.300,7.726,2027-08-10,Normal
+1425,Fresh Chicken Breast 4x,Meat,474,14,9.881,17.140,2026-09-05,Normal
+1426,Fresh Detergent 2x,Cleaning,422,13,4.680,8.019,2028-05-15,Normal
+1427,Organic Chocolate 1x,Snacks,97,25,3.201,4.047,2027-11-21,Normal
+1428,Imported Bagel 2x,Bakery,203,43,2.376,3.298,2026-09-13,Normal
+1429,Diet Ice Cream 5x,Frozen,233,45,8.776,15.072,2028-02-03,Normal
+1430,Local Sausages 2x,Meat,374,6,7.720,10.243,2026-09-17,Normal
+1431,Fresh Apples 2x,Produce,157,28,4.195,5.892,2026-09-20,Normal
+1432,Imported Rice 5x,Grocery,482,34,6.811,9.052,2027-12-05,Normal
+1433,Organic Pizza 3x,Frozen,363,2,2.883,3.468,2027-03-20,Normal
+1434,Standard Bananas 5x,Produce,132,43,3.768,5.358,2026-09-01,Normal
+1435,Diet Butter 1x,Dairy,272,6,0.703,1.140,2026-09-16,Normal
+1436,Diet Salmon 4x,Meat,97,33,4.475,6.382,2026-09-16,Normal
+1437,Imported Sponges 5x,Cleaning,461,4,3.168,4.237,2027-02-15,Normal
+1438,Organic Carrots 3x,Produce,221,25,3.178,3.954,2026-09-15,Normal
+1439,Fresh Water 4x,Beverages,380,10,9.628,13.475,2027-09-12,Normal
+1440,Premium Dish Soap 4x,Cleaning,272,27,7.059,9.325,2027-08-29,Normal
+1441,Organic Pizza 4x,Frozen,400,16,3.141,4.753,2028-02-27,Normal
+1442,Gluten-Free Minced Beef 5x,Meat,125,24,9.168,15.374,2026-09-20,Normal
+1443,Diet Dish Soap 2x,Cleaning,227,24,3.684,6.131,2028-07-19,Normal
+1444,Fresh Water 3x,Beverages,470,45,6.395,8.772,2027-05-29,Normal
+1445,Organic Sausages 3x,Meat,411,15,9.021,13.750,2026-09-07,Normal
+1446,Standard Toothpaste 1x,Personal Care,499,17,2.286,2.782,2028-06-22,Normal
+1447,Fresh Ice Cream 3x,Frozen,246,26,9.025,10.932,2027-04-13,Normal
+1448,Standard Ice Cream 2x,Frozen,13,1,9.234,13.312,2028-05-17,Normal
+1449,Standard Bread 2x,Bakery,19,18,0.668,1.148,2026-09-01,Low Stock
+1450,Imported Soap 2x,Personal Care,249,8,6.862,9.635,2027-11-17,Normal
+1451,Local Juice 1x,Beverages,70,34,6.332,9.237,2028-05-14,Normal
+1452,Imported Milk 4x,Dairy,368,50,8.848,15.743,2026-09-14,Normal
+1453,Organic Bread 1x,Bakery,487,36,4.049,5.073,2026-09-10,Normal
+1454,Organic Apples 5x,Produce,86,8,5.028,7.307,2026-09-17,Normal
+1455,Diet Cream 2x,Dairy,20,4,7.530,10.957,2026-09-06,Normal
+1456,Diet Chocolate 1x,Snacks,44,6,4.322,7.375,2026-12-22,Normal
+1457,Organic Milk 5x,Dairy,59,47,5.084,8.746,2026-09-10,Low Stock
+1458,Fresh Chicken Breast 3x,Meat,77,5,7.790,9.579,2026-09-22,Normal
+1459,Organic Chocolate 4x,Snacks,137,10,5.673,9.740,2027-09-15,Normal
+1460,Fresh Sausages 1x,Meat,286,29,9.025,13.990,2026-09-22,Normal
+1461,Premium Sugar 2x,Grocery,199,20,4.759,7.103,2028-06-12,Normal
+1462,Standard Cake 2x,Bakery,441,14,0.995,1.498,2026-09-14,Normal
+1463,Fresh Potatoes 1x,Produce,19,15,1.267,1.732,2026-08-31,Low Stock
+1464,Fresh Pizza 2x,Frozen,257,50,3.271,4.023,2027-05-10,Normal
+1465,Fresh Tea 4x,Beverages,189,43,2.963,5.096,2028-03-28,Normal
+1466,Organic Cola 2x,Beverages,47,15,3.807,5.548,2027-09-03,Normal
+1467,Standard Butter 2x,Dairy,240,5,5.070,8.250,2026-09-04,Normal
+1468,Gluten-Free Yogurt 2x,Dairy,482,7,8.380,12.781,2026-09-18,Normal
+1469,Fresh Chicken Breast 5x,Meat,178,27,8.647,11.311,2026-09-01,Normal
+1470,Imported Popcorn 2x,Snacks,126,38,2.036,2.531,2027-10-31,Normal
+1471,Local Toothpaste 1x,Personal Care,387,21,3.022,5.380,2027-01-01,Normal
+1472,Organic Flour 2x,Grocery,480,1,2.286,3.557,2028-04-22,Normal
+1473,Diet Muffins 4x,Bakery,32,23,3.786,6.213,2026-09-11,Low Stock
+1474,Premium Cake 2x,Bakery,142,24,0.929,1.455,2026-08-29,Normal
+1475,Fresh Potatoes 3x,Produce,264,19,9.809,13.566,2026-08-31,Normal
+1476,Fresh Lamb Chops 1x,Meat,242,33,9.683,11.818,2026-09-06,Normal
+1477,Standard Water 5x,Beverages,397,34,4.836,6.909,2027-02-02,Normal
+1478,Local Rice 2x,Grocery,439,5,7.831,13.302,2028-02-10,Normal
+1479,Gluten-Free Muffins 3x,Bakery,495,4,8.497,14.702,2026-08-30,Near Expiry - Overstock
+1480,Gluten-Free Shampoo 5x,Personal Care,178,42,3.444,4.388,2027-07-30,Normal
+1481,Imported Cookies 5x,Snacks,131,17,6.149,11.062,2028-07-14,Normal
+1482,Premium Juice 1x,Beverages,46,40,0.684,1.209,2027-02-06,Low Stock
+1483,Imported Milk 2x,Dairy,327,24,6.989,8.538,2026-09-20,Normal
+1484,Gluten-Free Sugar 2x,Grocery,246,3,8.973,14.566,2027-01-09,Normal
+1485,Standard Nuts 2x,Snacks,388,45,6.260,10.851,2028-04-13,Normal
+1486,Standard Bananas 1x,Produce,499,41,3.424,5.077,2026-09-09,Normal
+1487,Fresh Bagel 2x,Bakery,283,35,5.463,6.665,2026-09-07,Normal
+1488,Imported Onions 1x,Produce,421,39,8.490,14.414,2026-09-11,Normal
+1489,Diet Nuts 2x,Snacks,204,21,6.145,10.743,2027-05-18,Normal
+1490,Premium Apples 5x,Produce,110,37,2.227,3.497,2026-09-16,Normal
+1491,Organic Cream 1x,Dairy,372,44,3.860,5.354,2026-09-23,Normal
+1492,Organic Cheese 1x,Dairy,385,1,3.494,5.095,2026-09-15,Normal
+1493,Organic Yogurt 3x,Dairy,199,3,7.373,9.071,2026-09-01,Normal
+1494,Imported Shampoo 4x,Personal Care,21,18,4.349,6.689,2027-11-14,Low Stock
+1495,Local Chicken Nuggets 3x,Frozen,448,28,6.034,7.808,2028-04-05,Normal
+1496,Diet Toothpaste 3x,Personal Care,25,10,7.686,10.312,2027-06-08,Normal
+1497,Organic Onions 4x,Produce,443,6,7.602,12.859,2026-09-12,Normal
+1498,Premium Muffins 5x,Bakery,114,9,6.060,10.178,2026-09-05,Normal
+1499,Organic Rice 4x,Grocery,367,48,0.709,1.205,2028-03-04,Normal
+1500,Standard Croissant 4x,Bakery,432,13,9.711,17.086,2026-09-01,Normal
+1501,Diet Juice 5x,Beverages,301,18,3.259,5.029,2027-09-02,Normal
+1502,Imported Butter 5x,Dairy,310,3,8.512,11.392,2026-09-10,Normal
+1503,Premium Lamb Chops 3x,Meat,90,30,1.530,2.668,2026-09-06,Normal
+1504,Diet Shampoo 4x,Personal Care,236,28,8.797,14.371,2027-07-13,Normal
+1505,Local Chips 1x,Snacks,395,24,5.474,8.362,2027-04-05,Normal
+1506,Fresh Potatoes 4x,Produce,178,38,8.111,10.730,2026-09-03,Normal
+1507,Premium Ice Cream 5x,Frozen,168,43,0.622,1.086,2028-04-08,Normal
+1508,Gluten-Free Frozen Vegetables 3x,Frozen,340,50,4.140,5.494,2027-02-17,Normal
+1509,Gluten-Free Bananas 3x,Produce,377,11,7.786,10.163,2026-08-31,Normal
+1510,Local Butter 5x,Dairy,227,8,6.473,9.088,2026-09-07,Normal
+1511,Diet Cheese 3x,Dairy,167,13,1.413,2.516,2026-09-14,Normal
+1512,Fresh Tea 3x,Beverages,270,23,2.282,3.818,2026-11-30,Normal
+1513,Local Apples 1x,Produce,477,35,7.154,12.376,2026-09-20,Normal
+1514,Fresh Detergent 2x,Cleaning,10,21,7.481,12.402,2026-12-31,Low Stock
+1515,Diet Toothpaste 5x,Personal Care,70,6,7.274,12.869,2027-04-19,Normal
+1516,Organic Pizza 4x,Frozen,192,35,2.631,4.616,2027-08-29,Normal
+1517,Diet Sponges 4x,Cleaning,171,3,0.601,0.973,2027-01-01,Normal
+1518,Premium Bleach 1x,Cleaning,202,30,3.972,6.970,2028-05-25,Normal
+1519,Imported Chocolate 3x,Snacks,69,40,6.880,11.379,2027-08-31,Low Stock
+1520,Standard Onions 5x,Produce,378,7,6.852,8.855,2026-09-22,Normal
+1521,Imported Juice 2x,Beverages,271,38,5.022,7.311,2027-09-03,Normal
+1522,Gluten-Free Bleach 3x,Cleaning,108,25,2.535,3.326,2027-11-12,Normal
+1523,Diet Ice Cream 5x,Frozen,451,46,6.598,8.046,2027-10-16,Normal
+1524,Local Chips 3x,Snacks,137,12,8.754,10.801,2027-08-31,Normal
+1525,Gluten-Free Chips 3x,Snacks,489,37,5.300,8.563,2027-04-28,Normal
+1526,Standard Muffins 3x,Bakery,287,27,2.861,4.407,2026-09-16,Normal
+1527,Fresh Carrots 4x,Produce,282,23,9.574,16.882,2026-09-01,Normal
+1528,Diet Cake 4x,Bakery,235,5,6.640,11.368,2026-09-13,Normal
+1529,Local Bananas 2x,Produce,399,18,2.540,3.887,2026-08-31,Normal
+1530,Standard Apples 1x,Produce,102,18,0.594,0.956,2026-09-16,Normal
+1531,Gluten-Free Cake 2x,Bakery,479,6,1.687,2.713,2026-09-11,Normal
+1532,Diet Soap 3x,Personal Care,419,25,4.845,7.340,2028-05-04,Normal
+1533,Standard Toothpaste 4x,Personal Care,67,43,3.337,4.282,2027-09-11,Low Stock
+1534,Standard Cookies 2x,Snacks,480,42,5.902,10.521,2027-01-09,Normal
+1535,Diet Pasta 2x,Grocery,491,12,7.621,11.897,2027-03-22,Normal
+1536,Premium Milk 1x,Dairy,391,3,3.611,5.739,2026-09-11,Normal
+1537,Premium Salmon 1x,Meat,95,14,5.860,9.733,2026-09-12,Normal
+1538,Imported Juice 1x,Beverages,454,36,5.516,9.469,2027-01-12,Normal
+1539,Local Bleach 4x,Cleaning,328,22,5.316,9.059,2027-11-04,Normal
+1540,Local Water 4x,Beverages,193,37,7.075,9.026,2027-02-22,Normal
+1541,Organic Bananas 5x,Produce,50,33,3.548,5.248,2026-08-29,Low Stock
+1542,Premium Water 1x,Beverages,54,24,3.775,4.573,2027-09-17,Normal
+1543,Fresh Milk 5x,Dairy,319,42,6.615,10.018,2026-09-14,Normal
+1544,Standard Chicken Nuggets 4x,Frozen,353,39,9.483,14.763,2028-07-20,Normal
+1545,Fresh Bread 2x,Bakery,256,44,7.374,10.922,2026-09-23,Normal
+1546,Premium Pasta 2x,Grocery,319,10,1.951,2.934,2027-09-09,Normal
+1547,Premium Popcorn 4x,Snacks,287,6,6.690,9.948,2027-11-16,Normal
+1548,Fresh Dish Soap 3x,Cleaning,472,40,9.708,16.417,2027-09-19,Normal
+1549,Organic Detergent 2x,Cleaning,146,3,9.589,15.356,2028-03-28,Normal
+1550,Fresh Croissant 5x,Bakery,90,29,2.831,4.643,2026-08-31,Normal
+1551,Fresh Chicken Breast 4x,Meat,356,35,5.289,8.271,2026-09-05,Normal
+1552,Fresh Yogurt 4x,Dairy,179,47,3.605,6.180,2026-09-04,Normal
+1553,Premium Cream 5x,Dairy,256,19,8.819,14.016,2026-09-15,Normal
+1554,Premium Muffins 2x,Bakery,497,23,8.022,13.952,2026-09-20,Normal
+1555,Standard Frozen Vegetables 5x,Frozen,246,20,9.663,14.629,2026-12-05,Normal
+1556,Premium Sugar 4x,Grocery,424,30,4.752,5.792,2027-03-19,Normal
+1557,Gluten-Free Butter 2x,Dairy,407,36,3.100,5.437,2026-09-10,Normal
+1558,Local Bleach 4x,Cleaning,104,3,9.214,11.444,2027-10-30,Normal
+1559,Imported Frozen Vegetables 1x,Frozen,144,27,4.713,8.063,2027-04-30,Normal
+1560,Fresh Sugar 2x,Grocery,243,32,4.416,5.910,2027-01-11,Normal
+1561,Diet Nuts 5x,Snacks,223,27,9.239,15.268,2028-02-06,Normal
+1562,Local Cookies 5x,Snacks,47,50,7.269,12.904,2027-03-31,Low Stock
+1563,Standard Onions 4x,Produce,368,24,6.857,11.880,2026-09-20,Normal
+1564,Standard Cake 3x,Bakery,321,48,9.470,11.946,2026-09-01,Normal
+1565,Imported Chocolate 2x,Snacks,182,9,7.327,12.432,2027-12-11,Normal
+1566,Premium Bread 3x,Bakery,330,23,8.538,12.236,2026-09-23,Normal
+1567,Standard Bread 2x,Bakery,355,5,7.574,10.530,2026-09-23,Normal
+1568,Imported Potatoes 1x,Produce,367,10,3.994,5.199,2026-08-31,Normal
+1569,Gluten-Free Toothpaste 5x,Personal Care,482,16,7.588,12.958,2028-02-10,Normal
+1570,Premium Bagel 2x,Bakery,202,41,2.981,3.960,2026-09-11,Normal
+1571,Fresh Rice 5x,Grocery,331,43,6.585,9.982,2028-05-20,Normal
+1572,Diet Cake 3x,Bakery,146,37,2.635,3.824,2026-09-04,Normal
+1573,Fresh Cola 3x,Beverages,173,19,8.138,13.662,2027-03-21,Normal
+1574,Premium Cookies 4x,Snacks,257,20,5.587,7.570,2028-07-10,Normal
+1575,Imported Deodorant 3x,Personal Care,415,33,5.907,10.147,2027-10-09,Normal
+1576,Standard Dish Soap 1x,Cleaning,95,33,1.797,2.507,2027-12-24,Normal
+1577,Standard Cookies 5x,Snacks,445,15,9.593,16.102,2027-05-28,Normal
+1578,Diet Cream 1x,Dairy,357,40,0.654,0.964,2026-09-11,Normal
+1579,Standard Yogurt 2x,Dairy,460,23,2.813,3.866,2026-09-05,Normal
+1580,Gluten-Free Chicken Nuggets 5x,Frozen,96,48,8.608,13.411,2027-11-22,Normal
+1581,Imported Sausages 3x,Meat,346,39,2.616,4.112,2026-09-21,Normal
+1582,Organic Yogurt 2x,Dairy,274,29,7.820,12.282,2026-09-17,Normal
+1583,Fresh Pizza 4x,Frozen,424,40,7.208,11.355,2027-11-03,Normal
+1584,Premium Minced Beef 1x,Meat,60,13,7.354,12.264,2026-09-18,Normal
+1585,Fresh Cookies 4x,Snacks,298,35,7.812,10.235,2028-01-19,Normal
+1586,Local Soap 2x,Personal Care,63,27,1.863,2.525,2027-04-19,Normal
+1587,Organic Shampoo 2x,Personal Care,136,31,8.726,13.404,2027-02-12,Normal
+1588,Standard Milk 3x,Dairy,39,33,2.316,2.857,2026-09-17,Low Stock
+1589,Local Bread 1x,Bakery,292,34,3.372,5.999,2026-09-19,Normal
+1590,Premium Bananas 1x,Produce,182,1,1.001,1.790,2026-09-21,Normal
+1591,Imported Lamb Chops 3x,Meat,271,4,1.257,1.894,2026-09-15,Normal
+1592,Premium Bananas 2x,Produce,414,11,6.767,10.669,2026-09-20,Normal
+1593,Standard Chips 3x,Snacks,397,9,5.091,9.037,2028-01-07,Normal
+1594,Fresh Tea 2x,Beverages,219,18,3.254,5.255,2026-12-23,Normal
+1595,Premium Soap 3x,Personal Care,494,14,4.581,7.996,2027-06-28,Normal
+1596,Imported Potatoes 3x,Produce,375,31,3.090,5.396,2026-09-23,Normal
+1597,Organic Ice Cream 4x,Frozen,409,46,4.228,6.570,2027-09-21,Normal
+1598,Diet Bananas 3x,Produce,396,12,3.324,5.688,2026-08-29,Near Expiry - Overstock
+1599,Organic Bananas 5x,Produce,18,14,6.731,10.193,2026-09-18,Low Stock
+1600,Premium Chocolate 3x,Snacks,304,41,6.568,10.781,2027-11-05,Normal
+1601,Premium Minced Beef 3x,Meat,128,43,5.477,9.460,2026-09-06,Normal
+1602,Standard Deodorant 2x,Personal Care,416,23,8.111,13.994,2027-03-21,Normal
+1603,Standard Deodorant 2x,Personal Care,251,50,1.398,1.749,2027-04-09,Normal
+1604,Local Nuts 3x,Snacks,324,24,3.888,6.051,2027-01-01,Normal
+1605,Standard Chocolate 4x,Snacks,261,23,1.194,1.485,2027-08-02,Normal
+1606,Gluten-Free Olive Oil 1x,Grocery,168,48,4.910,6.867,2028-06-24,Normal
+1607,Organic Bleach 5x,Cleaning,315,6,5.572,7.786,2028-05-21,Normal
+1608,Fresh Nuts 2x,Snacks,298,22,2.635,4.717,2026-12-19,Normal
+1609,Premium Yogurt 1x,Dairy,404,7,1.716,2.828,2026-09-19,Normal
+1610,Standard Bread 4x,Bakery,415,44,4.900,7.667,2026-09-21,Normal
+1611,Fresh Canned Beans 1x,Grocery,447,1,6.341,8.232,2028-04-05,Normal
+1612,Premium Tomatoes 4x,Produce,13,22,6.471,8.008,2026-09-04,Low Stock
+1613,Organic Cookies 2x,Snacks,148,46,9.973,13.682,2028-03-24,Normal
+1614,Imported Soap 2x,Personal Care,417,25,3.556,6.322,2027-02-19,Normal
+1615,Standard Chips 3x,Snacks,311,11,6.757,8.306,2028-04-15,Normal
+1616,Standard Toothpaste 3x,Personal Care,20,4,2.890,3.977,2028-06-16,Normal
+1617,Organic Nuts 1x,Snacks,333,13,7.480,11.658,2027-01-14,Normal
+1618,Premium Tea 4x,Beverages,481,50,7.320,9.461,2026-12-25,Normal
+1619,Standard Minced Beef 5x,Meat,412,41,2.801,3.864,2026-09-18,Normal
+1620,Local Ice Cream 2x,Frozen,419,32,6.450,9.589,2028-04-02,Normal
+1621,Local Frozen Vegetables 4x,Frozen,402,39,6.504,8.466,2027-11-16,Normal
+1622,Organic Canned Beans 5x,Grocery,163,45,3.474,5.342,2027-05-08,Normal
+1623,Imported Carrots 3x,Produce,153,22,3.251,4.469,2026-09-17,Normal
+1624,Gluten-Free Popcorn 5x,Snacks,148,35,7.995,12.642,2027-05-30,Normal
+1625,Premium Bread 4x,Bakery,169,33,5.520,7.676,2026-09-07,Normal
+1626,Standard Butter 1x,Dairy,378,39,6.414,11.254,2026-09-09,Normal
+1627,Diet Salmon 5x,Meat,352,25,3.479,4.836,2026-09-02,Normal
+1628,Local Butter 2x,Dairy,255,43,1.371,2.155,2026-08-29,Normal
+1629,Imported Soap 3x,Personal Care,69,28,0.668,0.983,2027-07-16,Normal
+1630,Standard Sausages 4x,Meat,358,41,7.733,12.849,2026-09-15,Normal
+1631,Standard Olive Oil 4x,Grocery,224,18,1.634,2.483,2026-12-12,Normal
+1632,Local Dish Soap 3x,Cleaning,450,21,2.381,4.181,2027-08-09,Normal
+1633,Premium Bleach 2x,Cleaning,423,41,7.886,12.446,2028-03-29,Normal
+1634,Gluten-Free Popcorn 4x,Snacks,303,43,7.299,11.474,2027-02-25,Normal
+1635,Standard Soap 4x,Personal Care,154,26,0.732,1.123,2027-07-17,Normal
+1636,Imported Salmon 1x,Meat,56,14,3.115,4.867,2026-09-08,Normal
+1637,Fresh Deodorant 2x,Personal Care,458,38,1.202,1.489,2028-05-11,Normal
+1638,Gluten-Free Rice 3x,Grocery,389,47,6.229,10.896,2027-06-19,Normal
+1639,Local Carrots 1x,Produce,282,24,9.541,16.311,2026-09-10,Normal
+1640,Diet Apples 3x,Produce,86,46,4.975,6.835,2026-09-10,Low Stock
+1641,Gluten-Free Pizza 2x,Frozen,377,8,7.152,9.181,2027-07-19,Normal
+1642,Standard Cake 2x,Bakery,433,30,6.376,10.639,2026-08-31,Normal
+1643,Organic Cookies 5x,Snacks,229,32,1.092,1.591,2027-11-30,Normal
+1644,Imported Nuts 4x,Snacks,443,25,2.646,3.190,2027-10-12,Normal
+1645,Local Cookies 1x,Snacks,361,45,9.639,13.721,2028-05-15,Normal
+1646,Standard Cheese 1x,Dairy,111,21,4.984,6.358,2026-09-07,Normal
+1647,Diet Juice 5x,Beverages,313,32,2.373,2.969,2028-04-12,Normal
+1648,Diet Sponges 4x,Cleaning,190,33,3.472,5.965,2027-05-07,Normal
+1649,Fresh Bananas 1x,Produce,276,27,1.210,1.613,2026-09-21,Normal
+1650,Fresh Pasta 5x,Grocery,467,21,6.779,9.901,2027-05-07,Normal
+1651,Local Flour 1x,Grocery,97,7,3.624,5.367,2027-10-30,Normal
+1652,Diet Sponges 5x,Cleaning,228,48,4.248,7.060,2027-08-25,Normal
+1653,Imported Detergent 4x,Cleaning,55,2,3.025,3.896,2026-11-27,Normal
+1654,Gluten-Free Lamb Chops 3x,Meat,212,45,4.925,7.651,2026-09-10,Normal
+1655,Diet Chocolate 5x,Snacks,74,16,8.205,11.218,2027-03-11,Normal
+1656,Local Shampoo 4x,Personal Care,270,37,2.092,3.205,2027-08-29,Normal
+1657,Local Salmon 1x,Meat,457,47,1.118,1.650,2026-09-18,Normal
+1658,Diet Dish Soap 2x,Cleaning,430,44,5.698,7.125,2028-06-12,Normal
+1659,Premium Ice Cream 5x,Frozen,451,34,8.746,11.944,2027-05-25,Normal
+1660,Organic Canned Beans 1x,Grocery,75,7,2.393,4.127,2027-10-23,Normal
+1661,Standard Ice Cream 4x,Frozen,199,40,7.221,11.025,2027-11-17,Normal
+1662,Premium Cream 2x,Dairy,306,39,9.898,16.449,2026-08-31,Normal
+1663,Diet Yogurt 5x,Dairy,380,46,5.175,8.942,2026-09-21,Normal
+1664,Imported Carrots 3x,Produce,324,6,6.102,10.083,2026-09-18,Normal
+1665,Gluten-Free Tea 3x,Beverages,384,16,1.473,2.586,2027-10-31,Normal
+1666,Organic Popcorn 1x,Snacks,342,11,7.668,13.312,2026-12-05,Normal
+1667,Fresh Dish Soap 2x,Cleaning,79,47,8.395,10.359,2027-07-01,Low Stock
+1668,Imported Cake 5x,Bakery,442,31,8.880,15.048,2026-09-06,Normal
+1669,Premium Minced Beef 1x,Meat,53,2,1.227,1.597,2026-09-02,Normal
+1670,Local Detergent 1x,Cleaning,54,44,1.303,1.665,2027-07-26,Low Stock
+1671,Diet Dish Soap 4x,Cleaning,223,29,7.624,11.208,2027-01-20,Normal
+1672,Premium Sugar 3x,Grocery,440,45,9.623,13.900,2028-05-21,Normal
+1673,Organic Pizza 1x,Frozen,185,8,7.301,10.160,2028-06-24,Normal
+1674,Fresh Coffee 4x,Beverages,412,47,3.954,5.683,2028-04-12,Normal
+1675,Gluten-Free Rice 5x,Grocery,456,2,4.311,5.734,2027-05-30,Normal
+1676,Imported Croissant 3x,Bakery,271,27,5.225,7.780,2026-09-14,Normal
+1677,Organic Chocolate 1x,Snacks,438,25,7.656,12.500,2028-05-23,Normal
+1678,Imported Bleach 1x,Cleaning,220,20,4.499,5.779,2027-07-28,Normal
+1679,Diet Cola 1x,Beverages,361,3,8.592,15.257,2028-06-26,Normal
+1680,Diet Popcorn 5x,Snacks,131,31,5.659,9.456,2026-12-21,Normal
+1681,Local Lamb Chops 3x,Meat,240,26,0.718,1.156,2026-09-06,Normal
+1682,Fresh Detergent 3x,Cleaning,339,48,4.946,8.390,2026-12-25,Normal
+1683,Organic Minced Beef 3x,Meat,152,47,9.268,13.569,2026-09-01,Normal
+1684,Imported Cookies 2x,Snacks,331,36,6.465,11.004,2028-05-17,Normal
+1685,Fresh Chips 2x,Snacks,73,43,4.215,6.249,2028-06-18,Low Stock
+1686,Imported Minced Beef 5x,Meat,78,43,4.657,5.977,2026-09-20,Low Stock
+1687,Local Cheese 2x,Dairy,407,6,6.528,10.273,2026-09-14,Normal
+1688,Local Sponges 1x,Cleaning,396,6,3.694,5.850,2027-07-09,Normal
+1689,Local Pizza 2x,Frozen,463,12,6.391,11.277,2027-03-13,Normal
+1690,Organic Chicken Nuggets 1x,Frozen,100,15,3.169,4.138,2028-01-24,Normal
+1691,Local Cookies 5x,Snacks,246,41,8.575,14.371,2027-06-17,Normal
+1692,Imported Water 4x,Beverages,295,43,1.578,2.527,2028-03-12,Normal
+1693,Fresh Toothpaste 4x,Personal Care,135,10,4.158,7.340,2027-01-29,Normal
+1694,Local Juice 4x,Beverages,211,5,6.798,9.580,2028-05-11,Normal
+1695,Gluten-Free Chips 2x,Snacks,379,30,4.266,5.374,2027-02-03,Normal
+1696,Imported Chocolate 1x,Snacks,168,36,1.025,1.585,2026-11-25,Normal
+1697,Organic Bagel 2x,Bakery,267,38,9.833,17.482,2026-09-06,Normal
+1698,Premium Cream 4x,Dairy,174,15,2.578,4.290,2026-09-12,Normal
+1699,Local Tomatoes 2x,Produce,334,2,3.987,5.471,2026-09-11,Normal
+1700,Imported Salmon 1x,Meat,194,5,7.123,12.128,2026-09-02,Normal
+1701,Gluten-Free Bleach 2x,Cleaning,22,20,2.676,4.099,2027-05-03,Low Stock
+1702,Organic Rice 5x,Grocery,207,25,1.871,2.522,2027-08-28,Normal
+1703,Fresh Chocolate 3x,Snacks,224,4,8.829,13.185,2028-05-20,Normal
+1704,Gluten-Free Potatoes 1x,Produce,431,6,3.544,6.309,2026-09-03,Normal
+1705,Organic Dish Soap 1x,Cleaning,23,44,8.967,12.668,2027-08-12,Low Stock
+1706,Gluten-Free Deodorant 4x,Personal Care,327,14,8.026,14.440,2027-02-27,Normal
+1707,Standard Chips 5x,Snacks,342,18,6.243,8.879,2027-10-14,Normal
+1708,Organic Carrots 5x,Produce,115,21,2.954,4.908,2026-09-11,Normal
+1709,Fresh Pizza 4x,Frozen,235,49,2.557,3.457,2028-01-21,Normal
+1710,Fresh Cola 3x,Beverages,243,20,3.741,5.470,2027-12-15,Normal
+1711,Local Chips 1x,Snacks,479,50,9.567,14.751,2028-01-23,Normal
+1712,Fresh Cheese 5x,Dairy,49,13,3.639,4.839,2026-09-20,Normal
+1713,Diet Muffins 5x,Bakery,331,10,1.246,1.734,2026-09-02,Normal
+1714,Gluten-Free Butter 2x,Dairy,130,48,7.423,11.474,2026-09-02,Normal
+1715,Diet Ice Cream 2x,Frozen,400,43,8.968,13.809,2026-12-01,Normal
+1716,Organic Croissant 2x,Bakery,206,35,9.312,13.721,2026-09-22,Normal
+1717,Gluten-Free Chicken Breast 5x,Meat,318,22,9.479,14.264,2026-09-19,Normal
+1718,Imported Muffins 4x,Bakery,123,1,4.666,8.273,2026-08-29,Near Expiry - Overstock
+1719,Imported Popcorn 4x,Snacks,375,30,6.528,8.499,2028-06-27,Normal
+1720,Diet Cream 1x,Dairy,387,16,4.491,8.023,2026-09-03,Normal
+1721,Fresh Soap 2x,Personal Care,46,50,5.438,7.021,2027-09-17,Low Stock
+1722,Organic Chocolate 4x,Snacks,221,21,2.140,2.723,2027-11-04,Normal
+1723,Gluten-Free Coffee 3x,Beverages,188,45,1.798,2.538,2028-06-04,Normal
+1724,Organic Cake 4x,Bakery,329,39,6.414,7.755,2026-09-19,Normal
+1725,Premium Lamb Chops 3x,Meat,22,47,9.834,14.887,2026-08-30,Low Stock
+1726,Local Cake 1x,Bakery,213,10,2.885,4.742,2026-09-21,Normal
+1727,Diet Juice 2x,Beverages,65,34,6.520,9.646,2027-10-30,Low Stock
+1728,Imported Cake 5x,Bakery,86,40,8.788,12.578,2026-09-03,Normal
+1729,Fresh Tea 2x,Beverages,432,42,2.865,4.106,2028-04-04,Normal
+1730,Local Rice 2x,Grocery,299,4,8.905,14.513,2027-08-13,Normal
+1731,Organic Yogurt 1x,Dairy,135,39,9.779,12.453,2026-08-30,Normal
+1732,Gluten-Free Bleach 5x,Cleaning,139,17,3.712,5.129,2027-05-13,Normal
+1733,Premium Cake 3x,Bakery,393,44,6.734,10.599,2026-09-21,Normal
+1734,Local Pasta 2x,Grocery,347,50,6.806,9.089,2027-04-08,Normal
+1735,Standard Toothpaste 1x,Personal Care,450,12,4.521,7.497,2027-09-23,Normal
+1736,Diet Tea 4x,Beverages,179,8,4.824,7.248,2027-04-07,Normal
+1737,Fresh Carrots 3x,Produce,62,45,1.835,2.433,2026-09-21,Low Stock
+1738,Standard Deodorant 3x,Personal Care,395,24,6.076,10.215,2028-04-11,Normal
+1739,Diet Chicken Breast 3x,Meat,315,17,1.513,2.692,2026-09-17,Normal
+1740,Gluten-Free Ice Cream 1x,Frozen,277,36,1.636,2.568,2028-01-27,Normal
+1741,Organic Croissant 1x,Bakery,422,41,8.823,12.187,2026-09-01,Normal
+1742,Fresh Cheese 4x,Dairy,190,32,5.084,6.767,2026-09-05,Normal
+1743,Standard Muffins 4x,Bakery,97,46,2.260,2.776,2026-09-12,Normal
+1744,Gluten-Free Chips 4x,Snacks,229,38,6.514,9.209,2027-08-10,Normal
+1745,Standard Deodorant 3x,Personal Care,152,32,1.948,3.343,2028-04-27,Normal
+1746,Fresh Potatoes 4x,Produce,52,25,1.404,1.952,2026-09-02,Normal
+1747,Local Bleach 4x,Cleaning,381,25,3.066,4.969,2026-12-09,Normal
+1748,Local Bagel 5x,Bakery,451,5,2.414,3.660,2026-09-06,Normal
+1749,Organic Shampoo 4x,Personal Care,348,15,7.004,8.933,2027-11-26,Normal
+1750,Diet Ice Cream 4x,Frozen,142,18,7.063,12.501,2028-03-23,Normal
+1751,Gluten-Free Cream 4x,Dairy,88,26,4.729,6.053,2026-09-19,Normal
+1752,Diet Apples 5x,Produce,142,39,6.779,9.135,2026-09-19,Normal
+1753,Organic Pizza 5x,Frozen,328,3,8.750,14.722,2026-12-04,Normal
+1754,Local Pasta 3x,Grocery,204,41,7.500,9.114,2027-03-21,Normal
+1755,Premium Frozen Vegetables 3x,Frozen,495,27,8.846,10.765,2028-03-11,Normal
+1756,Diet Detergent 2x,Cleaning,75,50,9.454,14.835,2028-02-20,Low Stock
+1757,Fresh Dish Soap 2x,Cleaning,429,37,8.870,11.957,2028-01-19,Normal
+1758,Diet Bread 2x,Bakery,199,50,4.288,6.977,2026-09-18,Normal
+1759,Imported Tomatoes 4x,Produce,40,3,8.999,12.779,2026-09-17,Normal
+1760,Fresh Milk 2x,Dairy,467,18,6.837,8.633,2026-08-31,Normal
+1761,Imported Chicken Nuggets 4x,Frozen,74,19,7.817,10.086,2028-05-02,Normal
+1762,Standard Chicken Nuggets 4x,Frozen,68,41,2.583,3.954,2027-10-18,Low Stock
+1763,Imported Potatoes 2x,Produce,132,43,5.694,7.513,2026-09-20,Normal
+1764,Standard Chicken Breast 3x,Meat,312,28,3.767,5.109,2026-09-22,Normal
+1765,Local Chicken Breast 2x,Meat,287,14,3.600,6.153,2026-09-16,Normal
+1766,Standard Soap 4x,Personal Care,426,26,2.967,3.616,2027-10-08,Normal
+1767,Premium Canned Beans 5x,Grocery,54,40,9.472,12.273,2027-09-26,Low Stock
+1768,Premium Minced Beef 1x,Meat,87,21,9.705,11.917,2026-09-16,Normal
+1769,Standard Shampoo 4x,Personal Care,72,35,9.767,14.582,2027-05-16,Normal
+1770,Standard Chicken Nuggets 2x,Frozen,205,26,4.031,6.185,2028-03-27,Normal
+1771,Organic Popcorn 2x,Snacks,53,8,7.367,11.947,2028-07-23,Normal
+1772,Imported Muffins 5x,Bakery,258,25,6.786,10.913,2026-09-10,Normal
+1773,Diet Cake 2x,Bakery,160,7,1.338,2.042,2026-09-09,Normal
+1774,Diet Lamb Chops 2x,Meat,93,7,7.263,10.801,2026-09-17,Normal
+1775,Gluten-Free Canned Beans 2x,Grocery,267,34,2.755,4.700,2027-07-14,Normal
+1776,Diet Chocolate 5x,Snacks,159,49,1.692,2.735,2028-04-22,Normal
+1777,Diet Pizza 2x,Frozen,459,28,5.107,6.284,2027-08-18,Normal
+1778,Gluten-Free Tomatoes 1x,Produce,99,16,7.442,9.693,2026-08-31,Normal
+1779,Fresh Popcorn 4x,Snacks,203,22,7.714,10.904,2027-07-28,Normal
+1780,Diet Deodorant 4x,Personal Care,369,47,3.688,5.593,2027-02-01,Normal
+1781,Local Bleach 1x,Cleaning,80,7,3.686,6.036,2028-04-05,Normal
+1782,Fresh Canned Beans 4x,Grocery,309,10,8.730,14.155,2027-06-18,Normal
+1783,Imported Water 1x,Beverages,208,41,2.014,2.482,2028-02-28,Normal
+1784,Diet Bananas 5x,Produce,309,1,5.367,8.286,2026-09-23,Normal
+1785,Gluten-Free Pasta 5x,Grocery,408,3,6.384,8.455,2027-03-17,Normal
+1786,Premium Shampoo 5x,Personal Care,358,24,6.057,8.668,2026-12-28,Normal
+1787,Fresh Chicken Nuggets 1x,Frozen,391,43,3.094,4.541,2027-06-05,Normal
+1788,Premium Minced Beef 5x,Meat,348,27,9.039,12.519,2026-09-07,Normal
+1789,Imported Cheese 1x,Dairy,338,24,2.569,4.452,2026-09-10,Normal
+1790,Gluten-Free Cookies 1x,Snacks,306,30,8.443,15.027,2028-07-07,Normal
+1791,Diet Croissant 4x,Bakery,378,28,2.972,3.670,2026-09-14,Normal
+1792,Fresh Juice 1x,Beverages,137,32,6.975,11.166,2027-10-04,Normal
+1793,Local Cheese 4x,Dairy,231,23,9.347,12.609,2026-09-14,Normal
+1794,Local Sausages 4x,Meat,30,11,8.149,10.413,2026-09-10,Normal
+1795,Local Bananas 3x,Produce,195,15,7.388,11.657,2026-09-04,Normal
+1796,Local Bread 5x,Bakery,385,13,4.445,6.946,2026-09-08,Normal
+1797,Organic Cake 3x,Bakery,57,45,4.898,7.621,2026-09-11,Low Stock
+1798,Diet Detergent 4x,Cleaning,372,7,6.271,8.119,2027-04-29,Normal
+1799,Imported Juice 1x,Beverages,83,43,2.258,3.655,2027-05-21,Low Stock
+1800,Diet Bananas 1x,Produce,350,46,3.515,5.557,2026-09-21,Normal
+1801,Standard Sausages 1x,Meat,114,28,4.344,5.955,2026-09-19,Normal
+1802,Imported Chocolate 5x,Snacks,348,46,8.970,13.270,2027-09-24,Normal
+1803,Standard Bananas 3x,Produce,284,15,5.288,8.433,2026-09-10,Normal
+1804,Standard Water 2x,Beverages,207,42,1.225,2.134,2027-08-12,Normal
+1805,Fresh Shampoo 1x,Personal Care,433,26,0.636,1.025,2028-04-30,Normal
+1806,Premium Pasta 3x,Grocery,179,15,5.483,9.214,2028-01-29,Normal
+1807,Imported Croissant 5x,Bakery,254,34,2.689,3.609,2026-09-23,Normal
+1808,Imported Coffee 5x,Beverages,402,16,3.282,5.770,2028-07-07,Normal
+1809,Organic Tomatoes 2x,Produce,308,34,1.837,3.168,2026-09-08,Normal
+1810,Organic Muffins 5x,Bakery,282,2,5.518,8.677,2026-08-29,Near Expiry - Overstock
+1811,Imported Bleach 5x,Cleaning,83,37,4.885,6.904,2027-11-20,Normal
+1812,Local Minced Beef 1x,Meat,360,45,7.900,13.368,2026-09-01,Normal
+1813,Standard Frozen Vegetables 5x,Frozen,413,21,5.646,7.828,2028-06-05,Normal
+1814,Organic Croissant 2x,Bakery,211,30,4.765,7.590,2026-09-18,Normal
+1815,Organic Bleach 1x,Cleaning,338,40,7.869,10.912,2028-07-04,Normal
+1816,Premium Lamb Chops 1x,Meat,364,25,6.947,11.747,2026-08-31,Normal
+1817,Imported Bread 2x,Bakery,339,49,5.085,6.186,2026-09-20,Normal
+1818,Premium Yogurt 2x,Dairy,475,32,6.300,10.649,2026-08-31,Normal
+1819,Premium Toothpaste 4x,Personal Care,99,3,4.752,8.290,2028-01-05,Normal
+1820,Standard Cookies 5x,Snacks,421,26,1.667,2.566,2028-01-16,Normal
+1821,Organic Juice 2x,Beverages,429,17,6.979,9.588,2028-05-06,Normal
+1822,Premium Cola 2x,Beverages,372,23,5.535,8.565,2027-07-31,Normal
+1823,Diet Nuts 1x,Snacks,246,37,9.274,12.017,2027-04-10,Normal
+1824,Standard Bleach 2x,Cleaning,270,16,8.582,13.848,2027-02-20,Normal
+1825,Gluten-Free Ice Cream 3x,Frozen,243,23,2.693,3.993,2027-10-28,Normal
+1826,Gluten-Free Popcorn 5x,Snacks,324,18,4.808,8.011,2027-05-11,Normal
+1827,Local Muffins 4x,Bakery,173,17,2.639,3.650,2026-09-10,Normal
+1828,Diet Sponges 1x,Cleaning,59,3,3.673,5.293,2027-02-01,Normal
+1829,Premium Rice 4x,Grocery,103,30,1.705,2.455,2028-01-07,Normal
+1830,Standard Sugar 3x,Grocery,188,8,9.728,12.957,2027-07-08,Normal
+1831,Fresh Muffins 3x,Bakery,151,1,4.789,6.053,2026-09-10,Normal
+1832,Organic Dish Soap 1x,Cleaning,102,3,4.005,5.464,2027-06-12,Normal
+1833,Organic Bagel 4x,Bakery,53,15,4.468,6.889,2026-09-11,Normal
+1834,Local Lamb Chops 2x,Meat,436,25,2.157,3.827,2026-09-08,Normal
+1835,Diet Bagel 1x,Bakery,302,5,2.191,3.509,2026-09-06,Normal
+1836,Organic Chicken Nuggets 5x,Frozen,91,9,6.751,10.721,2028-06-14,Normal
+1837,Local Lamb Chops 4x,Meat,376,44,3.100,4.102,2026-09-07,Normal
+1838,Premium Cookies 5x,Snacks,421,44,5.422,9.396,2028-03-22,Normal
+1839,Gluten-Free Bananas 5x,Produce,239,20,4.689,7.185,2026-09-15,Normal
+1840,Premium Salmon 3x,Meat,213,13,8.556,14.263,2026-09-22,Normal
+1841,Standard Toothpaste 3x,Personal Care,26,41,4.361,7.274,2028-05-18,Low Stock
+1842,Organic Pasta 5x,Grocery,86,15,9.721,14.575,2027-10-23,Normal
+1843,Fresh Juice 1x,Beverages,186,20,8.134,14.266,2027-02-09,Normal
+1844,Premium Dish Soap 5x,Cleaning,407,44,4.789,8.255,2027-08-24,Normal
+1845,Imported Tomatoes 5x,Produce,301,11,0.771,0.961,2026-08-29,Near Expiry - Overstock
+1846,Premium Soap 2x,Personal Care,20,19,9.922,16.072,2028-05-31,Low Stock
+1847,Organic Chicken Breast 3x,Meat,191,17,5.382,8.118,2026-09-09,Normal
+1848,Fresh Sponges 3x,Cleaning,150,24,7.481,10.830,2027-12-27,Normal
+1849,Organic Bananas 3x,Produce,101,18,3.041,3.709,2026-09-11,Normal
+1850,Imported Cake 3x,Bakery,41,27,9.055,15.433,2026-09-08,Low Stock
+1851,Standard Bread 4x,Bakery,105,41,8.241,10.197,2026-08-31,Normal
+1852,Fresh Olive Oil 3x,Grocery,436,15,2.879,3.568,2028-02-22,Normal
+1853,Organic Juice 2x,Beverages,398,13,6.332,9.627,2027-11-25,Normal
+1854,Diet Frozen Vegetables 3x,Frozen,375,7,3.120,4.142,2027-01-27,Normal
+1855,Organic Frozen Vegetables 4x,Frozen,276,1,4.080,7.165,2028-06-18,Normal
+1856,Local Toothpaste 5x,Personal Care,214,36,8.157,11.844,2028-01-05,Normal
+1857,Local Chicken Breast 5x,Meat,134,35,5.838,9.351,2026-09-12,Normal
+1858,Imported Milk 2x,Dairy,444,33,6.682,8.520,2026-09-20,Normal
+1859,Organic Apples 2x,Produce,412,36,2.756,4.232,2026-09-04,Normal
+1860,Gluten-Free Frozen Vegetables 2x,Frozen,219,32,1.823,2.536,2027-08-11,Normal
+1861,Diet Pizza 2x,Frozen,353,32,9.560,15.358,2027-11-29,Normal
+1862,Imported Salmon 5x,Meat,336,26,7.828,14.051,2026-09-10,Normal
+1863,Fresh Shampoo 5x,Personal Care,490,7,3.665,6.399,2027-05-19,Normal
+1864,Standard Popcorn 3x,Snacks,445,30,8.716,13.721,2027-02-10,Normal
+1865,Diet Butter 3x,Dairy,318,1,5.601,8.216,2026-09-10,Normal
+1866,Standard Soap 1x,Personal Care,466,16,1.003,1.660,2027-02-01,Normal
+1867,Standard Toothpaste 1x,Personal Care,167,6,6.391,7.681,2028-06-03,Normal
+1868,Local Ice Cream 3x,Frozen,383,41,6.081,10.197,2028-02-19,Normal
+1869,Standard Chicken Breast 3x,Meat,301,46,9.651,15.028,2026-09-01,Normal
+1870,Organic Pizza 5x,Frozen,338,24,3.570,6.414,2027-10-21,Normal
+1871,Standard Sponges 3x,Cleaning,144,7,3.990,6.740,2028-01-16,Normal
+1872,Imported Yogurt 3x,Dairy,285,19,2.582,3.425,2026-09-20,Normal
+1873,Fresh Detergent 5x,Cleaning,316,21,9.062,12.512,2028-02-15,Normal
+1874,Organic Rice 4x,Grocery,332,26,5.627,7.157,2028-04-01,Normal
+1875,Premium Lamb Chops 3x,Meat,413,17,0.740,1.038,2026-09-14,Normal
+1876,Premium Yogurt 4x,Dairy,314,2,8.637,15.530,2026-09-17,Normal
+1877,Organic Croissant 4x,Bakery,101,7,8.166,14.359,2026-09-09,Normal
+1878,Local Flour 3x,Grocery,75,32,2.612,3.748,2028-02-18,Normal
+1879,Fresh Pasta 2x,Grocery,225,33,7.002,8.687,2027-11-16,Normal
+1880,Local Soap 2x,Personal Care,175,12,9.003,14.268,2027-09-06,Normal
+1881,Gluten-Free Butter 3x,Dairy,259,3,3.024,4.639,2026-09-19,Normal
+1882,Gluten-Free Coffee 1x,Beverages,65,13,4.561,7.280,2027-03-03,Normal
+1883,Organic Sausages 2x,Meat,469,16,5.973,9.903,2026-09-19,Normal
+1884,Premium Sausages 2x,Meat,421,29,4.207,6.290,2026-09-06,Normal
+1885,Diet Milk 2x,Dairy,437,6,9.977,12.123,2026-09-22,Normal
+1886,Fresh Bleach 1x,Cleaning,69,3,8.554,10.411,2028-06-22,Normal
+1887,Organic Popcorn 2x,Snacks,112,32,9.871,14.436,2027-08-07,Normal
+1888,Gluten-Free Minced Beef 2x,Meat,265,9,4.185,6.781,2026-09-11,Normal
+1889,Diet Chocolate 1x,Snacks,90,43,4.270,7.476,2027-06-16,Normal
+1890,Local Milk 2x,Dairy,255,3,3.171,5.664,2026-09-13,Normal
+1891,Imported Pizza 2x,Frozen,132,16,0.933,1.602,2028-01-14,Normal
+1892,Gluten-Free Potatoes 3x,Produce,185,23,4.627,7.672,2026-09-06,Normal
+1893,Gluten-Free Cream 5x,Dairy,51,29,7.627,13.221,2026-09-13,Low Stock
+1894,Premium Yogurt 4x,Dairy,253,20,4.727,6.607,2026-09-06,Normal
+1895,Premium Cream 4x,Dairy,119,28,1.692,2.310,2026-09-08,Normal
+1896,Diet Frozen Vegetables 1x,Frozen,87,50,7.073,11.262,2027-07-18,Low Stock
+1897,Local Chips 2x,Snacks,344,41,8.669,10.501,2027-05-18,Normal
+1898,Premium Pizza 4x,Frozen,499,47,8.821,13.317,2028-02-19,Normal
+1899,Gluten-Free Lamb Chops 3x,Meat,434,21,4.775,6.734,2026-09-06,Normal
+1900,Gluten-Free Chicken Nuggets 4x,Frozen,177,28,7.203,12.319,2028-06-08,Normal
+1901,Diet Tomatoes 2x,Produce,245,41,5.770,7.267,2026-09-22,Normal
+1902,Organic Popcorn 5x,Snacks,481,20,4.356,5.556,2027-04-06,Normal
+1903,Local Chips 5x,Snacks,268,23,0.818,1.046,2027-11-14,Normal
+1904,Diet Olive Oil 3x,Grocery,484,32,2.736,4.153,2026-11-26,Normal
+1905,Imported Croissant 1x,Bakery,229,46,0.641,0.945,2026-09-05,Normal
+1906,Gluten-Free Pasta 1x,Grocery,214,2,3.937,6.148,2027-01-23,Normal
+1907,Organic Deodorant 4x,Personal Care,44,11,9.429,14.452,2027-08-14,Normal
+1908,Gluten-Free Soap 4x,Personal Care,327,35,5.148,6.822,2027-05-02,Normal
+1909,Local Pizza 5x,Frozen,470,41,9.680,15.278,2028-02-15,Normal
+1910,Gluten-Free Cheese 4x,Dairy,434,19,3.258,5.579,2026-09-17,Normal
+1911,Imported Sugar 2x,Grocery,211,45,7.980,14.036,2027-08-28,Normal
+1912,Organic Tea 3x,Beverages,141,48,2.096,2.892,2028-03-21,Normal
+1913,Imported Salmon 4x,Meat,49,5,5.402,6.834,2026-08-31,Normal
+1914,Diet Milk 2x,Dairy,42,5,9.233,16.298,2026-09-22,Normal
+1915,Standard Soap 5x,Personal Care,104,44,7.029,10.443,2027-08-14,Normal
+1916,Imported Milk 3x,Dairy,351,3,3.322,5.018,2026-09-18,Normal
+1917,Local Canned Beans 1x,Grocery,212,28,8.947,12.429,2028-06-08,Normal
+1918,Imported Ice Cream 1x,Frozen,116,39,2.598,4.140,2027-12-05,Normal
+1919,Standard Potatoes 4x,Produce,422,19,1.376,1.778,2026-09-20,Normal
+1920,Fresh Deodorant 4x,Personal Care,336,23,5.263,6.435,2028-06-08,Normal
+1921,Gluten-Free Water 2x,Beverages,143,15,4.495,5.793,2026-12-13,Normal
+1922,Gluten-Free Deodorant 3x,Personal Care,346,40,9.844,17.477,2027-04-23,Normal
+1923,Standard Soap 4x,Personal Care,440,41,7.613,9.868,2028-01-01,Normal
+1924,Diet Bread 1x,Bakery,277,21,8.364,13.405,2026-08-31,Normal
+1925,Imported Shampoo 3x,Personal Care,211,10,3.935,6.249,2028-06-13,Normal
+1926,Fresh Rice 5x,Grocery,269,40,6.888,11.762,2028-04-16,Normal
+1927,Local Lamb Chops 5x,Meat,336,30,1.731,2.527,2026-09-01,Normal
+1928,Standard Rice 4x,Grocery,380,45,5.881,10.143,2028-02-14,Normal
+1929,Fresh Sponges 4x,Cleaning,11,34,2.031,3.319,2027-01-01,Low Stock
+1930,Standard Toothpaste 1x,Personal Care,454,8,4.744,7.118,2028-04-04,Normal
+1931,Standard Chicken Nuggets 2x,Frozen,21,35,6.653,8.682,2027-07-17,Low Stock
+1932,Gluten-Free Yogurt 5x,Dairy,436,17,2.556,4.188,2026-09-01,Normal
+1933,Local Sausages 4x,Meat,412,5,1.408,2.069,2026-09-07,Normal
+1934,Diet Croissant 1x,Bakery,106,19,8.031,10.647,2026-09-03,Normal
+1935,Premium Chips 4x,Snacks,85,26,4.652,6.355,2028-01-03,Normal
+1936,Standard Pasta 4x,Grocery,273,3,1.575,2.718,2028-04-01,Normal
+1937,Fresh Milk 3x,Dairy,304,47,2.176,3.243,2026-09-15,Normal
+1938,Organic Nuts 3x,Snacks,61,16,2.038,3.464,2027-12-23,Normal
+1939,Organic Cheese 2x,Dairy,314,29,9.667,16.502,2026-09-13,Normal
+1940,Gluten-Free Chicken Nuggets 3x,Frozen,135,35,3.451,5.741,2027-10-28,Normal
+1941,Gluten-Free Ice Cream 2x,Frozen,432,24,1.449,2.245,2027-09-12,Normal
+1942,Imported Bleach 1x,Cleaning,362,31,1.982,2.909,2027-09-01,Normal
+1943,Fresh Chips 4x,Snacks,239,44,2.619,3.760,2028-05-02,Normal
+1944,Standard Minced Beef 2x,Meat,335,46,1.331,1.971,2026-09-19,Normal
+1945,Diet Tomatoes 1x,Produce,31,39,4.286,5.458,2026-09-05,Low Stock
+1946,Standard Tomatoes 5x,Produce,62,14,2.937,5.276,2026-09-11,Normal
+1947,Gluten-Free Chocolate 4x,Snacks,440,46,3.274,5.276,2027-08-07,Normal
+1948,Local Tomatoes 1x,Produce,344,6,1.827,2.445,2026-09-16,Normal
+1949,Standard Olive Oil 3x,Grocery,373,23,7.228,12.369,2028-03-15,Normal
+1950,Standard Toothpaste 4x,Personal Care,246,28,1.715,2.613,2028-06-20,Normal
+1951,Local Bananas 1x,Produce,155,17,9.447,12.766,2026-09-20,Normal
+1952,Imported Pasta 2x,Grocery,330,26,6.890,11.816,2027-12-12,Normal
+1953,Diet Water 1x,Beverages,432,16,8.880,12.556,2028-05-16,Normal
+1954,Standard Cookies 2x,Snacks,112,9,0.896,1.341,2028-03-09,Normal
+1955,Gluten-Free Olive Oil 1x,Grocery,481,24,3.143,5.190,2028-03-04,Normal
+1956,Premium Soap 5x,Personal Care,55,42,9.391,15.845,2027-01-05,Low Stock
+1957,Organic Chicken Nuggets 2x,Frozen,395,40,3.232,4.894,2027-03-06,Normal
+1958,Organic Bread 3x,Bakery,184,35,7.204,12.436,2026-09-16,Normal
+1959,Organic Canned Beans 2x,Grocery,489,22,2.069,3.507,2027-03-03,Normal
+1960,Fresh Chocolate 5x,Snacks,381,33,5.387,8.920,2027-01-12,Normal
+1961,Local Chocolate 3x,Snacks,300,1,8.400,13.890,2028-04-06,Normal
+1962,Premium Juice 3x,Beverages,100,23,1.108,1.392,2027-08-17,Normal
+1963,Organic Chips 1x,Snacks,260,5,0.983,1.343,2027-03-16,Normal
+1964,Gluten-Free Carrots 5x,Produce,318,1,6.410,8.932,2026-08-31,Normal
+1965,Organic Popcorn 2x,Snacks,476,26,1.028,1.787,2027-08-30,Normal
+1966,Imported Pasta 2x,Grocery,272,50,5.825,9.735,2027-09-08,Normal
+1967,Fresh Salmon 4x,Meat,52,33,1.838,2.686,2026-09-22,Low Stock
+1968,Fresh Onions 3x,Produce,373,6,2.302,3.739,2026-09-01,Normal
+1969,Gluten-Free Pizza 2x,Frozen,466,49,7.803,11.560,2028-04-07,Normal
+1970,Gluten-Free Minced Beef 4x,Meat,128,43,4.451,5.666,2026-09-17,Normal
+1971,Standard Chips 5x,Snacks,26,23,4.693,6.963,2027-08-13,Low Stock
+1972,Fresh Coffee 3x,Beverages,426,34,5.193,7.398,2026-11-27,Normal
+1973,Gluten-Free Pizza 3x,Frozen,196,20,4.254,7.066,2028-05-17,Normal
+1974,Standard Chicken Breast 4x,Meat,151,35,9.893,15.678,2026-09-01,Normal
+1975,Fresh Muffins 1x,Bakery,499,13,1.142,1.914,2026-08-30,Near Expiry - Overstock
+1976,Fresh Ice Cream 1x,Frozen,274,30,6.387,11.193,2028-05-31,Normal
+1977,Fresh Sponges 4x,Cleaning,459,40,4.822,7.685,2027-02-21,Normal
+1978,Fresh Shampoo 3x,Personal Care,89,15,1.959,2.724,2027-07-24,Normal
+1979,Imported Canned Beans 5x,Grocery,149,49,8.715,10.780,2027-09-26,Normal
+1980,Premium Soap 2x,Personal Care,231,42,3.103,5.062,2027-05-04,Normal
+1981,Local Coffee 3x,Beverages,166,32,4.842,5.941,2027-12-18,Normal
+1982,Gluten-Free Lamb Chops 2x,Meat,107,2,6.266,7.944,2026-09-23,Normal
+1983,Organic Deodorant 1x,Personal Care,256,28,9.051,14.784,2028-01-15,Normal
+1984,Diet Milk 1x,Dairy,494,26,3.149,4.703,2026-09-06,Normal
+1985,Local Nuts 2x,Snacks,132,40,4.456,6.334,2026-12-13,Normal
+1986,Standard Dish Soap 3x,Cleaning,204,35,1.700,2.757,2028-07-22,Normal
+1987,Local Deodorant 2x,Personal Care,395,13,6.937,11.616,2027-08-28,Normal
+1988,Fresh Chips 1x,Snacks,422,34,9.246,12.955,2027-12-08,Normal
+1989,Premium Coffee 4x,Beverages,130,48,3.782,5.852,2027-01-20,Normal
+1990,Standard Cookies 3x,Snacks,417,29,6.113,7.670,2027-10-25,Normal
+1991,Gluten-Free Sponges 5x,Cleaning,164,36,8.967,15.364,2027-07-08,Normal
+1992,Imported Lamb Chops 3x,Meat,171,45,4.766,5.725,2026-09-14,Normal
+1993,Organic Potatoes 4x,Produce,277,31,5.211,8.880,2026-09-05,Normal
+1994,Gluten-Free Cream 2x,Dairy,258,44,6.978,9.163,2026-09-22,Normal
+1995,Organic Cream 4x,Dairy,53,16,4.009,5.580,2026-09-10,Normal
+1996,Standard Milk 4x,Dairy,399,6,4.001,5.587,2026-08-29,Near Expiry - Overstock
+1997,Imported Apples 2x,Produce,88,39,4.039,5.272,2026-09-12,Normal
+1998,Imported Frozen Vegetables 1x,Frozen,208,12,4.486,5.398,2028-04-10,Normal
+1999,Local Pizza 1x,Frozen,150,28,6.491,9.438,2026-12-07,Normal
