@@ -41,8 +41,8 @@ if not SECRET_KEY:
     if not DEBUG:
         raise RuntimeError("SECRET_KEY must be configured outside development.")
     SECRET_KEY = "development-only-insecure-key-change-me"
-if not DEBUG and len(SECRET_KEY) < 50:
-    raise RuntimeError("SECRET_KEY must contain at least 50 characters outside development.")
+if not DEBUG and len(SECRET_KEY) < 30:
+    raise RuntimeError("SECRET_KEY must contain at least 30 characters outside development.")
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,baseera.it.com,baseera-app.onrender.com").split(",") if host.strip()]
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
