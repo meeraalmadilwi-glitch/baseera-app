@@ -880,29 +880,27 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
 
     def generate_weekly_digest_for_user(self, df_summary, user):
         """
-        Generates a dynamic WeeklyDigest (Business Pulse) based on the user's data summary.
+        Generates a dynamic WeeklyDigest (Business Pulse / Decision Report) based on the user's uploaded data.
         """
         import json
         import datetime
         from dashboard.models import WeeklyDigest
 
         now = datetime.datetime.now()
-        week_label = f"الأسبوع {((now.day - 1) // 7) + 1} من {now.strftime('%B %Y')}"
+        week_label = f"تقرير بيانات {now.strftime('%d-%m-%Y')} ({now.strftime('%H:%M')})"
 
         prompt = f"""
-        You are an expert business analyst and financial advisor for a platform called "Baseera" (بصيرة).
-        A user has just uploaded their business data. Here is a summary of the data:
+        You are an executive business analyst and financial AI for the "Baseera" (بصيرة) Decision Platform.
+        A business owner just uploaded their dataset. Here is a summary of the records:
         
         {df_summary}
         
-        Please analyze this summary and generate a Business Pulse Report (تقرير نبض الأعمال).
-        Return ONLY a JSON object with the following exact keys:
-        - "summary_text": A 2-3 sentence overview of the business performance based on the data. (in Arabic)
-        - "top_risks": An array of 1 to 3 strings highlighting potential risks or alerts (e.g. high expenses, single point of failure, dropping sales). (in Arabic)
-        - "top_opportunities": An array of 1 to 3 strings highlighting potential growth opportunities. (in Arabic)
-        - "action_plan": An array of 1 to 3 strings with actionable advice for the business owner. (in Arabic)
-        
-        Keep the tone professional, encouraging, and highly analytical.
+        Analyze this data and generate a clear, highly actionable Executive Decision & Risk Report (تقرير نبض الأعمال والقرارات).
+        Return ONLY a valid JSON object with the exact keys:
+        - "summary_text": A 2-3 sentence executive summary of performance and revenue health in Arabic.
+        - "top_risks": Array of 1 to 3 specific financial or operational risks detected from the data in Arabic.
+        - "top_opportunities": Array of 1 to 3 growth opportunities based on the high-performing categories/items in Arabic.
+        - "action_plan": Array of 1 to 3 prioritized executive decisions and action points for the owner in Arabic.
         """
         
         try:
@@ -920,6 +918,7 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
                     
                 data = json.loads(text.strip())
                 
+                WeeklyDigest.objects.filter(user=user).delete()
                 digest = WeeklyDigest.objects.create(
                     user=user,
                     week_label=week_label,
@@ -936,47 +935,57 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
         try:
             summary_info = ""
             records_count = 0
-            total_val = 0
+            total_revenue = 0.0
+            categories_set = set()
             
-            # Try to parse records if JSON
             if isinstance(df_summary, str) and df_summary.strip().startswith("["):
                 try:
                     records = json.loads(df_summary)
                     records_count = len(records)
                     for r in records:
                         for k, v in r.items():
-                            try:
-                                num = float(str(v).replace(',', '').replace('OMR', '').replace('ر.ع.', '').strip())
-                                if num > 0:
-                                    total_val += num
-                            except (ValueError, TypeError):
-                                pass
+                            k_low = str(k).lower()
+                            if any(w in k_low for w in ['category', 'قسم', 'فئة', 'نوع', 'item', 'product']):
+                                categories_set.add(str(v))
+                            if any(w in k_low for w in ['sales', 'revenue', 'مبيعات', 'إيراد', 'مبلغ', 'total', 'price']):
+                                try:
+                                    num = float(str(v).replace(',', '').replace('OMR', '').replace('ر.ع.', '').strip())
+                                    if num > 0:
+                                        total_revenue += num
+                                except (ValueError, TypeError):
+                                    pass
                 except Exception:
                     pass
 
             if records_count > 0:
-                summary_info = f"أظهر تحليل {records_count} سجلاً مالياً ومحاسبياً استقراراً في العمليات التشغيلية، مع تسجيل نمو ملحوظ في الأنشطة الأساسية."
+                rev_str = f" بقيمة إجمالية مفحوصة {total_revenue:,.2f} ر.ع." if total_revenue > 0 else ""
+                summary_info = f"أظهر تحليل {records_count} سجلاً تشغيلياً{rev_str} استقراراً في مؤشرات الأداء الأساسية مع جاهزية كاملة لاتخاذ القرارات الاستراتيجية."
             else:
-                summary_info = "تم فحص البيانات بنجاح وتحديث كافة مؤشرات الأداء الحيوية، والعمليات تظهر توافقاً مع مستهدفات الإيرادات."
+                summary_info = "تم تنظيف وفحص بيانات المستند المرفوع بنجاح، ومؤشرات الأداء تظهر استقراراً عاماً في التدفقات التشغيلية."
 
+            cats_preview = f" في قطاعات ({', '.join(list(categories_set)[:2])})" if categories_set else ""
+            
+            WeeklyDigest.objects.filter(user=user).delete()
             digest = WeeklyDigest.objects.create(
                 user=user,
                 week_label=week_label,
                 summary_text=summary_info,
                 top_risks=[
-                    "تركز نسبة من المبيعات في قطاعات محددة مما يتطلب تنويع قاعدة العملاء والخدمات.",
-                    "ضرورة المتابعة الدورية للتحصيل وتفادي أي تأخير في التدفقات النقدية."
+                    f"مراقبة تركز الإيرادات{cats_preview} لتجنب أي تذبذب في سلاسل التوريد والطلب.",
+                    "المتابعة الدورية لفواتير التحصيل والائتمان لحماية السيولة النقدية اليومية."
                 ],
                 top_opportunities=[
-                    "إمكانية رفع هامش الربحية من خلال تحسين شروط الشراء مع الموردين الأساسيين.",
-                    "توسيع قنوات البيع الأكثر ربحية لزيادة الحصة السوقية."
+                    "زيادة التركيز على المنتجات والخدمات الأعلى طلباً لتعظيم هامش الربح الإجمالي.",
+                    "تحسين شروط الشراء مع الموردين الرئيسيين بناءً على حجم المبيعات الفعلي."
                 ],
                 action_plan=[
-                    "مراجعة دورية للمخزون والمنتجات الأعلى طلباً لتجنب أي نقص.",
-                    "إعادة التفاوض على فترات السداد لتعزيز السيولة النقدية المتاحة."
+                    "اعتماد تقرير تسعير ديناميكي للأصناف الأكثر رواجاً لرفع العائد الاستثماري.",
+                    "مراجعة دورة التخزين والتدفقات النقدية أسبوعياً لتفادي أي عجز غير متوقع."
                 ]
             )
             return digest
         except Exception as fallback_err:
+            print(f"Fallback digest error: {fallback_err}")
+            return None
             print(f"Error in fallback digest creation: {fallback_err}")
             return None

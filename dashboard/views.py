@@ -421,6 +421,12 @@ def process_excel_to_db(project_file, user):
                 AnomalyDetector.detect_anomalies(records_json, user, project_file)
             except Exception as an_err:
                 print(f"Anomaly detection error: {an_err}")
+            try:
+                from .services.ai_service import GeminiAIService
+                sample_str = json.dumps(records_json[:100], ensure_ascii=False)
+                GeminiAIService().generate_weekly_digest_for_user(sample_str, user)
+            except Exception as digest_err:
+                print(f"Digest generation error: {digest_err}")
         return True, None
     except Exception as e:
         error_details = str(e)
