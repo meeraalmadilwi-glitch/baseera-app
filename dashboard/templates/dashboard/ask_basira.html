@@ -2131,28 +2131,44 @@ function executeAgentAction(btn, actionPayload) {
     if(!actionPayload) return;
     
     // Show loading state on the button
-    
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري التطبيق...';
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري الاعتماد وتحديث منصة القرارات...';
     btn.style.pointerEvents = 'none';
 
     fetch('/api/dashboard/apply-agent-decision/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') // assuming getCookie is globally available
+            'X-CSRFToken': getCookie('csrftoken')
         },
         body: JSON.stringify({ action_payload: actionPayload })
     })
     .then(res => res.json())
     .then(data => {
         if(data.status === 'success') {
-            btn.innerHTML = '<i class="fa-solid fa-check me-2"></i>' + data.message;
-            btn.classList.replace('text-[var(--glow)]', 'text-emerald-500');
-            btn.classList.replace('border-[var(--glow)]/30', 'border-emerald-500/30');
-            btn.classList.replace('bg-[var(--glow)]/10', 'bg-emerald-500/10');
+            btn.classList.remove('cursor-pointer', 'hover:bg-[var(--glow)]/20', 'bg-[var(--glow)]/10', 'border-[var(--glow)]/30', 'text-[var(--glow)]');
+            btn.classList.add('bg-emerald-500/10', 'border-emerald-500/40', 'p-3', 'rounded-2xl');
             
-            // Broadcast event to parent window if inside iframe, or directly to document
+            btn.innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 text-start">
+                    <div class="flex items-center gap-2 text-emerald-600 font-extrabold text-sm">
+                        <i class="fa-solid fa-circle-check text-base"></i>
+                        <span>تم اعتماد الخطة وتحديث منصة القرارات والمستندات بنجاح!</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="/dashboard/" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[var(--nile)] to-[var(--glow)] text-white text-xs font-bold shadow-md shadow-indigo-500/20 hover:scale-105 transition-all">
+                            <span>منصة القرارات</span>
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                        <a href="/datasets/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-gray-200 text-gray-700 text-xs font-bold hover:bg-gray-50 transition-all shadow-sm">
+                            <i class="fa-solid fa-file-shield text-[var(--glow)]"></i>
+                            <span>الخطط المعتمدة</span>
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            // Broadcast event
             const eventPayload = { detail: { action: actionPayload, result: data } };
             window.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
             if (window.parent) {
