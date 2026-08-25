@@ -916,10 +916,10 @@
         revenue = demo.revenue;
       }
 
-      // Guaranteed Instant Native 2D Canvas Drawing
-      drawNativeLineChart('revenueChart', revenue.data, revenue.labels, '#7c6cf0');
-
-      if (typeof Chart === 'undefined') return;
+      if (typeof Chart === 'undefined') {
+        drawNativeLineChart('revenueChart', revenue.data, (revenue.labels || []).map(fixArabicVisualText), '#7c6cf0');
+        return;
+      }
 
       try {
         const ctx = chartEl.getContext('2d');
@@ -1220,7 +1220,7 @@
     }
     window.switchForecastMode = switchForecastMode;
 
-    function renderForecastChart(forecast) {
+        function renderForecastChart(forecast) {
       if (!forecast || !forecast.actualLabels || !forecast.forecast) {
         forecast = demo.forecast;
       }
@@ -1232,20 +1232,22 @@
       const forecastEl = document.getElementById('forecastChart');
       if (!forecastEl) return;
 
-      // Guaranteed Instant Native 2D Canvas Drawing
-      drawNativeLineChart('forecastChart', forecast.forecast || forecast.actual, forecast.forecastLabels || forecast.actualLabels, '#38bdf8');
+      const actualLabels = (forecast.actualLabels && forecast.actualLabels.length) ? forecast.actualLabels : (demo.forecast.actualLabels || []);
+      const forecastLabels = (forecast.forecastLabels && forecast.forecastLabels.length) ? forecast.forecastLabels : (demo.forecast.forecastLabels || []);
+      const actual = (forecast.actual && forecast.actual.length) ? forecast.actual : (demo.forecast.actual || []);
+      const fc = (forecast.forecast && forecast.forecast.length) ? forecast.forecast : (demo.forecast.forecast || []);
 
-      if (typeof Chart === 'undefined') return;
+      const labels = [...actualLabels, ...forecastLabels.slice(1)].map(fixArabicVisualText);
+      const actualData = [...actual, ...Array(Math.max(0, forecastLabels.length - 1)).fill(null)];
+      const forecastData = [...Array(Math.max(0, actualLabels.length - 1)).fill(null), ...fc];
+
+      if (typeof Chart === 'undefined') {
+        const fullData = [...actual, ...fc.slice(1)];
+        drawNativeLineChart('forecastChart', fullData, labels, '#7c6cf0');
+        return;
+      }
 
       try {
-        const actualLabels = forecast.actualLabels || demo.forecast.actualLabels;
-        const forecastLabels = forecast.forecastLabels || demo.forecast.forecastLabels;
-        const actual = forecast.actual || demo.forecast.actual;
-        const fc = forecast.forecast || demo.forecast.forecast;
-
-        const labels = [...actualLabels, ...forecastLabels.slice(1)].map(fixArabicVisualText);
-        const actualData = [...actual, ...Array(Math.max(0, forecastLabels.length - 1)).fill(null)];
-        const forecastData = [...Array(Math.max(0, actualLabels.length - 1)).fill(null), ...fc];
         const ctx = forecastEl.getContext('2d');
         if (forecastChartInstance) forecastChartInstance.destroy();
         forecastChartInstance = new Chart(ctx, {
