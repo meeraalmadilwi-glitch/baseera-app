@@ -286,6 +286,9 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
         else:
             lang_dir = "\n\n[Strict Language Directive]:\nYou MUST write your entire response strictly in professional English. Do not respond in Arabic when English is selected."
 
+        if not file_context:
+            file_context = ""
+            
         prompt = agent_role + base_system_prompt + lang_dir + memory_context + "\n\nFile Context:\n" + file_context + "\n\nConversation:\n"
         for msg in messages_list:
             prompt += f"{msg['role']}: {msg['content']}\n"
@@ -514,6 +517,9 @@ Requirements:
                 else:
                     lang_dir = "\n\n[Strict Language Directive]:\nYou MUST write your entire response strictly in professional English. Do not respond in Arabic when English is selected."
 
+                if not file_context:
+                    file_context = ""
+                    
                 agent_prompt = f"*** AGENT ROLE & PERSONA ***\n{agent_role_prompt}\n*** END AGENT ROLE ***\n\n" + base_system + lang_dir + committee_context + "\n\nFile Context:\n" + file_context + "\n\nConversation History:\n"
                 for msg in messages_list:
                     agent_prompt += f"{msg['role']}: {msg['content']}\n"

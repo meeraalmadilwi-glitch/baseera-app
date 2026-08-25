@@ -1711,7 +1711,7 @@ def chat_api(request):
             messages_list = data.get("messages", [])
             if not messages_list and "message" in data:
                 messages_list = [{"role": "user", "content": data["message"]}]
-            file_context = data.get("fileContext", "")
+            file_context = data.get("fileContext") or ""
             agent_id = data.get("agent_id", "general")
             agent_ids = data.get("agent_ids")
             if not agent_ids and agent_id:
