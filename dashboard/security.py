@@ -59,15 +59,16 @@ def validate_uploaded_file(uploaded_file, max_size_bytes=DEFAULT_MAX_UPLOAD_SIZE
     if file_ext not in allowed:
         raise ValueError("Unsupported file type.")
 
-    content_type = getattr(uploaded_file, "content_type", "") or ""
-    if content_type and content_type.startswith("application/") and "text" not in content_type and file_ext not in {".pdf"}:
-        raise ValueError("Unsupported file MIME type.")
+    content_type = (getattr(uploaded_file, "content_type", "") or "").lower()
+    disallowed_mimes = {"application/x-dosexec", "application/x-msdos-program", "application/x-executable", "text/html", "application/javascript", "text/javascript", "application/x-sh", "application/x-python"}
+    if content_type in disallowed_mimes:
+        raise ValueError("نوع الملف غير مسموح به لأسباب أمنية / Insecure file MIME type.")
 
     file_size = getattr(uploaded_file, "size", 0) or 0
     if file_size <= 0:
-        raise ValueError("Empty file upload is not allowed.")
+        raise ValueError("الملف المرفوع فارغ / Empty file upload is not allowed.")
     if file_size > max_size_bytes:
-        raise ValueError("File exceeds the allowed size limit.")
+        raise ValueError("حجم الملف يتجاوز الحد الأقصى المسموح / File exceeds size limit.")
 
     return True
 

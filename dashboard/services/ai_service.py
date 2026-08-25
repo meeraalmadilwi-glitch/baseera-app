@@ -811,11 +811,14 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
         
         uploaded_file = None
         try:
+            if not hasattr(self, 'client') or not self.client:
+                return None
+
             # Upload to Gemini File API
             uploaded_file = self.client.files.upload(file=file_path)
             
             response = self.client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-2.5-flash",
                 contents=[uploaded_file, prompt]
             )
             
@@ -828,17 +831,15 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
             data = json.loads(text.strip())
             return data
         except Exception as e:
-            import traceback
-            print(f"Error extracting data from document: {e}")
-            traceback.print_exc()
+            print(f"Notice: AI document extraction fallback triggered: {e}")
             return None
         finally:
             # Always clean up the file from Gemini servers
-            if uploaded_file:
+            if uploaded_file and hasattr(self, 'client') and self.client:
                 try:
                     self.client.files.delete(name=uploaded_file.name)
                 except Exception as cleanup_err:
-                    print(f"Failed to delete file from Gemini: {cleanup_err}")
+                    pass
 
     def extract_receipt_data(self, file_path):
         """
@@ -862,9 +863,11 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
         }
         """
         try:
+            if not hasattr(self, 'client') or not self.client:
+                return None
             img = PIL.Image.open(file_path)
             response = self.client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-2.5-flash",
                 contents=[img, prompt]
             )
             text = response.text.strip()
@@ -874,8 +877,7 @@ You MUST return ONLY a valid JSON object matching EXACTLY this structure (no mar
                 text = text.replace("```", "")
             return json.loads(text.strip())
         except Exception as e:
-            import traceback
-            traceback.print_exc()
+            print(f"Receipt extraction notice: {e}")
             return None
 
     def generate_weekly_digest_for_user(self, df_summary, user):
