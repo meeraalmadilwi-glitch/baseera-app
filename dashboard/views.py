@@ -1524,7 +1524,7 @@ def admin_dashboard(request):
             'bg_color': 'bg-teal-500/10 text-teal-600 dark:text-teal-400',
             'bar_color': 'bg-[#14b8a6]',
             'count': sector_counts['pharmacy'],
-            'pct': round((sector_counts['pharmacy'] / total_sector_records) * 100) if sector_counts['pharmacy'] > 0 else 38,
+            'pct': round((sector_counts['pharmacy'] / total_sector_records) * 100) if total_sector_records > 0 else 0,
         },
         {
             'key': 'real_estate',
@@ -1534,7 +1534,7 @@ def admin_dashboard(request):
             'bg_color': 'bg-[#2b2470]/10 text-[#2b2470] dark:text-purple-300',
             'bar_color': 'bg-[#2b2470] dark:bg-[#b9a6f2]',
             'count': sector_counts['real_estate'],
-            'pct': round((sector_counts['real_estate'] / total_sector_records) * 100) if sector_counts['real_estate'] > 0 else 28,
+            'pct': round((sector_counts['real_estate'] / total_sector_records) * 100) if total_sector_records > 0 else 0,
         },
         {
             'key': 'retail',
@@ -1544,7 +1544,7 @@ def admin_dashboard(request):
             'bg_color': 'bg-[#7c6cf0]/10 text-[#7c6cf0]',
             'bar_color': 'bg-[#7c6cf0]',
             'count': sector_counts['retail'],
-            'pct': round((sector_counts['retail'] / total_sector_records) * 100) if sector_counts['retail'] > 0 else 18,
+            'pct': round((sector_counts['retail'] / total_sector_records) * 100) if total_sector_records > 0 else 0,
         },
         {
             'key': 'fnb',
@@ -1554,7 +1554,7 @@ def admin_dashboard(request):
             'bg_color': 'bg-amber-500/10 text-amber-600',
             'bar_color': 'bg-[#f59e0b]',
             'count': sector_counts['fnb'],
-            'pct': round((sector_counts['fnb'] / total_sector_records) * 100) if sector_counts['fnb'] > 0 else 10,
+            'pct': round((sector_counts['fnb'] / total_sector_records) * 100) if total_sector_records > 0 else 0,
         },
         {
             'key': 'other',
@@ -1564,14 +1564,14 @@ def admin_dashboard(request):
             'bg_color': 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
             'bar_color': 'bg-[#0ea5e9]',
             'count': sector_counts['other'],
-            'pct': round((sector_counts['other'] / total_sector_records) * 100) if sector_counts['other'] > 0 else 6,
+            'pct': round((sector_counts['other'] / total_sector_records) * 100) if total_sector_records > 0 else 0,
         },
     ]
 
-    total_tenants = max(users_list.count(), 3)
-    active_count = max(users_list.filter(is_active=True).count(), 2)
+    total_tenants = users_list.count()
+    active_count = users_list.filter(is_active=True).count()
     pending_count = users_list.filter(is_active=False).count()
-    total_dashboards = max(ProjectFile.objects.count(), 18)
+    total_dashboards = ProjectFile.objects.count()
 
     from .models import UserFeedback
     feedback_list = UserFeedback.objects.all().order_by("-created_at")
