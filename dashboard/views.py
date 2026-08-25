@@ -450,39 +450,56 @@ def dashboard(request):
 
     latest_file_json = None
     if files.exists():
-        latest = files.first()
         file_id = request.GET.get("file_id")
         if file_id:
             request.session["active_file_id"] = file_id
         else:
             file_id = request.session.get("active_file_id")
 
-        if file_id and files.filter(id=file_id).exists():
-            latest = files.get(id=file_id)
+        if file_id == "all" or str(file_id) == "all":
+            latest = None
+        else:
+            if file_id and files.filter(id=file_id).exists():
+                latest = files.get(id=file_id)
+            else:
+                latest = None
 
         try:
-            # Task 6: Cumulative Data reading
-            # Fetch up to 10k records for the user to prevent OOM
-            all_records = DynamicRecord.objects.filter(user=request.user)
-            if all_records.exists():
-                records_list = list(all_records.values_list('row_data', flat=True)[:10000])
-                df = pd.DataFrame(records_list)
-                
-                # Replace NaNs with empty string or None for JSON serialization
-                df = df.where(pd.notnull(df), None)
-                
-                rows_json = records_list
-                
+            if latest:
+                # File specific dashboard
+                all_records = DynamicRecord.objects.filter(user=request.user, project_file=latest)
+                if all_records.exists():
+                    records_list = list(all_records.values_list('row_data', flat=True)[:10000])
+                    df = pd.DataFrame(records_list)
+                    df = df.where(pd.notnull(df), None)
+                    latest_file_json = {
+                        "fileName": latest.excel_file.name.split('/')[-1] if latest.excel_file else "ملف",
+                        "sizeKB": len(records_list),
+                        "columns": df.columns.tolist(),
+                        "rows": records_list,
+                        "csvUrl": "/api/user-data.csv",
+                        "uploadedAt": latest.uploaded_at.isoformat() if latest.uploaded_at else datetime.datetime.now().isoformat(),
+                    }
+            else:
+                # Workspace Summary Mode (All files)
+                summary_rows = []
+                for f in files:
+                    rcount = DynamicRecord.objects.filter(project_file=f).count()
+                    summary_rows.append({
+                        "File Name": f.excel_file.name.split('/')[-1] if f.excel_file else f"File {f.id}",
+                        "Records Count": rcount,
+                        "Upload Date": f.uploaded_at.strftime("%Y-%m-%d %H:%M") if f.uploaded_at else ""
+                    })
                 latest_file_json = {
-                    "fileName": "تجميع البيانات التراكمية (Cumulative Data)",
-                    "sizeKB": len(records_list),
-                    "columns": df.columns.tolist(),
-                    "rows": rows_json,
+                    "fileName": "مساحة العمل (Workspace Summary)",
+                    "sizeKB": len(summary_rows),
+                    "columns": ["File Name", "Records Count", "Upload Date"],
+                    "rows": summary_rows,
                     "csvUrl": "/api/user-data.csv",
                     "uploadedAt": datetime.datetime.now().isoformat(),
                 }
         except Exception as e:
-            print(f"Error parsing cumulative data: {e}")
+            print(f"Error parsing data: {e}")
 
     dynamic_count = files.count()
     if dynamic_count > 0:
@@ -729,12 +746,32 @@ def api_boardroom_debate(request):
             topic = data.get("topic", "").strip()
             file_context = data.get("file_context", "")
 
+            # Build a comprehensive workspace summary
+            from django.contrib.auth.models import User
+            user = request.user if request.user.is_authenticated else User.objects.first()
+            
+            workspace_context = f"The user has the following data files in their workspace:\n"
+            if user:
+                files = ProjectFile.objects.filter(user=user).order_by('-uploaded_at')[:5]
+                for f in files:
+                    rcount = DynamicRecord.objects.filter(project_file=f).count()
+                    workspace_context += f"- File: {f.excel_file.name.split('/')[-1] if f.excel_file else f.id}, Records: {rcount}, Uploaded: {f.uploaded_at.strftime('%Y-%m-%d %H:%M') if f.uploaded_at else 'Unknown'}\n"
+                
+                # Fetch a small sample from the latest file to give agents concrete data
+                latest_file = files.first()
+                if latest_file:
+                    sample_records = list(DynamicRecord.objects.filter(project_file=latest_file).values_list('row_data', flat=True)[:3])
+                    workspace_context += f"\nSample data from latest file ({latest_file.excel_file.name.split('/')[-1] if latest_file.excel_file else 'File'}):\n{json.dumps(sample_records, ensure_ascii=False)}\n"
+            
+            # Combine any frontend context with our backend workspace context
+            comprehensive_context = f"Workspace Context:\n{workspace_context}\n\nUser Context:\n{file_context}"
+
             if not topic:
                 return JsonResponse({"status": "error", "message": "Topic is required"}, status=400)
 
             from dashboard.services.ai_service import GeminiAIService
             ai_service = GeminiAIService()
-            debate_result = ai_service.generate_boardroom_debate(topic, file_context=file_context)
+            debate_result = ai_service.generate_boardroom_debate(topic, file_context=comprehensive_context)
 
             from django.contrib.auth.models import User
             user = request.user if request.user.is_authenticated else User.objects.first()
