@@ -528,7 +528,7 @@ Requirements:
                 # Call LLM for this agent
                 try:
                     stream = self.client.models.generate_content_stream(
-                        model="gemini-flash-lite-latest",
+                        model="gemini-2.5-flash",
                         contents=agent_prompt
                     )
                     
