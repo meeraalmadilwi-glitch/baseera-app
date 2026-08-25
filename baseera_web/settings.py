@@ -173,7 +173,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.environ.get("MEDIA_ROOT", BASE_DIR / "media")
 
 # Email Configuration. Development falls back to the console until SMTP credentials exist.
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
