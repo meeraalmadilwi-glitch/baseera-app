@@ -2261,8 +2261,16 @@ def save_manual_note(request):
 
 @login_required
 def chat_history_view(request):
-    logs = AIUsageLog.objects.filter(user=request.user).order_by('-created_at')[:50]
-    return render(request, "dashboard/chat_history.html", {"logs": logs})
+    from .models import CommitteeThread
+    ai_logs = AIUsageLog.objects.filter(user=request.user).order_by('-created_at')[:50]
+    committee_threads = CommitteeThread.objects.filter(user=request.user).order_by('-created_at')[:30]
+    boardroom_sessions = BoardroomSession.objects.filter(user=request.user).order_by('-created_at')[:20]
+    return render(request, "dashboard/chat_history.html", {
+        "ai_logs": ai_logs,
+        "logs": ai_logs,
+        "committee_threads": committee_threads,
+        "boardroom_sessions": boardroom_sessions,
+    })
 
 
 @login_required

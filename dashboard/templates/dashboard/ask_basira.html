@@ -394,6 +394,12 @@
                             {% else %}I'm Basira, your strategic data assistant.{% endif %}
                             {% endif %}
                         </p>
+                        <div class="flex items-center gap-2 mt-2 pt-1 border-t border-black/5 dark:border-white/5">
+                            <button type="button" onclick="speakMessage(this)" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-slate-400 hover:text-indigo-600 transition flex items-center gap-1 text-[11px] font-bold" title="استمع للرد صوتياً">
+                                <i data-lucide="volume-2" class="h-3.5 w-3.5"></i>
+                                <span>{% if trans.lang_code == 'ar' %}استمع للرد{% else %}Listen{% endif %}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1935,7 +1941,77 @@
     function stopVoiceInput() {
         isRecording = false;
         if (recognition) {
-            try { recognition.stop(); } catch (e) { }
+            try { recognition.stop(); }
+
+    // Text-to-Speech (Audio Voice Output)
+    let currentSpeakingBtn = null;
+    function speakMessage(btn, textToSpeak) {
+        const isAr = "{% if trans.lang_code == 'ar' %}yes{% endif %}" === "yes";
+        if (!('speechSynthesis' in window)) {
+            alert(isAr ? 'المتصفح لا يدعم ميزة قراءة الصوت' : 'Text-to-speech is not supported in this browser.');
+            return;
+        }
+
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            if (currentSpeakingBtn) {
+                currentSpeakingBtn.classList.remove('text-emerald-500', 'animate-pulse');
+                currentSpeakingBtn.classList.add('text-slate-400');
+            }
+            if (btn === currentSpeakingBtn) {
+                currentSpeakingBtn = null;
+                return;
+            }
+        }
+
+        if (!textToSpeak && btn) {
+            const parent = btn.closest('.chat-bubble-bot') || btn.closest('.markdown-content') || btn.closest('.flex-col') || btn.parentElement;
+            if (parent) {
+                textToSpeak = parent.innerText || parent.textContent;
+            }
+        }
+        if (!textToSpeak) return;
+
+        let cleanText = textToSpeak.replace(/```[\s\S]*?```/g, '')
+                                   .replace(/\[\[ACTION:.*?\]\]/g, '')
+                                   .replace(/[#*`_~]/g, '')
+                                   .trim();
+        if (!cleanText) return;
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = isAr ? 'ar-SA' : 'en-US';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const voice = voices.find(v => (isAr ? v.lang.startsWith('ar') : v.lang.startsWith('en')));
+        if (voice) utterance.voice = voice;
+
+        if (btn) {
+            currentSpeakingBtn = btn;
+            btn.classList.add('text-emerald-500', 'animate-pulse');
+            btn.classList.remove('text-slate-400');
+        }
+
+        utterance.onend = function() {
+            if (btn) {
+                btn.classList.remove('text-emerald-500', 'animate-pulse');
+                btn.classList.add('text-slate-400');
+                currentSpeakingBtn = null;
+            }
+        };
+
+        utterance.onerror = function() {
+            if (btn) {
+                btn.classList.remove('text-emerald-500', 'animate-pulse');
+                btn.classList.add('text-slate-400');
+                currentSpeakingBtn = null;
+            }
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+ catch (e) { }
         }
         const ind = document.getElementById('voiceStatusIndicator');
         if (ind) ind.classList.add('hidden');
