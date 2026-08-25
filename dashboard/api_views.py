@@ -438,7 +438,7 @@ def save_file_api(request):
 
             import os
             from django.conf import settings
-            workspace_dir = os.path.join(settings.BASE_DIR, 'sandbox', 'workspace')
+            workspace_dir = os.path.join(settings.MEDIA_ROOT, 'workspace')
             os.makedirs(workspace_dir, exist_ok=True)
 
             clean_name = build_safe_filename(file_path)
@@ -456,11 +456,11 @@ def save_file_api(request):
                 ApprovedPlan.objects.create(
                     user=request.user,
                     file_name=file_path.replace('\\\\', '/').split('/')[-1] or clean_name,
-                    file_path=f"sandbox/workspace/{clean_name}",
+                    file_path=f"workspace/{clean_name}",
                     justification=justification
                 )
 
-            return JsonResponse({"status": "success", "message": "File saved successfully", "path": f"sandbox/workspace/{clean_name}"})
+            return JsonResponse({"status": "success", "message": "File saved successfully", "path": f"workspace/{clean_name}"})
         except Exception as e:
             return JsonResponse({"status": "error", "message": "Internal server error"}, status=500)
     return JsonResponse({"status": "invalid_method"}, status=405)
@@ -657,14 +657,19 @@ def download_plan_api(request, plan_id):
         plan = ApprovedPlan.objects.get(id=plan_id, user=request.user)
         full_path = os.path.join(settings.BASE_DIR, plan.file_path)
         
+        if not os.path.exists(full_path):
+            full_path = os.path.join(settings.MEDIA_ROOT, plan.file_path.replace('sandbox/', ''))
+            
         if os.path.exists(full_path):
             with open(full_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            response = HttpResponse(content, content_type='text/plain; charset=utf-8')
-            response['Content-Disposition'] = f'attachment; filename="{plan.file_name}.txt"'
-            return response
         else:
-            return HttpResponse("File not found", status=404)
+            # Fallback if file was lost due to ephemeral disk on Render
+            content = f"خطة معتمدة: {plan.file_name}\n\nعذراً، محتوى هذا الملف لم يعد متوفراً لأنه تم حفظه في النسخة التجريبية السابقة للنظام. \nالسبب: {plan.justification}"
+            
+        response = HttpResponse(content, content_type='text/plain; charset=utf-8')
+        response['Content-Disposition'] = f'attachment; filename="{plan.file_name}.txt"'
+        return response
     except Exception as e:
         return HttpResponse("Error downloading file", status=500)
 

@@ -1,6 +1,8 @@
 {% extends 'dashboard/base.html' %}
 
-{% block title %}{% if trans.lang_code == 'ar' %}المستندات المرفوعة{% else %}My Documents{% endif %}
+{% block title %}{% if trans.lang_code == 'ar' %}المستندات المرفوعة{% else %}My Documents{% endif %}{% endblock %}
+
+{% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 async function editPlanNote(planId, currentNote) {
@@ -93,10 +95,6 @@ async function deletePlan(planId) {
     }
 }
 </script>
-
-{% endblock %}
-
-{% block content %}
 <div class="flex min-h-screen p-3 gap-3">
     {% include 'dashboard/sidebar.html' with active_page='datasets' %}
 

@@ -848,55 +848,57 @@ def datasets(request):
 
         request.session['active_file_id'] = project_file.id
         
-        # Generate Real Notification via AI
-        from .models import Notification
-        from dashboard.services.ai_service import GeminiAIService
-        import pandas as pd
-        
-        try:
-            df = read_file_to_df(project_file.excel_file.path)
-            if df is not None and not df.empty:
-                num_cols = df.select_dtypes(include=['number']).columns
-                key_metric = f"Sum of {num_cols[0]}: {df[num_cols[0]].sum()}" if len(num_cols) > 0 else "N/A"
-                df_summary = f"Columns: {', '.join(df.columns)}\\nTotal Rows: {len(df)}\\nKey Metric: {key_metric}"
-                
-                ai_service = GeminiAIService()
-                ai_result = ai_service.analyze_dataset_for_mobile(df_summary)
-                insight = ai_result.get("ai_insight", "تم فحص الملف وتحديث لوحات التحكم بنجاح.")
-                
-                notif_title = "تنبيه من بصيرة" if ("خطر" in insight or "فجوة" in insight or "انخفاض" in insight or "عجز" in insight) else "اكتمل تحليل الملف"
-                notif_type = "warning" if notif_title == "تنبيه من بصيرة" else "success"
-                
+        import threading
+        def bg_ai_tasks(user, project_file_path):
+            from .models import Notification
+            from dashboard.services.ai_service import GeminiAIService
+            import pandas as pd
+            import json
+            try:
+                df = read_file_to_df(project_file_path)
+                if df is not None and not df.empty:
+                    num_cols = df.select_dtypes(include=['number']).columns
+                    key_metric = f"Sum of {num_cols[0]}: {df[num_cols[0]].sum()}" if len(num_cols) > 0 else "N/A"
+                    df_summary = f"Columns: {', '.join(df.columns)}\nTotal Rows: {len(df)}\nKey Metric: {key_metric}"
+                    
+                    ai_service = GeminiAIService()
+                    ai_result = ai_service.analyze_dataset_for_mobile(df_summary)
+                    insight = ai_result.get("ai_insight", "تم فحص الملف وتحديث لوحات التحكم بنجاح.")
+                    
+                    notif_title = "تنبيه من بصيرة" if ("خطر" in insight or "فجوة" in insight or "انخفاض" in insight or "عجز" in insight) else "اكتمل تحليل الملف"
+                    notif_type = "warning" if notif_title == "تنبيه من بصيرة" else "success"
+                    
+                    Notification.objects.create(
+                        user=user,
+                        title=notif_title,
+                        message=insight,
+                        type=notif_type
+                    )
+                    
+                    # Generate Dynamic Business Pulse Digest
+                    try:
+                        df_sample = df.head(100).to_dict(orient='records')
+                        sample_str = json.dumps(df_sample, ensure_ascii=False)
+                        ai_service.generate_weekly_digest_for_user(sample_str, user)
+                    except Exception as digest_err:
+                        print(f"Error generating dynamic digest: {digest_err}")
+                else:
+                    Notification.objects.create(
+                        user=user,
+                        title="اكتمل تحليل الملف",
+                        message="تم حفظ بياناتك بنجاح.",
+                        type="success"
+                    )
+            except Exception as e:
+                print(f"Error generating notification: {e}")
                 Notification.objects.create(
-                    user=request.user,
-                    title=notif_title,
-                    message=insight,
-                    type=notif_type
-                )
-                
-                # Generate Dynamic Business Pulse Digest
-                try:
-                    import json
-                    df_sample = df.head(100).to_dict(orient='records')
-                    sample_str = json.dumps(df_sample, ensure_ascii=False)
-                    ai_service.generate_weekly_digest_for_user(sample_str, request.user)
-                except Exception as digest_err:
-                    print(f"Error generating dynamic digest: {digest_err}")
-            else:
-                Notification.objects.create(
-                    user=request.user,
-                    title="اكتمل تحليل الملف",
-                    message="تم حفظ بياناتك بنجاح.",
+                    user=user,
+                    title="تم رفع الملف بنجاح",
+                    message="لوحات التحكم والتحليلات التنبؤية جاهزة للاستعراض.",
                     type="success"
                 )
-        except Exception as e:
-            print(f"Error generating notification: {e}")
-            Notification.objects.create(
-                user=request.user,
-                title="تم رفع الملف بنجاح",
-                message="لوحات التحكم والتحليلات التنبؤية جاهزة للاستعراض.",
-                type="success"
-            )
+
+        threading.Thread(target=bg_ai_tasks, args=(request.user, project_file.excel_file.path), daemon=True).start()
 
         messages.success(request, "تم رفع وتحليل المستند بنجاح! / File uploaded and analyzed successfully!")
         return redirect('dashboard')
