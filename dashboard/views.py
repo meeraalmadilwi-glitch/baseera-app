@@ -2570,7 +2570,8 @@ def api_apply_agent_decision(request):
             # 3. Add to Agent Memory
             AgentMemory.objects.create(
                 user=request.user,
-                content=f"قرار معتمد: {plan_title} - الإجراء: {action_payload}"
+                content=f"قرار معتمد: {plan_title} - الإجراء: {action_payload}",
+                embedding=[]
             )
 
             # 4. Update or append to Weekly Digest Action Plan

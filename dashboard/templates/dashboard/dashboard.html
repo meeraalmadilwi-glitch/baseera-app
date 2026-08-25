@@ -930,7 +930,7 @@
         revenueChartInstance = new Chart(ctx, {
           type: 'line',
           data: { 
-            labels: revenue.labels, 
+            labels: (revenue.labels || []).map(fixArabicVisualText), 
             datasets: [{ 
               data: revenue.data, 
               borderColor: '#7c6cf0', 
@@ -1052,7 +1052,7 @@
       channelChartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: { 
-          labels: channel.labels, 
+          labels: (channel.labels || []).map(fixArabicVisualText), 
           datasets: [{ 
             data: channel.data, 
             backgroundColor: PIE_HEX, 
@@ -1117,7 +1117,7 @@
       topChartInstance = new Chart(ctx, {
         type: 'bar',
         data: { 
-          labels: top.labels, 
+          labels: (top.labels || []).map(fixArabicVisualText), 
           datasets: [{ 
             data: top.data, 
             backgroundColor: barColors, 
@@ -1243,7 +1243,7 @@
         const actual = forecast.actual || demo.forecast.actual;
         const fc = forecast.forecast || demo.forecast.forecast;
 
-        const labels = [...actualLabels, ...forecastLabels.slice(1)];
+        const labels = [...actualLabels, ...forecastLabels.slice(1)].map(fixArabicVisualText);
         const actualData = [...actual, ...Array(Math.max(0, forecastLabels.length - 1)).fill(null)];
         const forecastData = [...Array(Math.max(0, actualLabels.length - 1)).fill(null), ...fc];
         const ctx = forecastEl.getContext('2d');
