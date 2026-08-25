@@ -76,7 +76,7 @@ class Profile(models.Model):
         if not start_date:
             days_passed = 0
         else:
-            days_passed = (now - start_date).days
+            days_passed = max(0, (now.date() - start_date.date()).days)
 
         days_remaining = max(0, 14 - days_passed)
         percentage_remaining = min(100, max(0, int((days_remaining / 14.0) * 100)))
