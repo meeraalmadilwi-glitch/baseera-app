@@ -442,7 +442,14 @@ def agents_hub(request):
 
 @login_required
 def dashboard(request):
-    if (request.user.is_staff or request.user.is_superuser or request.user.username == "admin") and not request.session.get("impersonated_from"):
+    view_mode = request.GET.get("view")
+    if view_mode == "user":
+        request.session["admin_view_mode"] = "user"
+    elif view_mode == "admin":
+        request.session.pop("admin_view_mode", None)
+        return redirect("admin_dashboard")
+
+    if (request.user.is_staff or request.user.is_superuser or request.user.username == "admin") and not request.session.get("impersonated_from") and request.session.get("admin_view_mode") != "user":
         return redirect("admin_dashboard")
 
     profile, _ = Profile.objects.get_or_create(user=request.user)

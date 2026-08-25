@@ -81,7 +81,7 @@
         <div class="mt-2 mb-1 px-2 text-[10px] font-semibold tracking-wider text-white/40 uppercase">
             {% if trans.lang_code == 'ar' %}الإدارة (ADMIN){% else %}ADMIN{% endif %}
         </div>
-        <a href="{% url 'admin_dashboard' %}" class="nav-item {% if active_page == 'admin' %}active{% endif %} flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs font-medium {% if active_page == 'admin' %}text-white{% else %}text-white/70{% endif %}">
+        <a href="{% url 'admin_dashboard' %}?view=admin" class="nav-item {% if active_page == 'admin' %}active{% endif %} flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs font-medium {% if active_page == 'admin' %}text-white{% else %}text-white/70{% endif %}">
             <i data-lucide="shield-check" class="h-4 w-4 text-sky-400"></i> 
             <span>{% if trans.lang_code == 'ar' %}لوحة الإشراف (Super Admin){% else %}Super Admin{% endif %}</span>
         </a>

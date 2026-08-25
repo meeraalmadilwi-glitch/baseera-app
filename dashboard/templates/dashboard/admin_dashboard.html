@@ -83,6 +83,12 @@
                 <span>{% if trans.lang_code == 'ar' %}إعدادات الحساب (Settings){% else %}Settings{% endif %}</span>
             </button>
 
+            <!-- Link to Workspace Dashboard -->
+            <a href="{% url 'dashboard' %}?view=user" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-[#7c6cf0] dark:text-purple-300 hover:bg-[#7c6cf0]/10 font-bold text-xs transition-all border border-[#7c6cf0]/30 mt-1">
+                <i data-lucide="layout" class="w-4 h-4"></i>
+                <span>{% if trans.lang_code == 'ar' %}عرض لوحة المستخدمين{% else %}View User Workspace{% endif %}</span>
+            </a>
+
             <!-- 3. Calendar Card (Light Glass Widget) -->
             <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-[24px] p-4 text-slate-800 dark:text-slate-100 shadow-md border border-white/90 dark:border-slate-700 mt-2 flex flex-col gap-2">
                 <div class="flex items-center justify-between">
