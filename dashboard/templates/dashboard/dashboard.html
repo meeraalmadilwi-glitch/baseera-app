@@ -126,36 +126,6 @@
                     
                     <!-- KPI Cards Grid (Row of 4: 1. Total Sales, 2. Avg Sales, 3. Records, 4. Financial Waste) -->
                     <div id="kpiGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10 mb-4"></div>
-
-                    <!-- Decision Platform Live Sync Widget -->
-                    {% if files %}
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10 mt-6" id="decisionPlatformContainer">
-                        <div class="rounded-2xl p-6 glass shadow-sm relative overflow-hidden transition-all duration-500" id="supplyChainRiskCard">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="flex items-center gap-2">
-                                    <i data-lucide="activity" class="h-4.5 w-4.5 text-rose-500" id="riskIcon"></i>
-                                    <span class="text-sm font-extrabold text-ink">{% if trans.lang_code == 'ar' %}منصة القرارات: تكاليف سلاسل الإمداد{% else %}Decision Platform: Supply Chain Costs{% endif %}</span>
-                                </div>
-                                <span id="agentBadge" class="hidden text-[10px] bg-[var(--glow)]/10 text-[var(--glow)] px-2 py-1 rounded-full font-bold animate-pulse">
-                                    <i class="fa-solid fa-bolt me-1"></i>تم التعديل بواسطة الذكاء الاصطناعي
-                                </span>
-                            </div>
-                            
-                            <div class="flex items-baseline justify-between mb-1.5">
-                                <span class="text-2xl font-black text-rose-600 dark:text-rose-400 transition-colors duration-700" id="metricValueDisplay">
-                                    +15%
-                                </span>
-                                <span class="text-xs font-semibold text-rose-600 bg-rose-100 px-2 py-1 rounded-md transition-colors duration-700" id="riskStatusDisplay">
-                                    خطر مرتفع (تجاوز الميزانية)
-                                </span>
-                            </div>
-                            
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                                يمكنك استشارة "بصيرة" لحل هذه المشكلة من خلال نافذة الدردشة وتطبيق التوصية مباشرة.
-                            </p>
-                        </div>
-                    </div>
-                    {% endif %}
                     
                     <script>
                         // Listen for agent decisions applied via Ask Baseera iframe
@@ -165,6 +135,7 @@
                             
                             if (payload.includes("RESOLVE_RISK") || payload.includes("UPDATE_DECISION_METRIC")) {
                                 const card = document.getElementById('supplyChainRiskCard');
+                                if (!card) return;
                                 const icon = document.getElementById('riskIcon');
                                 const valDisplay = document.getElementById('metricValueDisplay');
                                 const statusDisplay = document.getElementById('riskStatusDisplay');
