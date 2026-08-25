@@ -653,19 +653,23 @@ def download_plan_api(request, plan_id):
         from django.http import HttpResponse
         import os
         import re
+        import urllib.parse
         from django.conf import settings
         
         plan = ApprovedPlan.objects.get(id=plan_id, user=request.user)
-        full_path = os.path.join(settings.BASE_DIR, plan.file_path)
+        raw_content = ""
         
-        if not os.path.exists(full_path):
-            full_path = os.path.join(settings.MEDIA_ROOT, plan.file_path.replace('sandbox/', ''))
+        if plan.file_path and plan.file_path.strip():
+            full_path = os.path.join(settings.BASE_DIR, plan.file_path)
+            if not os.path.isfile(full_path):
+                full_path = os.path.join(settings.MEDIA_ROOT, plan.file_path.replace('sandbox/', ''))
             
-        if os.path.exists(full_path):
-            with open(full_path, 'r', encoding='utf-8') as f:
-                raw_content = f.read()
-        else:
-            raw_content = plan.justification or "تم اعتماد الخطة التنفيذية بناءً على مراجعة مؤشرات الأداء والبيانات المالية."
+            if os.path.isfile(full_path):
+                with open(full_path, 'r', encoding='utf-8', errors='replace') as f:
+                    raw_content = f.read()
+
+        if not raw_content:
+            raw_content = plan.justification or "خطة عمل استراتيجية وتوصية تنفيذية معتمدة عبر منصة بصيرة للذكاء الاصطناعي."
 
         # Clean all internal simulation and agent tags
         cleaned = re.sub(r'<internal_simulation>.*?</internal_simulation>', '', raw_content, flags=re.DOTALL)
@@ -687,36 +691,43 @@ def download_plan_api(request, plan_id):
 
         formatted_lines = [
             "=" * 72,
-            "                    منصة بصيرة للذكاء الاصطناعي",
+            "               وثيقة الخطة التنفيذية والقرار المعتمد",
             f"                     {plan.file_name}",
             "=" * 72,
-            f"تاريخ الاعتماد: {created_str}",
-            f"المستخدم: {request.user.username}",
+            f"تاريخ ووقت الاعتماد: {created_str}",
+            f"المستخدم المعتمد: {request.user.username}",
         ]
 
         if plan.justification:
             formatted_lines.extend([
-                f"سبب وملاحظات الاعتماد: {plan.justification}",
+                f"المبرر الاستراتيجي والبيان: {plan.justification}",
             ])
 
         formatted_lines.extend([
+            "-" * 72,
+            "تفاصيل الخطة وإجراءات التنفيذ:",
             "-" * 72,
             "",
             body_text,
             "",
             "=" * 72,
-            "تم توثيق وتصدير هذه الخطة التنفيذية رسمياً عبر منصة بصيرة (Baseera.om)",
-            "جميع الحقوق محفوظة © 2026",
+            "تم التوثيق والاعتماد بواسطة: منصة بصيرة لإدارة الأعمال والذكاء الاصطناعي (Baseera.om)",
+            "جميع الحقوق محفوظة 2026",
             "=" * 72,
         ])
 
         final_content = "\n".join(formatted_lines)
         response = HttpResponse(final_content, content_type='text/plain; charset=utf-8')
-        safe_plan_name = plan.file_name.replace(" ", "_").replace("/", "_")
-        response['Content-Disposition'] = f'attachment; filename="{safe_plan_name}_approved_plan.txt"'
+        
+        ascii_filename = f"approved_plan_{plan.id}.txt"
+        safe_name = re.sub(r'[^\w\s-]', '', plan.file_name or 'plan').strip().replace(' ', '_')
+        encoded_filename = urllib.parse.quote(f"{safe_name}_approved_plan.txt")
+        response['Content-Disposition'] = f"attachment; filename=\"{ascii_filename}\"; filename*=UTF-8''{encoded_filename}"
         return response
     except Exception as e:
-        return HttpResponse("Error downloading file", status=500)
+        import traceback
+        traceback.print_exc()
+        return HttpResponse(f"Error downloading file: {str(e)}", status=500)
 
 @login_required
 @csrf_exempt
