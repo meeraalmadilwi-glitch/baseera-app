@@ -17,6 +17,8 @@ urlpatterns = [
     path("impersonate/<int:user_id>/", views.impersonate_user, name="impersonate_user"),
     path("stop-impersonate/", views.stop_impersonate, name="stop_impersonate"),
     path("datasets/delete/<int:file_id>/", views.delete_dataset, name="delete_dataset"),
+    path("export-excel/", views.export_excel_report, name="export_excel_report"),
+    path("export-note/", views.export_note_report, name="export_note_report"),
 
     path("reports/", views.reports, name="reports"),
     path("chat-history/", views.chat_history_view, name="chat_history"),
