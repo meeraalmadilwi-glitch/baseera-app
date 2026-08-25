@@ -451,10 +451,17 @@ def dashboard(request):
     latest_file_json = None
     if files.exists():
         file_id = request.GET.get("file_id")
-        if file_id:
+        
+        # If no file_id is provided, default to workspace summary ("all")
+        if not file_id:
+            file_id = "all"
+        
+        # Optional: Keep session updated if they did provide a specific file_id
+        if file_id != "all":
             request.session["active_file_id"] = file_id
         else:
-            file_id = request.session.get("active_file_id")
+            if "active_file_id" in request.session:
+                del request.session["active_file_id"]
 
         if file_id == "all" or str(file_id) == "all":
             latest = None
