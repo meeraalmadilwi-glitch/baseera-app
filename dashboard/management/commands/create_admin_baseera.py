@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Creates the baseera admin user if it does not exist'
 
     def handle(self, *args, **kwargs):
-        email = 'bsseera.ai0@gmail.com'
+        email = 'baseera.ai0@gmail.com'
         username = 'admin_baseera'
         password = 'AdminBaseera2026!'
         
