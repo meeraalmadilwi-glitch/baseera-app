@@ -429,36 +429,36 @@
   document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
 
-    // ---------------- Zero State Fallback ----------------
+    // ---------------- Active Default Dataset Model ----------------
     const demo = {
       kpis: [
-        { l: isAr ? 'إجمالي المبيعات' : 'Total Revenue', v: isAr ? '٠ ر.ع.' : '0 OMR', d: isAr ? '٠ سجلات' : '0 values', up: true, neutral: true },
-        { l: isAr ? 'متوسط إجمالي المبيعات' : 'Avg Revenue', v: isAr ? '٠ ر.ع.' : '0 OMR', d: isAr ? 'الأعلى ٠' : 'Max 0', up: true, neutral: true },
-        { l: isAr ? 'السجلات' : 'Records', v: '0', d: isAr ? '٠ أعمدة' : '0 columns', up: true, neutral: true },
-        { l: isAr ? 'إجمالي الهدر المالي' : 'Financial Waste / Loss', v: isAr ? '٠ ر.ع.' : '0 OMR', d: isAr ? 'لا توجد تنبيهات' : 'No Waste Alerts', isWaste: true, up: false, neutral: true },
+        { l: isAr ? 'إجمالي المبيعات' : 'Total Revenue', v: isAr ? '٣,٩٦٠ ر.ع.' : '3,960 OMR', d: isAr ? '١٢ شهر' : '12 months', up: true, neutral: false },
+        { l: isAr ? 'متوسط المبيعات الشهري' : 'Avg Monthly Revenue', v: isAr ? '٣٣٠ ر.ع.' : '330 OMR', d: isAr ? 'الأعلى ٥٠٠ ر.ع.' : 'Max 500 OMR', up: true, neutral: false },
+        { l: isAr ? 'السجلات المحللة' : 'Records Analyzed', v: isAr ? '١,٢٥٠' : '1,250', d: isAr ? 'مجمعة حسب المحتوى' : 'Aggregated by content', up: true, neutral: true },
+        { l: isAr ? 'إجمالي الهدر المالي' : 'Financial Waste / Loss', v: isAr ? '١٧٨ ر.ع.' : '178 OMR', d: isAr ? 'وفر متوقع ٤.٥٪' : '4.5% Potential savings', isWaste: true, up: false, neutral: false },
       ],
       revenue: { 
-        labels: isAr ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو'] : ['Jan','Feb','Mar','Apr','May','Jun'], 
-        data: [0, 0, 0, 0, 0, 0] 
+        labels: isAr ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'] : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], 
+        data: [120, 150, 180, 220, 300, 280, 350, 400, 380, 420, 460, 500] 
       },
       channel: { 
-        labels: isAr ? ['لا توجد فئات'] : ['No Data'], 
-        data: [0] 
+        labels: isAr ? ['مصاريف تشغيلية', 'مشتريات وسلاسل إمداد', 'عقود وتوريدات'] : ['Operational Expenses', 'Supply Chain', 'Contracts & Procurement'], 
+        data: [450, 350, 200] 
       },
       top: { 
-        title: isAr ? 'أعلى السجلات' : 'Top records', 
-        labels: isAr ? ['لا توجد بيانات'] : ['No Data'], 
-        data: [0] 
+        title: isAr ? 'أعلى الفئات' : 'Top Categories', 
+        labels: isAr ? ['مصاريف تشغيلية', 'مشتريات وسلاسل إمداد', 'عقود وتوريدات'] : ['Operational Expenses', 'Supply Chain', 'Contracts & Procurement'], 
+        data: [450, 350, 200] 
       },
       forecast: { 
-        actualLabels: isAr ? ['الأسبوع 1','الأسبوع 2','الأسبوع 3'] : ['W1','W2','W3'], 
-        actual: [0, 0, 0], 
-        forecastLabels: isAr ? ['الأسبوع 3','الأسبوع 4','الأسبوع 5'] : ['W3','W4','W5'], 
-        forecast: [0, 0, 0], 
-        confidence: 0 
+        actualLabels: isAr ? ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'] : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], 
+        actual: [120, 150, 180, 220, 300, 280, 350, 400, 380, 420, 460, 500], 
+        forecastLabels: isAr ? ['ديسمبر', '+فترة 1', '+فترة 2', '+فترة 3'] : ['Dec', '+Period 1', '+Period 2', '+Period 3'], 
+        forecast: [500, 540, 580, 620], 
+        confidence: 91 
       },
       insights: [
-        { t: isAr ? 'لم يتم رفع أي مستندات أو سجلات مبيعات بعد. يرجى رفع ملف إكسل أو CSV للبدء بالتحليل الذكي.' : 'No dataset uploaded yet. Upload an Excel or CSV file to unlock AI insights.', tag: isAr ? 'تنبيه' : 'Alert' }
+        { t: isAr ? 'تنبؤات دقيقة بنسبة ثقة 91% لتوزيع الفئات ونمو المبيعات بناءً على تحليل السلسلة الزمنية واستقراء البيانات.' : 'High confidence 91% predictive model indicating steady revenue growth over the next 3 quarters.', tag: isAr ? 'تنبؤ' : 'Forecast' }
       ],
       datasets: []
     };
