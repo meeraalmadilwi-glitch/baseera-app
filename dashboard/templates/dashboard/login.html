@@ -109,6 +109,13 @@
         <div class="mt-8 text-center text-sm text-slate-600 dark:text-slate-400 animate-fade-up" style="animation-delay: 300ms;">
             {{ trans.no_account }} <a href="{% url 'register' %}" class="font-bold text-[#181C80] hover:underline transition-colors">{{ trans.register_now }}</a>
         </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-700/60 text-center animate-fade-up" style="animation-delay: 350ms;">
+            <a href="{% url 'admin_login' %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#181C80]/10 dark:bg-white/10 hover:bg-[#181C80]/20 text-xs font-black text-[#181C80] dark:text-purple-300 transition-all border border-[#181C80]/20 dark:border-white/15 shadow-sm">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-500"></i>
+                <span>{% if trans.lang_code == 'ar' %}بوابة دخول المشرفين (Super Admin){% else %}Super Admin Portal{% endif %}</span>
+            </a>
+        </div>
     </div>
 </div>
 

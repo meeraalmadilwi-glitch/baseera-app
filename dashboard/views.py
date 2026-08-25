@@ -150,6 +150,41 @@ def user_login(request):
 
     return render(request, "dashboard/login.html")
 
+
+def admin_login(request):
+    if request.user.is_authenticated:
+        if request.user.is_staff or request.user.is_superuser or request.user.username == "admin":
+            return redirect("admin_dashboard")
+        messages.warning(request, "أنت مسجل كحساب مستخدم عادي. يرجى تسجيل الدخول بحساب مسؤول للوصول إلى لوحة الإدارة.")
+        return redirect("dashboard")
+
+    if request.method == "POST":
+        login_input = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
+
+        user = authenticate(request, username=login_input, password=password)
+        if user is None and "@" in login_input:
+            user_obj = User.objects.filter(email=login_input).first()
+            if user_obj:
+                user = authenticate(request, username=user_obj.username, password=password)
+
+        if user is not None:
+            if user.is_staff or user.is_superuser or user.username == "admin":
+                login(request, user)
+                SystemLog.objects.create(
+                    user=user,
+                    action_type="تسجيل دخول الإدارة / Admin Login",
+                    details=f"قام مدير النظام {user.username} بتسجيل الدخول إلى بوابة المشرف."
+                )
+                messages.success(request, f"مرحباً بك يا مدير النظام {user.username}! تم تفعيل لوحة الإشراف.")
+                return redirect("admin_dashboard")
+            else:
+                messages.error(request, "عذراً، هذا الحساب ليس لديه صلاحيات الإدارة (Super Admin). يرجى الدخول من بوابة المستخدمين والشركات.")
+        else:
+            messages.error(request, "خطأ في بيانات الاعتماد. يرجى التأكد من اسم مستخدم الإدارة وكلمة المرور.")
+
+    return render(request, "dashboard/admin_login.html")
+
 def social_login_dummy(request, provider):
     if request.user.is_authenticated:
         return redirect("dashboard")

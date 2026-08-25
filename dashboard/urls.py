@@ -31,6 +31,7 @@ urlpatterns = [
     path("save-manual-note/", views.save_manual_note, name="save_manual_note"),
     
     # Admin links
+    path("admin-login/", views.admin_login, name="admin_login"),
     path("admin-dashboard/", views.admin_dashboard, name="admin_dashboard"),
     path("admin-settings/", views.admin_settings, name="admin_settings"),
     path("admin-logs/", views.admin_logs, name="admin_logs"),
