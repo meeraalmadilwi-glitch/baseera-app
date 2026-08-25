@@ -62,21 +62,21 @@
                     <div class="h-44 relative">
                         <canvas id="heroChart"></canvas>
                     </div>
-                    <div class="mt-4 grid grid-cols-3 gap-3 text-center">
-                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-3 shadow-xs">
-                            <div class="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground">{% if trans.lang_code == 'ar' %}العملاء{% else %}Customers{% endif %}</div>
-                            <div class="mt-0.5 text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}١,٢٨٤{% else %}1,284{% endif %}</div>
-                            <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">{% if trans.lang_code == 'ar' %}+١٢٪{% else %}+12%{% endif %}</div>
+                    <div class="mt-4 grid grid-cols-3 gap-1.5 sm:gap-3 text-center">
+                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-2 sm:p-3 shadow-xs">
+                            <div class="text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground truncate">{% if trans.lang_code == 'ar' %}العملاء{% else %}Customers{% endif %}</div>
+                            <div class="mt-0.5 text-sm sm:text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}١,٢٨٤{% else %}1,284{% endif %}</div>
+                            <div class="text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400">{% if trans.lang_code == 'ar' %}+١٢٪{% else %}+12%{% endif %}</div>
                         </div>
-                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-3 shadow-xs">
-                            <div class="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground">{% if trans.lang_code == 'ar' %}متوسط الشراء{% else %}AOV{% endif %}</div>
-                            <div class="mt-0.5 text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}٣٧ ر.ع.{% else %}OMR 37{% endif %}</div>
-                            <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">{% if trans.lang_code == 'ar' %}+٤٪{% else %}+4%{% endif %}</div>
+                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-2 sm:p-3 shadow-xs">
+                            <div class="text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground truncate">{% if trans.lang_code == 'ar' %}متوسط الشراء{% else %}AOV{% endif %}</div>
+                            <div class="mt-0.5 text-sm sm:text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}٣٧ ر.ع.{% else %}OMR 37{% endif %}</div>
+                            <div class="text-[10px] sm:text-xs font-bold text-indigo-600 dark:text-indigo-400">{% if trans.lang_code == 'ar' %}+٤٪{% else %}+4%{% endif %}</div>
                         </div>
-                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-3 shadow-xs">
-                            <div class="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground">{% if trans.lang_code == 'ar' %}معدل الفقد{% else %}Churn{% endif %}</div>
-                            <div class="mt-0.5 text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}٢.١٪{% else %}2.1%{% endif %}</div>
-                            <div class="text-xs font-bold text-rose-500">{% if trans.lang_code == 'ar' %}-٠.٦٪{% else %}-0.6%{% endif %}</div>
+                        <div class="rounded-2xl border border-slate-200/70 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 p-2 sm:p-3 shadow-xs">
+                            <div class="text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground truncate">{% if trans.lang_code == 'ar' %}معدل الفقد{% else %}Churn{% endif %}</div>
+                            <div class="mt-0.5 text-sm sm:text-lg font-black text-ink num">{% if trans.lang_code == 'ar' %}٢.١٪{% else %}2.1%{% endif %}</div>
+                            <div class="text-[10px] sm:text-xs font-bold text-rose-500">{% if trans.lang_code == 'ar' %}-٠.٦٪{% else %}-0.6%{% endif %}</div>
                         </div>
                     </div>
                 </div>
