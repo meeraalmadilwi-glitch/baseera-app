@@ -748,14 +748,13 @@ def delete_plan_api(request, plan_id):
     return JsonResponse({"status": "invalid_method"}, status=405)
 
 
-@login_required
 @csrf_exempt
 def charts_engine_api(request):
     """
     Data Visualization Engine and Backend AI Agent API.
     Processes the raw dataset and returns structured JSON for:
-    - Section 1: "رقم السطر حسب المحتوى" (Content Aggregation Line/Area Chart)
-    - Section 2: "التنبؤ والتحليلات" (Predictions & Analytics - Forecast & Pie Chart)
+    - Section 1 / line_chart_card: "رقم السطر حسب المحتوى" (Content Aggregation Line/Area Chart)
+    - Section 2 / pie_chart_card: "التنبؤ والتحليلات" (Predictions & Analytics - Forecast & Pie Chart)
     """
     import json, math
     import pandas as pd
@@ -770,39 +769,39 @@ def charts_engine_api(request):
             pass
 
     # 1. Fetch user records
-    user = request.user
-    records_qs = DynamicRecord.objects.filter(user=user)
-    records = list(records_qs.values_list('row_data', flat=True)[:5000])
+    user = request.user if request.user.is_authenticated else None
+    records = []
+    if user:
+        records_qs = DynamicRecord.objects.filter(user=user)
+        records = list(records_qs.values_list('row_data', flat=True)[:5000])
 
     # Default fallback data if no records uploaded yet
-    months_1y = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    months_ar = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+    months_1y = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
     
     if time_filter == "1M":
-        labels = [f"Day {i}" for i in range(1, 31)]
-        base_series = [120 + int(15 * math.sin(i)) for i in range(30)]
+        labels = [f"يوم {i}" for i in range(1, 31)]
+        base_series = [15 + int(5 * math.sin(i)) for i in range(30)]
     elif time_filter == "3M":
-        labels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"]
-        base_series = [180 + i * 25 for i in range(12)]
+        labels = [f"أسبوع {i}" for i in range(1, 13)]
+        base_series = [20 + i * 8 for i in range(12)]
     elif time_filter == "6M":
         labels = months_1y[:6]
-        base_series = [220, 260, 310, 340, 390, 430]
+        base_series = [35, 48, 62, 75, 88, 105]
     else:  # 1Y or All
         labels = months_1y
-        base_series = [120, 150, 180, 220, 300, 280, 350, 400, 380, 420, 460, 500]
+        base_series = [15, 22, 35, 40, 52, 60, 48, 70, 85, 91, 105, 120]
 
     # Process actual records if available
     categories_dist = [
-        {"category": "مصاريف تشغيلية", "percentage": 45, "value": 450},
-        {"category": "مشتريات وسلاسل إمداد", "percentage": 35, "value": 350},
-        {"category": "عقود وتوريدات", "percentage": 20, "value": 200}
+        {"category": "مصاريف تشغيلية", "percentage": 45, "value": 450, "color_hex": "#6366F1"},
+        {"category": "مشتريات وسلاسل إمداد", "percentage": 35, "value": 350, "color_hex": "#8B5CF6"},
+        {"category": "عقود وتوريدات", "percentage": 20, "value": 200, "color_hex": "#EC4899"}
     ]
     confidence_rate = 91
 
     if records and len(records) > 0:
         try:
             df = pd.DataFrame(records)
-            # Find category column
             cat_col = None
             for c in df.columns:
                 if any(k in str(c).lower() for k in ['category', 'فئة', 'نوع', 'تصنيف', 'type']):
@@ -814,18 +813,22 @@ def charts_engine_api(request):
             if cat_col:
                 val_counts = df[cat_col].value_counts().head(5)
                 total_cnt = val_counts.sum() or 1
+                palette = ["#6366F1", "#8B5CF6", "#EC4899", "#10B981", "#F59E0B"]
                 categories_dist = []
-                for cat_name, cnt in val_counts.items():
+                for idx, (cat_name, cnt) in enumerate(val_counts.items()):
                     pct = round((cnt / total_cnt) * 100)
                     categories_dist.append({
                         "category": str(cat_name),
+                        "label": str(cat_name),
                         "percentage": pct,
-                        "value": int(cnt)
+                        "value": int(cnt),
+                        "color_hex": palette[idx % len(palette)]
                     })
         except Exception as e:
             pass
 
     response_payload = {
+        "status": "success",
         "section_1_chart": {
             "filter": time_filter,
             "labels": labels,
@@ -842,6 +845,33 @@ def charts_engine_api(request):
             "confidence_rate": confidence_rate,
             "categories_distribution": categories_dist,
             "summary_insight": f"تنبؤات دقيقة بنسبة ثقة {confidence_rate}% لتوزيع الفئات بناءً على تحليل السلسلة الزمنية واستقراء البيانات."
+        },
+        "data": {
+            "line_chart_card": {
+                "title": "رقم السطر حسب المحتوى",
+                "selected_filter": time_filter,
+                "x_axis_labels": labels,
+                "datasets": [
+                    {
+                        "label": "مجمعة حسب المحتوى",
+                        "data_points": base_series
+                    }
+                ]
+            },
+            "pie_chart_card": {
+                "title": "التنبؤ والتحليلات",
+                "active_view": "forecast",
+                "chart_type": "pie",
+                "confidence_score": confidence_rate,
+                "slices": [
+                    {
+                        "label": c.get("label", c.get("category")),
+                        "value": c.get("value"),
+                        "percentage": c.get("percentage"),
+                        "color_hex": c.get("color_hex", "#6366F1")
+                    } for c in categories_dist
+                ]
+            }
         }
     }
 
