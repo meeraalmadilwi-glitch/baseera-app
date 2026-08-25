@@ -2141,19 +2141,28 @@ function getCookie(name) {
 function executeAgentAction(btn, actionPayload) {
     if(!actionPayload) return;
     
-    // Show loading state on the button
+    // Extract the full plan content from the parent message bubble
+    let planContent = '';
+    const bubble = btn.closest('.chat-bubble-bot') || btn.closest('.markdown-content') || btn.closest('.flex-col') || btn.parentElement;
+    if (bubble) {
+        const clone = bubble.cloneNode(true);
+        clone.querySelectorAll('button, svg, i, script').forEach(el => el.remove());
+        planContent = (clone.innerText || clone.textContent || '').trim();
+    }
     
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري التطبيق...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري الاعتماد وتوثيق الخطة...';
     btn.style.pointerEvents = 'none';
 
     fetch('/api/dashboard/apply-agent-decision/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') // assuming getCookie is globally available
+            'X-CSRFToken': getCookie('csrftoken')
         },
-        body: JSON.stringify({ action_payload: actionPayload })
+        body: JSON.stringify({
+            action_payload: actionPayload,
+            plan_content: planContent
+        })
     })
     .then(res => res.json())
     .then(data => {
@@ -2163,21 +2172,20 @@ function executeAgentAction(btn, actionPayload) {
             btn.classList.replace('border-[var(--glow)]/30', 'border-emerald-500/30');
             btn.classList.replace('bg-[var(--glow)]/10', 'bg-emerald-500/10');
             
-            // Broadcast event to parent window if inside iframe, or directly to document
             const eventPayload = { detail: { action: actionPayload, result: data } };
             window.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
             if (window.parent) {
                 window.parent.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
             }
         } else {
-            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + data.message;
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + (data.message || 'حدث خطأ');
             btn.classList.replace('text-[var(--glow)]', 'text-rose-500');
             btn.style.pointerEvents = 'auto';
         }
     })
     .catch(err => {
         console.error('Error applying decision:', err);
-        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>خطأ في الاتصال';
+        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>تعذر الاتصال بالخادم';
         btn.style.pointerEvents = 'auto';
     });
 }

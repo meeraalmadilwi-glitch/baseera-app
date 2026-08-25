@@ -2515,74 +2515,86 @@ def api_apply_agent_decision(request):
     """
     if request.method == "POST":
         try:
-            import json
+            import json, os, datetime, re
+            from django.conf import settings
             from .models import ApprovedPlan, Notification, AgentMemory, AnomalyAlert, WeeklyDigest
+            
             data = json.loads(request.body)
             action_payload = data.get("action_payload", "")
-            
+            plan_content = data.get("plan_content", "").strip()
+            custom_title = data.get("plan_title", "").strip()
+
             # Determine plan title and details
-            if "waste" in action_payload.lower() or "audit" in action_payload.lower():
-                plan_title = "استراتيجية التدقيق وضبط وتقليص الهدر المالي"
-                justification = "تم اعتماد التوصية التنفيذية لخفض الهدر التشغيلي ومراقبة فواتير المشتريات وسلاسل الإمداد بنجاح."
+            if custom_title:
+                plan_title = custom_title
+            elif "waste" in action_payload.lower() or "audit" in action_payload.lower():
+                plan_title = "خطة معالجة الهدر والتدقيق المالي"
             elif "pricing" in action_payload.lower():
-                plan_title = "استراتيجية التسعير الديناميكي وتعظيم هوامش الأرباح"
-                justification = "تم اعتماد التوصية التنفيذية لهيكلة الأسعار وحزم العروض وحماية هوامش الربحية الصافية."
-            elif "finance" in action_payload.lower():
-                plan_title = "خطة الانضباط المالي وإدارة التدفقات النقدية"
-                justification = "تم اعتماد خطة خفض التكاليف الثابتة والمتغيرة وتحسين دورة رأس المال العامل."
-            elif "retention" in action_payload.lower():
-                plan_title = "استراتيجية ولاء واستعادة العملاء ورفع القيمة الدائمة"
-                justification = "تم اعتماد خطة تنشيط العملاء المنقطعين وزيادة معدل تكرار الشراء."
+                plan_title = "خطة تحسين هيكل وهوامش التسعير"
+            elif "finance" in action_payload.lower() or "cash" in action_payload.lower():
+                plan_title = "خطة ضبط السيولة والتدفق النقدي"
+            elif "retention" in action_payload.lower() or "churn" in action_payload.lower():
+                plan_title = "خطة تعزيز ولاء العملاء والاحتفاظ"
+            elif "supply" in action_payload.lower() or "inventory" in action_payload.lower():
+                plan_title = "خطة إدارة المخزون وسلاسل الإمداد"
             else:
                 plan_title = "الخطة الاستراتيجية المعتمدة لتحسين الأداء"
-                justification = "تم اعتماد التوصية التنفيذية ونقلها إلى منصة القرارات والمستندات لمتابعة التنفيذ الفوري."
+
+            justification = f"تم اعتماد الخطة التنفيذية بناءً على مخرجات التحليل الذكي وموافقة الإدارة لمتابعة التنفيذ الفوري."
+
+            # Save full detailed plan text to file in sandbox/approved_plans
+            plans_dir = os.path.join(settings.BASE_DIR, 'sandbox', 'approved_plans')
+            os.makedirs(plans_dir, exist_ok=True)
+            timestamp_str = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+            file_rel_path = f"sandbox/approved_plans/plan_{request.user.id}_{timestamp_str}.txt"
+            full_file_path = os.path.join(settings.BASE_DIR, file_rel_path)
+
+            final_body_text = plan_content if plan_content else justification
+            with open(full_file_path, "w", encoding="utf-8") as pf:
+                pf.write(final_body_text)
 
             # 1. Save to Approved Plans
             approved_plan = ApprovedPlan.objects.create(
                 user=request.user,
                 file_name=plan_title,
-                file_path="",
+                file_path=file_rel_path,
                 justification=justification
             )
 
             # 2. Add Notification
             Notification.objects.create(
                 user=request.user,
-                title=f"✅ تم تفعيل: {plan_title}",
-                message=justification,
-                type="success"
+                message=f"تم اعتماد قرار تنفيذي جديد: {plan_title}"
             )
 
-            # 3. Save to Agent Memory
+            # 3. Add to Agent Memory
             AgentMemory.objects.create(
                 user=request.user,
-                content=f"{plan_title}: {justification}",
-                embedding=[0.0] * 768
+                content=f"قرار معتمد: {plan_title} - الإجراء: {action_payload}"
             )
 
-            # 4. Resolve any pending anomaly alerts of related type or mark as resolved
-            anomalies = AnomalyAlert.objects.filter(user=request.user, is_dismissed=False)
-            if anomalies.exists():
-                anomalies.first().delete()
+            # 4. Update or append to Weekly Digest Action Plan
+            weekly_digest = WeeklyDigest.objects.filter(user=request.user).order_by('-created_at').first()
+            if weekly_digest:
+                if not weekly_digest.action_plan or not isinstance(weekly_digest.action_plan, list):
+                    weekly_digest.action_plan = []
+                new_item = f"✓ [خطة معتمدة] {plan_title}"
+                if new_item not in weekly_digest.action_plan:
+                    weekly_digest.action_plan.insert(0, new_item)
+                    weekly_digest.save()
 
-            # 5. Update / Ensure Weekly Digest has this action plan
-            digest = WeeklyDigest.objects.filter(user=request.user).order_by('-created_at').first()
-            if digest:
-                current_actions = digest.action_plan or []
-                if plan_title not in current_actions:
-                    current_actions.insert(0, f"✅ [معتمدة ومفعلة] {plan_title}")
-                    digest.action_plan = current_actions
-                    digest.save()
+            # 5. Dismiss any matching anomaly alerts if this was a resolution
+            if "waste" in action_payload.lower() or "audit" in action_payload.lower() or "cost" in action_payload.lower():
+                AnomalyAlert.objects.filter(user=request.user, is_dismissed=False).update(is_dismissed=True)
 
             return JsonResponse({
                 "status": "success",
-                "message": "تم تطبيق واعتماد الخطة بنجاح في منصة القرارات!",
+                "message": "تم اعتماد الخطة وتحديث منصة القرارات والمستندات بنجاح!",
                 "plan_id": approved_plan.id,
-                "plan_title": plan_title,
-                "dashboard_url": "/dashboard/",
-                "datasets_url": "/datasets/"
+                "plan_title": plan_title
             })
         except Exception as e:
-            print(f"Error applying agent decision: {e}")
-            return JsonResponse({"status": "error", "message": safe_error_message(str(e))})
-    return JsonResponse({"status": "error", "message": "Invalid request method."})
+            return JsonResponse({"status": "error", "message": safe_error_message(str(e))}, status=500)
+    return JsonResponse({"status": "invalid_method"}, status=405)
+
+
