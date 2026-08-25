@@ -419,8 +419,10 @@
                 </button>
             </div>
 
+            <!-- Quick Agent Selector Bar -->
+            <div id="quickAgentSelectorBar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 mb-1 border-t border-white/30 pt-2"></div>
             <!-- Input -->
-            <div class="flex items-center gap-3 shrink-0 pt-2 border-t border-white/30 relative">
+            <div class="flex items-center gap-3 shrink-0 pt-1 relative">
                 <input type="file" id="chatFileInput" accept=".csv" class="hidden">
                 <button onclick="document.getElementById('chatFileInput').click()"
                     class="grid h-11 w-11 place-items-center rounded-full bg-white/60 text-slate-500 hover:bg-white transition shrink-0 border border-white/60 shadow-sm"
@@ -529,7 +531,7 @@
                     <div class="relative w-full">
                         <i data-lucide="message-square"
                             class="absolute {% if trans.lang_code == 'ar' %}right-4{% else %}left-4{% endif %} top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"></i>
-                        <input id="chatInput" type="text"
+                        <input id="chatInput" type="text" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
                             placeholder="{% if trans.lang_code == 'ar' %}اكتب سؤالك للجنة أو تحدث بالمايكروفون...{% else %}Ask your question to the committee or speak...{% endif %}"
                             class="w-full rounded-2xl border border-white/60 bg-white/60 py-3 {% if trans.lang_code == 'ar' %}pr-11 pl-4{% else %}pl-11 pr-4{% endif %} text-sm outline-none backdrop-blur transition placeholder:text-muted-foreground/60 focus:border-[var(--glow)] focus:ring-4 focus:ring-[var(--glow)]/20 text-{{ trans.align }}" />
                     </div>
@@ -548,11 +550,10 @@
 
 <script>
     window.onerror = function (msg, url, line, col, error) {
-        if (msg.indexOf("ResizeObserver") !== -1) return;
-        alert("JAVASCRIPT ERROR: " + msg + " at line " + line);
+        console.warn("Script log:", msg, "at line", line);
     };
     window.addEventListener('unhandledrejection', function (event) {
-        alert("PROMISE ERROR: " + event.reason);
+        console.warn("Promise log:", event.reason);
     });
     let chatHistory = [];
     let currentSessionId = Date.now();
@@ -645,6 +646,41 @@
             selectedAgentIds.push(agentId);
         }
         syncAgentCheckboxes();
+    }
+
+    
+    function selectSingleAgent(agentId) {
+        selectedAgentIds = [agentId];
+        currentActiveAgent = agentId;
+        syncAgentCheckboxes();
+        renderActiveAgentChips();
+        renderQuickAgentSelectorBar();
+        const menu = document.getElementById('agentMenu');
+        if (menu) menu.classList.add('hidden');
+    }
+
+    function renderQuickAgentSelectorBar() {
+        const bar = document.getElementById('quickAgentSelectorBar');
+        if (!bar) return;
+        bar.innerHTML = '';
+        const isAr = "{% if trans.lang_code == 'ar' %}yes{% endif %}" === "yes";
+
+        Object.keys(ALL_AGENTS).forEach(aid => {
+            const ag = ALL_AGENTS[aid];
+            const isSelected = selectedAgentIds.includes(aid);
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer shadow-xs border ${
+                isSelected 
+                ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-500/25 scale-105' 
+                : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
+            }`;
+            btn.onclick = () => selectSingleAgent(aid);
+            btn.innerHTML = `<i data-lucide="${ag.icon || 'bot'}" class="h-3.5 w-3.5 ${isSelected ? 'text-white' : 'text-indigo-500'}"></i><span>${ag.shortName || ag.name}</span>`;
+            bar.appendChild(btn);
+        });
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function syncAgentCheckboxes() {
