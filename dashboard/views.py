@@ -676,6 +676,9 @@ def dashboard(request):
         
     agent_activity = sorted(agent_activity, key=lambda x: x['date'], reverse=True)[:5]
 
+    from .models import ApprovedPlan
+    approved_plans = ApprovedPlan.objects.filter(user=request.user).order_by('-created_at')[:5]
+
     context = {
         "profile": profile,
         "files": files,
@@ -686,6 +689,7 @@ def dashboard(request):
         "sales_goal": sales_goal,
         "anomaly_alerts": anomaly_alerts,
         "weekly_digest": weekly_digest,
+        "approved_plans": approved_plans,
     }
     return render(request, "dashboard/dashboard.html", context)
 
