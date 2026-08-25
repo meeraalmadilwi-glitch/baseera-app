@@ -1,6 +1,27 @@
 {% extends 'dashboard/base.html' %}
 
-{% block title %}{% if trans.lang_code == 'ar' %}المستندات المرفوعة{% else %}My Documents{% endif %}{% endblock %}
+{% block title %}{% if trans.lang_code == 'ar' %}المستندات المرفوعة{% else %}My Documents{% endif %}
+<script>
+// Highlight and scroll to approved plans if navigated with #approved-plans
+function checkApprovedPlansHash() {
+    if (window.location.hash === '#approved-plans') {
+        const sec = document.getElementById('approved-plans');
+        if (sec) {
+            setTimeout(() => {
+                sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                sec.classList.add('ring-4', 'ring-emerald-400', 'shadow-2xl', 'shadow-emerald-500/20');
+                setTimeout(() => {
+                    sec.classList.remove('ring-4', 'ring-emerald-400', 'shadow-2xl', 'shadow-emerald-500/20');
+                }, 3500);
+            }, 300);
+        }
+    }
+}
+window.addEventListener('DOMContentLoaded', checkApprovedPlansHash);
+window.addEventListener('hashchange', checkApprovedPlansHash);
+</script>
+
+{% endblock %}
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -303,7 +324,7 @@ async function deletePlan(planId) {
         </section>
 
         <!-- Approved Plans Section -->
-        <section class="mt-8 rounded-3xl glass-strong p-6 animate-fade-up relative z-10" style="animation-delay: 200ms;">
+        <section id="approved-plans" class="mt-8 rounded-3xl glass-strong p-6 animate-fade-up relative z-10 transition-all duration-500" style="animation-delay: 200ms;">
             <div class="flex items-center gap-3 mb-6">
                 <div class="h-10 w-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
                     <i data-lucide="check-square" class="h-5 w-5 text-indigo-500"></i>
