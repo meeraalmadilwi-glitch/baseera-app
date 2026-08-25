@@ -128,6 +128,7 @@
                     <div id="kpiGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10 mb-4"></div>
 
                     <!-- Decision Platform Live Sync Widget -->
+                    {% if files %}
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10 mt-6" id="decisionPlatformContainer">
                         <div class="rounded-2xl p-6 glass shadow-sm relative overflow-hidden transition-all duration-500" id="supplyChainRiskCard">
                             <div class="flex items-center justify-between mb-2">
@@ -154,6 +155,7 @@
                             </p>
                         </div>
                     </div>
+                    {% endif %}
                     
                     <script>
                         // Listen for agent decisions applied via Ask Baseera iframe
