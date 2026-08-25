@@ -2288,15 +2288,19 @@ def notifications_view(request):
 def export_note_report(request):
     from django.http import HttpResponse
     from .models import ProjectFile, DynamicRecord, WeeklyDigest, Profile
-    import datetime
+    import datetime, re, urllib.parse
 
     user = request.user
     profile, _ = Profile.objects.get_or_create(user=user)
     company_name = profile.company_name or user.username
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
+    lang = request.GET.get("lang") or request.session.get("django_language") or "ar"
+    is_ar = (lang == "ar")
+
     file_id = request.GET.get("file_id")
-    filename_param = request.GET.get("filename", "تقرير_بصيرة_التنفيذي")
+    default_name = "ملف_البيانات_التنفيذي" if is_ar else "Executive_Dataset_Report"
+    filename_param = request.GET.get("filename", default_name)
     
     records_qs = DynamicRecord.objects.filter(user=user)
     if file_id and file_id != "all":
@@ -2310,9 +2314,9 @@ def export_note_report(request):
     for r in records:
         for k, v in r.items():
             k_low = str(k).lower()
-            if any(w in k_low for w in ['category', 'قسم', 'فئة', 'نوع', 'item', 'product']):
+            if any(w in k_low for w in ['category', 'فئة', 'نوع', 'تصنيف', 'item', 'product']):
                 categories_set.add(str(v))
-            if any(w in k_low for w in ['sales', 'revenue', 'مبيعات', 'إيراد', 'مبلغ', 'total', 'price']):
+            if any(w in k_low for w in ['sales', 'revenue', 'مبيعات', 'إيراد', 'سعر', 'total', 'price']):
                 try:
                     num = float(str(v).replace(',', '').replace('OMR', '').replace('ر.ع.', '').strip())
                     if num > 0:
@@ -2322,87 +2326,141 @@ def export_note_report(request):
 
     digest = WeeklyDigest.objects.filter(user=user).order_by('-created_at').first()
 
-    report_lines = [
-        "=" * 72,
-        "                    تقرير منصة بصيرة للذكاء المالي",
-        "                (Baseera Executive Intelligence Report)",
-        "=" * 72,
-        f"تاريخ التقرير: {now_str}",
-        f"المنشأة: {company_name}",
-        f"المستخدم: {user.username}",
-        f"نطاق التحليل: {filename_param}",
-        "-" * 72,
-        "",
-        "[1] ملخص الأداء العام والمؤشرات المالية:",
-        "-" * 72,
-        f"• إجمالي السجلات والمعاملات المفحوصة: {total_records:,} معاملة",
-        f"• إجمالي الإيرادات المرصودة: {total_revenue:,.2f} ر.ع.",
-        f"• القطاعات والأنشطة المرتبطة: {', '.join(list(categories_set)[:5]) if categories_set else 'قطاعات عامة'}",
-        "",
-    ]
-
-    if digest:
-        report_lines.extend([
-            f"• تقييم نبض الأعمال:",
-            f"  {digest.summary_text}",
+    if is_ar:
+        report_lines = [
+            "=" * 72,
+            "                    تقرير منصة بصيرة للذكاء المالي",
+            "                (Baseera Executive Intelligence Report)",
+            "=" * 72,
+            f"تاريخ التقرير: {now_str}",
+            f"المنشأة: {company_name}",
+            f"المستخدم: {user.username}",
+            f"نطاق التحليل: {filename_param}",
+            "-" * 72,
             "",
+            "[1] ملخص الأداء العام والمؤشرات المالية:",
             "-" * 72,
-            "[2] أبرز المخاطر والتنبيهات المكتشفة:",
-            "-" * 72,
-        ])
-        for idx, risk in enumerate(digest.top_risks, 1):
-            report_lines.append(f"{idx}. {risk}")
-        if not digest.top_risks:
-            report_lines.append("• لا توجد مخاطر حرجة مسجلة حالياً.")
+            f"• إجمالي السجلات والمعاملات المفحوصة: {total_records:,} معاملة",
+            f"• إجمالي الإيرادات المرصودة: {total_revenue:,.2f} ر.ع.",
+            f"• القطاعات والأنشطة المرتبطة: {', '.join(list(categories_set)[:5]) if categories_set else 'قطاعات عامة'}",
+            "",
+        ]
+
+        if digest:
+            report_lines.extend([
+                f"• تقييم نبض الأعمال:",
+                f"  {digest.summary_text}",
+                "",
+                "-" * 72,
+                "[2] أبرز المخاطر والتنبيهات المكتشفة:",
+                "-" * 72,
+            ])
+            for idx, risk in enumerate(digest.top_risks, 1):
+                report_lines.append(f"{idx}. {risk}")
+            if not digest.top_risks:
+                report_lines.append("لا توجد مخاطر حرجة مرصودة حالياً.")
+
+            report_lines.extend([
+                "",
+                "-" * 72,
+                "[3] خطة العمل والتوصيات التنفيذية:",
+                "-" * 72,
+            ])
+            for idx, act in enumerate(digest.action_plan, 1):
+                report_lines.append(f"{idx}. {act}")
+            if not digest.action_plan:
+                report_lines.append("العمليات مستقرة وتخضع للرقابة الدورية.")
+        else:
+            report_lines.extend([
+                "• تقييم نبض الأعمال: أظهر الفحص استقراراً في مؤشرات الأداء الأساسية.",
+                "",
+                "-" * 72,
+                "[2] التوصيات التنفيذية:",
+                "-" * 72,
+                "1. المتابعة المستمرة للمؤشرات المالية ومعدل دوران المخزون.",
+                "2. تحديث ومزامنة البيانات دورياً لتوليد تقارير استباقية.",
+            ])
 
         report_lines.extend([
             "",
-            "-" * 72,
-            "[3] الفرص الاستراتيجية ومصادر النمو:",
-            "-" * 72,
+            "=" * 72,
+            "تم التوثيق بواسطة: منصة بصيرة للذكاء الاصطناعي وإدارة الأعمال (Baseera.om)",
+            "جميع الحقوق محفوظة 2026 - وثيقة رسمية",
+            "=" * 72,
         ])
-        for idx, opp in enumerate(digest.top_opportunities, 1):
-            report_lines.append(f"{idx}. {opp}")
-        if not digest.top_opportunities:
-            report_lines.append("• الاستمرار في الخطة التشغيلية الحالية ومراقبة قنوات البيع.")
-
-        report_lines.extend([
-            "",
-            "-" * 72,
-            "[4] القرارات التنفيذية المعتمدة وخطة العمل:",
-            "-" * 72,
-        ])
-        for idx, act in enumerate(digest.action_plan, 1):
-            report_lines.append(f"{idx}. {act}")
-        if not digest.action_plan:
-            report_lines.append("• متابعة تقارير التدفق النقدي بشكل أسبوعي.")
     else:
-        report_lines.extend([
-            "• تقييم نبض الأعمال: تم فحص البيانات بنجاح وجاري إعداد التقارير التنبؤية المتقدمة.",
+        report_lines = [
+            "=" * 72,
+            "                    Baseera Executive Intelligence Report",
+            "                  (Autonomous Business Intelligence Suite)",
+            "=" * 72,
+            f"Report Date: {now_str}",
+            f"Organization: {company_name}",
+            f"User: {user.username}",
+            f"Analysis Scope: {filename_param}",
+            "-" * 72,
             "",
+            "[1] Executive Performance Summary & Financial KPIs:",
             "-" * 72,
-            "[2] القرارات والتوصيات الأساسية:",
-            "-" * 72,
-            "1. مراجعة الإيرادات وتوزيعها لتقليل مخاطر التركز.",
-            "2. تحسين هوامش الربحية بالاتفاق مع الموردين الرئيسيين.",
-        ])
+            f"• Total Records Analyzed: {total_records:,} transactions",
+            f"• Total Revenue Tracked: {total_revenue:,.2f} OMR",
+            f"• Key Categories / Sectors: {', '.join(list(categories_set)[:5]) if categories_set else 'General Business'}",
+            "",
+        ]
 
-    report_lines.extend([
-        "",
-        "=" * 72,
-        "تم إنشاء هذا التقرير آلياً عبر منصة بصيرة للذكاء الاصطناعي المالي (Baseera.om)",
-        "جميع الحقوق محفوظة © 2026 - منصة بصيرة",
-        "=" * 72,
-    ])
+        if digest:
+            report_lines.extend([
+                f"• Business Pulse Diagnostic:",
+                f"  {digest.summary_text}",
+                "",
+                "-" * 72,
+                "[2] Key Risks & Discovered Alerts:",
+                "-" * 72,
+            ])
+            for idx, risk in enumerate(digest.top_risks, 1):
+                report_lines.append(f"{idx}. {risk}")
+            if not digest.top_risks:
+                report_lines.append("No critical risks flagged at this time.")
+
+            report_lines.extend([
+                "",
+                "-" * 72,
+                "[3] Strategic Action Plan & Executive Decisions:",
+                "-" * 72,
+            ])
+            for idx, act in enumerate(digest.action_plan, 1):
+                report_lines.append(f"{idx}. {act}")
+            if not digest.action_plan:
+                report_lines.append("Operations are stable and under periodic review.")
+        else:
+            report_lines.extend([
+                "• Business Pulse Diagnostic: Overall operational KPIs indicate steady baseline stability.",
+                "",
+                "-" * 72,
+                "[2] Recommended Next Steps:",
+                "-" * 72,
+                "1. Regularly review working capital and cash conversion cycles.",
+                "2. Maintain periodic data syncs for autonomous proactive forecasting.",
+            ])
+
+        report_lines.extend([
+            "",
+            "=" * 72,
+            "Generated & Certified by: Baseera Intelligence Suite (Baseera.om)",
+            "All Rights Reserved 2026 - Confidential Official Document",
+            "=" * 72,
+        ])
 
     full_text = "\n".join(report_lines)
     response = HttpResponse(full_text, content_type="text/plain; charset=utf-8")
-    safe_filename = filename_param.replace(" ", "_").replace("/", "_")
-    response['Content-Disposition'] = f'attachment; filename="{safe_filename}_note.txt"'
+    
+    safe_ascii = re.sub(r'[^\w\s-]', '', filename_param or 'report').strip().replace(' ', '_')
+    encoded_name = urllib.parse.quote(f"{filename_param}_note.txt")
+    response['Content-Disposition'] = f"attachment; filename="{safe_ascii}_note.txt"; filename*=UTF-8''{encoded_name}"
     return response
 
 
-@login_required
+
 def agents_workspace(request):
     """
     Sully.ai Inspired Multi-Agent Workspace

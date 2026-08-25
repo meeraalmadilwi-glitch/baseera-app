@@ -354,7 +354,7 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
                     q.put('<agent_state>جاري استحضار المؤشرات الحيوية وتحليل البيانات...</agent_state>')
                     q.put('<agent_state>يقوم بوضع خطة عمل تنفيذية واستراتيجية...</agent_state>')
                     last_user_msg = messages_list[-1]['content'] if messages_list else prompt
-                    fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=agent_meta)
+                    fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=agent_meta, lang=lang)
                     q.put(fallback_text)
                     q.put('\n<div class="agent-tool-call mt-3 inline-block bg-[var(--glow)]/10 border border-[var(--glow)]/30 text-[var(--glow)] font-bold px-4 py-2 rounded-xl cursor-pointer hover:bg-[var(--glow)]/20 transition-all text-sm" onclick="executeAgentAction(this, \'UPDATE_DECISION_METRIC|strategy|active|improving\')"><i class="fa-solid fa-bolt me-2"></i>تطبيق التوصية في منصة القرارات</div>\n')
                     q.put('STATUS___:DONE')
@@ -459,7 +459,7 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
                 print(f"Notice: AI engine streaming fallback: {e}")
                 q.put('<agent_state>يقوم بوضع خطة عمل تنفيذية واستراتيجية...</agent_state>')
                 last_user_msg = messages_list[-1]['content'] if messages_list else prompt
-                fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=agent_meta)
+                fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=agent_meta, lang=lang)
                 q.put(fallback_text)
                 q.put('\n<div class="agent-tool-call mt-3 inline-block bg-[var(--glow)]/10 border border-[var(--glow)]/30 text-[var(--glow)] font-bold px-4 py-2 rounded-xl cursor-pointer hover:bg-[var(--glow)]/20 transition-all text-sm" onclick="executeAgentAction(this, \'UPDATE_DECISION_METRIC|strategy|active|improving\')"><i class="fa-solid fa-bolt me-2"></i>تطبيق التوصية في منصة القرارات</div>\n')
                 q.put('STATUS___:DONE')
@@ -476,16 +476,45 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
 
         return event_stream()
 
-    def _generate_smart_fallback_text(self, prompt, user_id=None, agent_meta=None):
+    def _generate_smart_fallback_text(self, prompt, user_id=None, agent_meta=None, lang="ar"):
         """
         Generates an executive, data-driven expert analysis when external LLM API is unavailable.
+        Fully bilingual (Arabic & English) with direct greeting detection.
         """
-        prompt_lower = (prompt or "").lower()
-        agent_title = agent_meta.get("name", "بصيرة") if agent_meta else "المستشار التنفيذي"
-        role_title = agent_meta.get("role_title", "الذكاء المالي") if agent_meta else "التحليل المالي والقرارات"
+        import re
+        prompt_str = (prompt or "").strip()
+        prompt_lower = prompt_str.lower()
+        
+        # Determine language:
+        if re.search(r'[\u0600-\u06FF]', prompt_str):
+            is_ar = True
+        elif re.search(r'[a-zA-Z]', prompt_str):
+            is_ar = False
+        else:
+            is_ar = (lang == "ar")
 
-        if any(w in prompt_lower for w in ["هدر", "تالف", "خسار", "تكلف", "مصروف", "ضياع", "waste"]):
-            text = f"""### 🛡️ استراتيجية ضبط وتقليص الهدر المالي والتشغيلي
+        agent_title = agent_meta.get("name", "بصيرة" if is_ar else "Basira AI") if agent_meta else ("المستشار الذكي" if is_ar else "Executive AI Advisor")
+        role_title = agent_meta.get("role_title", "المنسق الاستراتيجي" if is_ar else "Strategic Advisor") if agent_meta else ("التحليل الاستراتيجي" if is_ar else "Strategic Intelligence")
+
+        # 1. Direct Greetings Recognition
+        ar_greetings = ["هلا", "أهلا", "اهلا", "مرحبا", "مرحباً", "السلام عليكم", "صباح الخير", "مساء الخير", "يا هلا", "تحياتي"]
+        en_greetings = ["hi", "hello", "hey", "good morning", "good evening", "greetings", "howdy", "what's up", "yo"]
+        
+        clean_words = [re.sub(r'[^\w\s]', '', w) for w in prompt_lower.split()]
+        is_greeting = any(w in ar_greetings or prompt_lower == w for w in clean_words) or \
+                      any(w in en_greetings or prompt_lower == w for w in clean_words) or \
+                      prompt_lower in ["hi", "hello", "hey", "هلا", "مرحبا", "اهلا", "أهلا"]
+
+        if is_greeting:
+            if is_ar:
+                return f"أهلاً بك! 👋 بصفتي **{agent_title}**، كيف يمكنني مساعدتك اليوم في إدارة أعمالك، تحليل البيانات، ومراجعة القرارات الاستراتيجية؟"
+            else:
+                return f"Hello! 👋 As your **{agent_title} ({role_title})**, how can I assist you today with your business operations, data analytics, and strategic decisions?"
+
+        # 2. Topic-specific analyses (Waste / Cost reduction)
+        if any(w in prompt_lower for w in ["هدر", "تالف", "خسار", "تكلف", "مصروف", "ضياع", "waste", "loss", "cost", "leakage"]):
+            if is_ar:
+                return f"""### 🛡️ استراتيجية ضبط وتقليص الهدر المالي والتشغيلي
 
 بصفتي **{agent_title} ({role_title})**، أعددت لك خطة عمل فورية ومحكمة لوقف التسرب المالي وخفض الهدر:
 
@@ -503,8 +532,30 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
 1. **وضع مستهدف شهري:** خفض نسبة الهدر بنسبة **15% إلى 25%** خلال الـ 60 يوماً القادمة.
 2. **ربط المسؤولية بالأداء:** تعيين مسؤول مباشر عن جرد الهدر أسبوعياً وتوثيق أسبابه.
 3. **تحديث منصة القرارات:** ربط مؤشر كشف الهدر مباشرة ليعطي تنبيهاً مبكراً فور حدوث أي تباين."""
-        elif any(w in prompt_lower for w in ["ربح", "تسعير", "هامش", "مبيعات", "إيراد", "زيادة", "growth", "profit", "sales"]):
-            text = f"""### 📈 خطة تنمية الإيرادات وتعظيم هامش الربحية
+            else:
+                return f"""### 🛡️ Financial & Operational Waste Reduction Strategy
+
+As your **{agent_title} ({role_title})**, here is the immediate actionable roadmap to eliminate cost leakage and optimize resource allocation:
+
+---
+
+#### 1. Supply Chain Audit & Inventory Turnover:
+- **Just-in-Time (JIT) Procurement:** Align purchase orders directly with verified consumption to eliminate excess inventory carrying costs.
+- **Dynamic Reorder Points:** Review SKU velocity and buffer thresholds against weekly demand trends.
+
+#### 2. Invoice Reconciliation & Operational Tightening:
+- **Strict 3-Way Invoice Matching:** Ensure every vendor invoice strictly matches verified purchase orders and warehouse receipts.
+- **Expense Capping:** Establish automated caps on discretionary overheads and recurring unused subscriptions.
+
+#### 3. Strategic Action Roadmap:
+1. **Target Savings:** Achieve a **15% - 25% waste reduction** within 60 days.
+2. **Weekly Accountability:** Designate department leads to review reconciliation logs.
+3. **Live Decision Platform:** Feed alerts directly into the Decision Platform for instant mitigation."""
+
+        # 3. Topic-specific analyses (Revenue / Pricing / Growth)
+        elif any(w in prompt_lower for w in ["ربح", "تسعير", "هامش", "مبيعات", "إيراد", "زيادة", "growth", "profit", "sales", "revenue", "price", "pricing"]):
+            if is_ar:
+                return f"""### 📈 خطة تنمية الإيرادات وتعظيم هامش الربحية
 
 بصفتي **{agent_title} ({role_title})**، إليك خارطة الطريق التنفيذية لرفع الأرباح الصافية:
 
@@ -521,8 +572,29 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
 #### 3. مؤشرات الأداء الحيوية ذات الأولوية:
 1. **مراقبة صافي هامش الربح:** استهداف رفع الهامش الإجمالي بما لا يقل عن **5%**.
 2. **تحفيز المبيعات المتكررة:** بناء ولاء العملاء لزيادة العائد على العميل الواحد (LTV)."""
+            else:
+                return f"""### 📈 Revenue Growth & Margin Optimization Plan
+
+As your **{agent_title} ({role_title})**, here is the strategic plan to boost profitability and maximize top-line performance:
+
+---
+
+#### 1. Dynamic Pricing & Contribution Margin:
+- **High-Margin Prioritization:** Shift sales focus towards products and services yielding contribution margins above 40%.
+- **Strategic Bundling:** Package fast-moving items with premium services to increase Average Order Value (AOV).
+
+#### 2. Working Capital & Distribution Channels:
+- **Accelerate Cash Collection:** Tighten payment credit terms to improve working capital velocity.
+- **Supplier Volume Rebates:** Restructure vendor terms for volume-tiered rebates, reducing COGS.
+
+#### 3. Core KPI Milestones:
+1. **Net Margin Target:** Expand gross margin by at least **5%** this quarter.
+2. **Customer Lifetime Value (LTV):** Launch retention incentives to drive repeat purchases."""
+
+        # 4. General Strategic Brief
         else:
-            text = f"""### 📋 التقرير التنفيذي والتوصيات الاستراتيجية
+            if is_ar:
+                return f"""### 📋 التقرير التنفيذي والتوصيات الاستراتيجية
 
 بصفتي **{agent_title} ({role_title})**، قمت بتحليل استفسارك ومؤشرات أعمالك، وإليك الخلاصة التنفيذية:
 
@@ -536,8 +608,21 @@ When you need to show numbers or trends, Generate a JSON block formatted exactly
 1. **تحديث ومزامنة البيانات دورياً:** رفع المستندات المالية أسبوعياً لتوليد تقارير نبض الأعمال الفورية.
 2. **إدارة المخاطر الاستباقية:** توزيع مصادر الدخل لتفادي الاعتماد المفرط على عميل أو قطاع واحد.
 3. **الالتزام بمستهدفات الأداء:** مراجعة الإنجاز مقابل الأهداف المالية المقررة شهرياً."""
+            else:
+                return f"""### 📋 Executive Brief & Strategic Recommendations
 
-        return text
+As your **{agent_title} ({role_title})**, I have analyzed your inquiry and operational metrics. Here is your executive summary:
+
+---
+
+#### 1. Financial & Operational Diagnostics:
+- Sustainable growth requires balancing cost containment with working capital velocity.
+- Continuous tracking of liquidity and operational KPIs is essential to prevent cash flow bottlenecks.
+
+#### 2. Recommended Action Steps:
+1. **Regular Data Sync:** Upload updated statements weekly to maintain real-time Decision Platform accuracy.
+2. **Proactive Risk Diversification:** Distribute revenue channels to mitigate single-client dependency.
+3. **Milestone Tracking:** Review progress against target monthly goals regularly."""
 
     def generate_multi_agent_stream(self, agent_ids, messages_list, file_context="", user_id=None, lang="ar"):
         """
@@ -697,7 +782,7 @@ Requirements:
                 except Exception as e:
                     print(f"Notice: Committee agent fallback: {e}")
                     last_user_msg = messages_list[-1]['content'] if messages_list else ""
-                    fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=meta)
+                    fallback_text = self._generate_smart_fallback_text(last_user_msg, user_id=user_id, agent_meta=meta, lang=lang)
                     q.put(fallback_text)
                     committee_transcript.append({
                         "id": meta['id'],
