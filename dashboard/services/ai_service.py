@@ -517,10 +517,9 @@ Requirements:
                 else:
                     lang_dir = "\n\n[Strict Language Directive]:\nYou MUST write your entire response strictly in professional English. Do not respond in Arabic when English is selected."
 
-                if not file_context:
-                    file_context = ""
+                local_file_context = file_context if file_context else ""
                     
-                agent_prompt = f"*** AGENT ROLE & PERSONA ***\n{agent_role_prompt}\n*** END AGENT ROLE ***\n\n" + base_system + lang_dir + committee_context + "\n\nFile Context:\n" + file_context + "\n\nConversation History:\n"
+                agent_prompt = f"*** AGENT ROLE & PERSONA ***\n{agent_role_prompt}\n*** END AGENT ROLE ***\n\n" + base_system + lang_dir + committee_context + "\n\nFile Context:\n" + local_file_context + "\n\nConversation History:\n"
                 for msg in messages_list:
                     agent_prompt += f"{msg['role']}: {msg['content']}\n"
                 agent_prompt += f"model ({meta['name']}): "
@@ -528,7 +527,7 @@ Requirements:
                 # Call LLM for this agent
                 try:
                     stream = self.client.models.generate_content_stream(
-                        model="gemini-2.5-flash",
+                        model="gemini-3.6-flash",
                         contents=agent_prompt
                     )
                     
