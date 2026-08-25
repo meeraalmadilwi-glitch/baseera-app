@@ -1,17 +1,45 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-import os
+from dashboard.models import Profile
 
 class Command(BaseCommand):
-    help = 'Creates the baseera admin user if it does not exist'
+    help = 'Creates or updates the primary admin user with credentials'
 
     def handle(self, *args, **kwargs):
-        email = 'baseera.ai0@gmail.com'
-        username = 'admin_baseera'
-        password = 'AdminBaseera2026!'
+        # 1. Create or update primary admin user
+        admin_user, created = User.objects.get_or_create(
+            username='admin',
+            defaults={
+                'email': 'admin@baseera.om',
+                'first_name': 'مدير',
+                'last_name': 'النظام',
+                'is_staff': True,
+                'is_superuser': True,
+            }
+        )
+        admin_user.set_password('admin123456')
+        admin_user.is_staff = True
+        admin_user.is_superuser = True
+        admin_user.is_active = True
+        admin_user.save()
         
-        if not User.objects.filter(email=email).exists() and not User.objects.filter(username=username).exists():
-            User.objects.create_superuser(username, email, password)
-            self.stdout.write(self.style.SUCCESS(f'Successfully created admin user: {email}'))
-        else:
-            self.stdout.write(self.style.WARNING(f'Admin user with email {email} or username {username} already exists.'))
+        Profile.objects.get_or_create(
+            user=admin_user,
+            defaults={
+                'company_name': 'منصة بصيرة للذكاء الاصطناعي',
+                'project_type': 'other',
+                'is_subscribed': True,
+                'subscription_plan': 'enterprise',
+            }
+        )
+        self.stdout.write(self.style.SUCCESS('Admin user "admin" is active with password "admin123456".'))
+
+        # 2. Also ensure Mira21 has full superadmin privileges if present
+        mira = User.objects.filter(username='Mira21').first()
+        if mira:
+            mira.is_staff = True
+            mira.is_superuser = True
+            mira.is_active = True
+            mira.save()
+            self.stdout.write(self.style.SUCCESS('User "Mira21" is configured with superadmin privileges.'))
+
