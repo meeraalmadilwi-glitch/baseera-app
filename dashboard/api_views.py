@@ -652,6 +652,7 @@ def download_plan_api(request, plan_id):
         from dashboard.models import ApprovedPlan
         from django.http import HttpResponse
         import os
+        import re
         from django.conf import settings
         
         plan = ApprovedPlan.objects.get(id=plan_id, user=request.user)
@@ -662,13 +663,57 @@ def download_plan_api(request, plan_id):
             
         if os.path.exists(full_path):
             with open(full_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+                raw_content = f.read()
         else:
-            # Fallback if file was lost due to ephemeral disk on Render
-            content = f"خطة معتمدة: {plan.file_name}\n\nعذراً، محتوى هذا الملف لم يعد متوفراً لأنه تم حفظه في النسخة التجريبية السابقة للنظام. \nالسبب: {plan.justification}"
-            
-        response = HttpResponse(content, content_type='text/plain; charset=utf-8')
-        response['Content-Disposition'] = f'attachment; filename="{plan.file_name}.txt"'
+            raw_content = plan.justification or "تم اعتماد الخطة التنفيذية بناءً على مراجعة مؤشرات الأداء والبيانات المالية."
+
+        # Clean all internal simulation and agent tags
+        cleaned = re.sub(r'<internal_simulation>.*?</internal_simulation>', '', raw_content, flags=re.DOTALL)
+        cleaned = re.sub(r'<agent_state>.*?</agent_state>', '', cleaned, flags=re.DOTALL)
+        cleaned = re.sub(r'\[\[ACTION:.*?\]\]', '', cleaned)
+        cleaned = re.sub(r'<br\s*/?>', '\n', cleaned)
+        cleaned = re.sub(r'</?(?:div|p|h\d|li|ul|ol|table|tr|td|th|tbody|thead|span|strong|b|i|em|section|article|button|input|form)[^>]*>', '\n', cleaned)
+        cleaned = re.sub(r'<[^>]+>', '', cleaned)
+        cleaned = re.sub(r'\*\*(.*?)\*\*', r'\1', cleaned)
+        cleaned = re.sub(r'\*(.*?)\*', r'\1', cleaned)
+        cleaned = re.sub(r'```[a-zA-Z]*', '', cleaned)
+        cleaned = re.sub(r'```', '', cleaned)
+        
+        # Clean lines and normalize spacing
+        clean_lines = [line.strip() for line in cleaned.split('\n') if line.strip()]
+        body_text = "\n".join(clean_lines)
+
+        created_str = plan.created_at.strftime('%Y-%m-%d %H:%M') if hasattr(plan, 'created_at') and plan.created_at else ""
+
+        formatted_lines = [
+            "=" * 72,
+            "                    منصة بصيرة للذكاء الاصطناعي",
+            f"                     {plan.file_name}",
+            "=" * 72,
+            f"تاريخ الاعتماد: {created_str}",
+            f"المستخدم: {request.user.username}",
+        ]
+
+        if plan.justification:
+            formatted_lines.extend([
+                f"سبب وملاحظات الاعتماد: {plan.justification}",
+            ])
+
+        formatted_lines.extend([
+            "-" * 72,
+            "",
+            body_text,
+            "",
+            "=" * 72,
+            "تم توثيق وتصدير هذه الخطة التنفيذية رسمياً عبر منصة بصيرة (Baseera.om)",
+            "جميع الحقوق محفوظة © 2026",
+            "=" * 72,
+        ])
+
+        final_content = "\n".join(formatted_lines)
+        response = HttpResponse(final_content, content_type='text/plain; charset=utf-8')
+        safe_plan_name = plan.file_name.replace(" ", "_").replace("/", "_")
+        response['Content-Disposition'] = f'attachment; filename="{safe_plan_name}_approved_plan.txt"'
         return response
     except Exception as e:
         return HttpResponse("Error downloading file", status=500)

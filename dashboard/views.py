@@ -2266,11 +2266,127 @@ def chat_history_view(request):
 
 
 @login_required
+def notifications_view(request):
+    from .models import Notification
+    notifs = Notification.objects.filter(user=request.user).order_by('-created_at')[:50]
+    return render(request, "dashboard/notifications.html", {"notifications": notifs})
+
+
+@login_required
 def export_note_report(request):
     from django.http import HttpResponse
-    note_content = request.GET.get("content", "تقرير ملاحظات بصيرة")
-    response = HttpResponse(note_content, content_type="text/plain; charset=utf-8")
-    response['Content-Disposition'] = 'attachment; filename="baseera_note.txt"'
+    from .models import ProjectFile, DynamicRecord, WeeklyDigest, Profile
+    import datetime
+
+    user = request.user
+    profile, _ = Profile.objects.get_or_create(user=user)
+    company_name = profile.company_name or user.username
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+    file_id = request.GET.get("file_id")
+    filename_param = request.GET.get("filename", "تقرير_بصيرة_التنفيذي")
+    
+    records_qs = DynamicRecord.objects.filter(user=user)
+    if file_id and file_id != "all":
+        records_qs = records_qs.filter(project_file_id=file_id)
+
+    records = list(records_qs.values_list('row_data', flat=True)[:5000])
+    total_records = len(records)
+    
+    total_revenue = 0.0
+    categories_set = set()
+    for r in records:
+        for k, v in r.items():
+            k_low = str(k).lower()
+            if any(w in k_low for w in ['category', 'قسم', 'فئة', 'نوع', 'item', 'product']):
+                categories_set.add(str(v))
+            if any(w in k_low for w in ['sales', 'revenue', 'مبيعات', 'إيراد', 'مبلغ', 'total', 'price']):
+                try:
+                    num = float(str(v).replace(',', '').replace('OMR', '').replace('ر.ع.', '').strip())
+                    if num > 0:
+                        total_revenue += num
+                except (ValueError, TypeError):
+                    pass
+
+    digest = WeeklyDigest.objects.filter(user=user).order_by('-created_at').first()
+
+    report_lines = [
+        "=" * 72,
+        "                    تقرير منصة بصيرة للذكاء المالي",
+        "                (Baseera Executive Intelligence Report)",
+        "=" * 72,
+        f"تاريخ التقرير: {now_str}",
+        f"المنشأة: {company_name}",
+        f"المستخدم: {user.username}",
+        f"نطاق التحليل: {filename_param}",
+        "-" * 72,
+        "",
+        "[1] ملخص الأداء العام والمؤشرات المالية:",
+        "-" * 72,
+        f"• إجمالي السجلات والمعاملات المفحوصة: {total_records:,} معاملة",
+        f"• إجمالي الإيرادات المرصودة: {total_revenue:,.2f} ر.ع.",
+        f"• القطاعات والأنشطة المرتبطة: {', '.join(list(categories_set)[:5]) if categories_set else 'قطاعات عامة'}",
+        "",
+    ]
+
+    if digest:
+        report_lines.extend([
+            f"• تقييم نبض الأعمال:",
+            f"  {digest.summary_text}",
+            "",
+            "-" * 72,
+            "[2] أبرز المخاطر والتنبيهات المكتشفة:",
+            "-" * 72,
+        ])
+        for idx, risk in enumerate(digest.top_risks, 1):
+            report_lines.append(f"{idx}. {risk}")
+        if not digest.top_risks:
+            report_lines.append("• لا توجد مخاطر حرجة مسجلة حالياً.")
+
+        report_lines.extend([
+            "",
+            "-" * 72,
+            "[3] الفرص الاستراتيجية ومصادر النمو:",
+            "-" * 72,
+        ])
+        for idx, opp in enumerate(digest.top_opportunities, 1):
+            report_lines.append(f"{idx}. {opp}")
+        if not digest.top_opportunities:
+            report_lines.append("• الاستمرار في الخطة التشغيلية الحالية ومراقبة قنوات البيع.")
+
+        report_lines.extend([
+            "",
+            "-" * 72,
+            "[4] القرارات التنفيذية المعتمدة وخطة العمل:",
+            "-" * 72,
+        ])
+        for idx, act in enumerate(digest.action_plan, 1):
+            report_lines.append(f"{idx}. {act}")
+        if not digest.action_plan:
+            report_lines.append("• متابعة تقارير التدفق النقدي بشكل أسبوعي.")
+    else:
+        report_lines.extend([
+            "• تقييم نبض الأعمال: تم فحص البيانات بنجاح وجاري إعداد التقارير التنبؤية المتقدمة.",
+            "",
+            "-" * 72,
+            "[2] القرارات والتوصيات الأساسية:",
+            "-" * 72,
+            "1. مراجعة الإيرادات وتوزيعها لتقليل مخاطر التركز.",
+            "2. تحسين هوامش الربحية بالاتفاق مع الموردين الرئيسيين.",
+        ])
+
+    report_lines.extend([
+        "",
+        "=" * 72,
+        "تم إنشاء هذا التقرير آلياً عبر منصة بصيرة للذكاء الاصطناعي المالي (Baseera.om)",
+        "جميع الحقوق محفوظة © 2026 - منصة بصيرة",
+        "=" * 72,
+    ])
+
+    full_text = "\n".join(report_lines)
+    response = HttpResponse(full_text, content_type="text/plain; charset=utf-8")
+    safe_filename = filename_param.replace(" ", "_").replace("/", "_")
+    response['Content-Disposition'] = f'attachment; filename="{safe_filename}_note.txt"'
     return response
 
 

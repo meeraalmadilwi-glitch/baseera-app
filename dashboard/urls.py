@@ -21,6 +21,7 @@ urlpatterns = [
     path("export-note/", views.export_note_report, name="export_note_report"),
 
     path("reports/", views.reports, name="reports"),
+    path("notifications/", views.notifications_view, name="notifications"),
     path("chat-history/", views.chat_history_view, name="chat_history"),
     path("settings/", views.user_settings, name="settings"),
     # Add newly discovered missing links
