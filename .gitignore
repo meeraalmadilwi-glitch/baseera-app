@@ -21,3 +21,5 @@ backend/bin/
 backend/obj/
 dashboard/gemini_api_key.txt
 *.zip
+media/
+

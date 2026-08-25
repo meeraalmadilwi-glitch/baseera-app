@@ -488,23 +488,24 @@ def dashboard(request):
                         "uploadedAt": latest.uploaded_at.isoformat() if latest.uploaded_at else datetime.datetime.now().isoformat(),
                     }
             else:
-                # Workspace Summary Mode (All files)
-                summary_rows = []
-                for f in files:
-                    rcount = DynamicRecord.objects.filter(project_file=f).count()
-                    summary_rows.append({
-                        "File Name": f.excel_file.name.split('/')[-1] if f.excel_file else f"File {f.id}",
-                        "Records Count": rcount,
-                        "Upload Date": f.uploaded_at.strftime("%Y-%m-%d %H:%M") if f.uploaded_at else ""
-                    })
-                latest_file_json = {
-                    "fileName": "مساحة العمل (Workspace Summary)",
-                    "sizeKB": len(summary_rows),
-                    "columns": ["File Name", "Records Count", "Upload Date"],
-                    "rows": summary_rows,
-                    "csvUrl": "/api/user-data.csv",
-                    "uploadedAt": datetime.datetime.now().isoformat(),
-                }
+                # All files dashboard - load all actual records
+                all_records = DynamicRecord.objects.filter(user=request.user)
+                if all_records.exists():
+                    records_list = list(all_records.values_list('row_data', flat=True)[:10000])
+                    df = pd.DataFrame(records_list)
+                    df = df.where(pd.notnull(df), None)
+                    first_file = files.first()
+                    display_name = first_file.excel_file.name.split('/')[-1] if (first_file and first_file.excel_file) else "البيانات المسجلة"
+                    if files.count() > 1:
+                        display_name = f"تجميع البيانات ({files.count()} ملفات)"
+                    latest_file_json = {
+                        "fileName": display_name,
+                        "sizeKB": len(records_list),
+                        "columns": df.columns.tolist(),
+                        "rows": records_list,
+                        "csvUrl": "/api/user-data.csv",
+                        "uploadedAt": first_file.uploaded_at.isoformat() if (first_file and first_file.uploaded_at) else datetime.datetime.now().isoformat(),
+                    }
         except Exception as e:
             print(f"Error parsing data: {e}")
 
@@ -555,8 +556,19 @@ def dashboard(request):
             AnomalyDetector.detect_anomalies(records_list, request.user)
             anomaly_alerts = AnomalyAlert.objects.filter(user=request.user, is_dismissed=False).order_by('-created_at')[:4]
 
-    # Weekly Digest
+    # Weekly Digest (Business Pulse Report)
     weekly_digest = WeeklyDigest.objects.filter(user=request.user).order_by('-created_at').first()
+    if not weekly_digest and files.exists():
+        all_records = DynamicRecord.objects.filter(user=request.user)
+        if all_records.exists():
+            records_list = list(all_records.values_list('row_data', flat=True)[:100])
+            sample_str = json.dumps(records_list, ensure_ascii=False)
+            try:
+                from .services.ai_service import GeminiAIService
+                ai_service = GeminiAIService()
+                weekly_digest = ai_service.generate_weekly_digest_for_user(sample_str, request.user)
+            except Exception as digest_err:
+                print(f"Error auto-generating weekly digest: {digest_err}")
 
     agent_memories = AgentMemory.objects.filter(user=request.user).order_by('-created_at')[:3]
     agent_notifs = Notification.objects.filter(user=request.user).order_by('-created_at')[:3]
