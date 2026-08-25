@@ -1382,9 +1382,14 @@
                 })
             });
 
-            if (!response.ok) {
-                throw new Error("API call failed");
-            }
+              if (!response.ok) {
+                  let realErrorMsg = "API call failed";
+                  try {
+                      const errData = await response.json();
+                      realErrorMsg = errData.message || realErrorMsg;
+                  } catch(e) {}
+                  throw new Error(realErrorMsg);
+              }
 
             const loader = document.getElementById(loadingId);
             if (loader) loader.remove();
