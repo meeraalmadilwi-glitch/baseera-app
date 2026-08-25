@@ -394,12 +394,6 @@
                             {% else %}I'm Basira, your strategic data assistant.{% endif %}
                             {% endif %}
                         </p>
-                        <div class="flex items-center gap-2 mt-2 pt-1 border-t border-black/5 dark:border-white/5">
-                            <button type="button" onclick="speakMessage(this)" class="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-slate-400 hover:text-indigo-600 transition flex items-center gap-1 text-[11px] font-bold" title="استمع للرد صوتياً">
-                                <i data-lucide="volume-2" class="h-3.5 w-3.5"></i>
-                                <span>{% if trans.lang_code == 'ar' %}استمع للرد{% else %}Listen{% endif %}</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -419,10 +413,8 @@
                 </button>
             </div>
 
-            <!-- Quick Agent Selector Bar -->
-            <div id="quickAgentSelectorBar" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 mb-1 border-t border-white/30 pt-2"></div>
             <!-- Input -->
-            <div class="flex items-center gap-3 shrink-0 pt-1 relative">
+            <div class="flex items-center gap-3 shrink-0 pt-2 border-t border-white/30 relative">
                 <input type="file" id="chatFileInput" accept=".csv" class="hidden">
                 <button onclick="document.getElementById('chatFileInput').click()"
                     class="grid h-11 w-11 place-items-center rounded-full bg-white/60 text-slate-500 hover:bg-white transition shrink-0 border border-white/60 shadow-sm"
@@ -550,10 +542,10 @@
 
 <script>
     window.onerror = function (msg, url, line, col, error) {
-        console.warn("Script log:", msg, "at line", line);
+        console.warn("Script note:", msg, "at line", line);
     };
     window.addEventListener('unhandledrejection', function (event) {
-        console.warn("Promise log:", event.reason);
+        console.warn("Promise note:", event.reason);
     });
     let chatHistory = [];
     let currentSessionId = Date.now();
@@ -617,19 +609,31 @@
 
     // Committee / Agent Selector Logic
     function toggleAgentMenu(e) {
-        if (e) e.stopPropagation();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         const menu = document.getElementById('agentMenu');
-        menu.classList.toggle('hidden');
-        if (!menu.classList.contains('hidden')) {
+        if (!menu) return;
+        const isHidden = menu.classList.contains('hidden');
+        if (isHidden) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
             syncAgentCheckboxes();
+        } else {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
         }
     }
 
     document.addEventListener('click', function(e) {
         const menu = document.getElementById('agentMenu');
         const trigger = document.getElementById('agentMenuTrigger');
-        if (menu && !menu.contains(e.target) && trigger && !trigger.contains(e.target) && !menu.classList.contains('hidden')) {
-            menu.classList.add('hidden');
+        if (menu && !menu.classList.contains('hidden')) {
+            if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+            }
         }
     });
 
@@ -646,41 +650,6 @@
             selectedAgentIds.push(agentId);
         }
         syncAgentCheckboxes();
-    }
-
-    
-    function selectSingleAgent(agentId) {
-        selectedAgentIds = [agentId];
-        currentActiveAgent = agentId;
-        syncAgentCheckboxes();
-        renderActiveAgentChips();
-        renderQuickAgentSelectorBar();
-        const menu = document.getElementById('agentMenu');
-        if (menu) menu.classList.add('hidden');
-    }
-
-    function renderQuickAgentSelectorBar() {
-        const bar = document.getElementById('quickAgentSelectorBar');
-        if (!bar) return;
-        bar.innerHTML = '';
-        const isAr = "{% if trans.lang_code == 'ar' %}yes{% endif %}" === "yes";
-
-        Object.keys(ALL_AGENTS).forEach(aid => {
-            const ag = ALL_AGENTS[aid];
-            const isSelected = selectedAgentIds.includes(aid);
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 cursor-pointer shadow-xs border ${
-                isSelected 
-                ? 'bg-indigo-600 text-white border-indigo-600 shadow-indigo-500/25 scale-105' 
-                : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
-            }`;
-            btn.onclick = () => selectSingleAgent(aid);
-            btn.innerHTML = `<i data-lucide="${ag.icon || 'bot'}" class="h-3.5 w-3.5 ${isSelected ? 'text-white' : 'text-indigo-500'}"></i><span>${ag.shortName || ag.name}</span>`;
-            bar.appendChild(btn);
-        });
-
-        if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function syncAgentCheckboxes() {
@@ -1977,77 +1946,7 @@
     function stopVoiceInput() {
         isRecording = false;
         if (recognition) {
-            try { recognition.stop(); }
-
-    // Text-to-Speech (Audio Voice Output)
-    let currentSpeakingBtn = null;
-    function speakMessage(btn, textToSpeak) {
-        const isAr = "{% if trans.lang_code == 'ar' %}yes{% endif %}" === "yes";
-        if (!('speechSynthesis' in window)) {
-            alert(isAr ? 'المتصفح لا يدعم ميزة قراءة الصوت' : 'Text-to-speech is not supported in this browser.');
-            return;
-        }
-
-        if (window.speechSynthesis.speaking) {
-            window.speechSynthesis.cancel();
-            if (currentSpeakingBtn) {
-                currentSpeakingBtn.classList.remove('text-emerald-500', 'animate-pulse');
-                currentSpeakingBtn.classList.add('text-slate-400');
-            }
-            if (btn === currentSpeakingBtn) {
-                currentSpeakingBtn = null;
-                return;
-            }
-        }
-
-        if (!textToSpeak && btn) {
-            const parent = btn.closest('.chat-bubble-bot') || btn.closest('.markdown-content') || btn.closest('.flex-col') || btn.parentElement;
-            if (parent) {
-                textToSpeak = parent.innerText || parent.textContent;
-            }
-        }
-        if (!textToSpeak) return;
-
-        let cleanText = textToSpeak.replace(/```[\s\S]*?```/g, '')
-                                   .replace(/\[\[ACTION:.*?\]\]/g, '')
-                                   .replace(/[#*`_~]/g, '')
-                                   .trim();
-        if (!cleanText) return;
-
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = isAr ? 'ar-SA' : 'en-US';
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-
-        const voices = window.speechSynthesis.getVoices();
-        const voice = voices.find(v => (isAr ? v.lang.startsWith('ar') : v.lang.startsWith('en')));
-        if (voice) utterance.voice = voice;
-
-        if (btn) {
-            currentSpeakingBtn = btn;
-            btn.classList.add('text-emerald-500', 'animate-pulse');
-            btn.classList.remove('text-slate-400');
-        }
-
-        utterance.onend = function() {
-            if (btn) {
-                btn.classList.remove('text-emerald-500', 'animate-pulse');
-                btn.classList.add('text-slate-400');
-                currentSpeakingBtn = null;
-            }
-        };
-
-        utterance.onerror = function() {
-            if (btn) {
-                btn.classList.remove('text-emerald-500', 'animate-pulse');
-                btn.classList.add('text-slate-400');
-                currentSpeakingBtn = null;
-            }
-        };
-
-        window.speechSynthesis.speak(utterance);
-    }
- catch (e) { }
+            try { recognition.stop(); } catch (e) { }
         }
         const ind = document.getElementById('voiceStatusIndicator');
         if (ind) ind.classList.add('hidden');
@@ -2077,7 +1976,49 @@
 
             historyHtml += `
             <div style="margin-bottom: 24px; padding: 16px 20px; border-radius: 12px; border: 1px solid ${isUser ? '#bae6fd' : '#e2e8f0'}; background: ${isUser ? '#f0f9ff' : '#ffffff'};">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: bold; color: ${isUser ? '#0369a1' : '#0f172a'}            <!-- Special Executive Note from Basira to Client -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: bold; color: ${isUser ? '#0369a1' : '#0f172a'}; font-size: 14px;">
+                    <span>${isUser ? (isAr ? ' استفسار رائد الأعمال / المستخدم:' : ' User Inquiry:') : (isAr ? ' تحليل وتوصيات المستشار الذكي (بصيرة):' : ' AI Basira Strategic Advice:')}</span>
+                </div>
+                <div style="font-size: 13px; line-height: 1.8; color: #334155;">
+                    ${cleanText}
+                </div>
+            </div>
+        `;
+        });
+
+        printWin.document.write(`
+        <!DOCTYPE html>
+        <html dir="${isAr ? 'rtl' : 'ltr'}" lang="${isAr ? 'ar' : 'en'}">
+        <head>
+            <title>${isAr ? 'تقرير استشارة استراتيجية - منصة بصيرة' : 'Baseera AI Strategic Advisory Report'}</title>
+            <meta charset="utf-8">
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #1e293b; background: #fff; line-height: 1.6; }
+                .header { border-bottom: 3px solid #0284c7; padding-bottom: 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+                .title { font-size: 22px; font-weight: 800; color: #0c4a6e; }
+                .subtitle { font-size: 12px; color: #64748b; margin-top: 4px; }
+                .badge { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+                .footer { border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 40px; font-size: 11px; color: #94a3b8; text-align: center; }
+                @media print {
+                    body { padding: 0; }
+                    .no-print { display: none; }
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Header with Basira Logo -->
+            <div class="header">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <img src="${logoUrl}" alt="Basira Logo" style="height: 52px; width: auto; object-fit: contain;" />
+                    <div>
+                        <div class="title"> ${isAr ? 'وثيقة الاستشارة الاستراتيجية الرسمية' : 'Executive AI Consulting Session'}</div>
+                        <div class="subtitle">${isAr ? 'توليد تلقائي بواسطة محرك الذكاء الاصطناعي - منصة بصيرة' : 'Generated by Baseera Autonomous AI Suite'} &bull; ${dateStr}</div>
+                    </div>
+                </div>
+                <div class="badge">${isAr ? 'سري وتوثيقي ' : 'Official Document '}</div>
+            </div>
+
+            <!-- Special Executive Note from Basira to Client -->
             <div style="margin-bottom: 25px; background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%); border: 1px solid #7dd3fc; border-radius: 12px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
                 <div style="display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; color: #0369a1; margin-bottom: 6px;">
                     <span> ${isAr ? 'رسالة خاصة من منصة بصيرة لإدارة المؤسسة:' : 'Special Executive Note from Basira Intelligence:'}</span>
@@ -2148,6 +2089,7 @@
                 btn.className = "px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 text-xs font-bold cursor-default flex items-center gap-1 border border-emerald-500/30";
                 btn.innerHTML = `✓ ${isAr ? 'تم الحفظ في مساحة العمل' : 'Saved to Workspace'}`;
                 
+                // Automatically open the plan preview so the user sees the plan right away!
                 if (card) {
                     const previewBox = card.querySelector('.plan-preview-box');
                     if (previewBox && previewBox.classList.contains('hidden')) {
@@ -2167,7 +2109,6 @@
             alert(`Error: ${e}`);
         }
     };
-    
     function approveLiveDecision(title) {
         document.getElementById('chatInput').value = 'Proceed';
         sendMessage();
@@ -2179,6 +2120,8 @@
     }
 </script>
 <script>
+// --- Agent Tool Calling Logic ---
+
 // --- CSRF Cookie Helper ---
 function getCookie(name) {
     let cookieValue = null;
@@ -2195,80 +2138,46 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function navigateToPlatform(url) {
-    try {
-        if (window.top && window.top !== window) {
-            window.top.location.href = url;
-            return;
-        }
-    } catch(e) {}
-    window.location.href = url;
-}
-
-// --- Agent Tool Calling Logic ---
 function executeAgentAction(btn, actionPayload) {
     if(!actionPayload) return;
     
     // Show loading state on the button
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري الاعتماد وتحديث منصة القرارات...';
+    
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري التطبيق...';
     btn.style.pointerEvents = 'none';
 
     fetch('/api/dashboard/apply-agent-decision/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie('csrftoken') // assuming getCookie is globally available
         },
         body: JSON.stringify({ action_payload: actionPayload })
     })
     .then(res => res.json())
     .then(data => {
-        btn.style.pointerEvents = 'auto';
         if(data.status === 'success') {
-            btn.removeAttribute('onclick');
-            btn.className = "w-full my-4 p-4 sm:p-5 rounded-2xl bg-emerald-500/10 dark:bg-emerald-950/40 border-2 border-emerald-400/80 shadow-md block animate-fade-up";
+            btn.innerHTML = '<i class="fa-solid fa-check me-2"></i>' + data.message;
+            btn.classList.replace('text-[var(--glow)]', 'text-emerald-500');
+            btn.classList.replace('border-[var(--glow)]/30', 'border-emerald-500/30');
+            btn.classList.replace('bg-[var(--glow)]/10', 'bg-emerald-500/10');
             
-            btn.innerHTML = `
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 text-start">
-                    <div class="flex items-start sm:items-center gap-3 text-emerald-700 dark:text-emerald-300">
-                        <div class="grid h-9 w-9 place-items-center rounded-xl bg-emerald-500 text-white shadow-md shadow-emerald-500/20 shrink-0">
-                            <i class="fa-solid fa-check text-base"></i>
-                        </div>
-                        <div>
-                            <p class="font-black text-sm text-emerald-800 dark:text-emerald-200">تم اعتماد الخطة وتحديث منصة القرارات والمستندات بنجاح!</p>
-                            <p class="text-xs font-medium text-emerald-600/90 dark:text-emerald-400 mt-0.5">تم توثيق القرار وتطبيقه في المؤشرات الحية وسجل الخطط المعتمدة.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-2.5 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-emerald-500/20">
-                        <button type="button" onclick="navigateToPlatform('/dashboard/')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--nile)] to-[var(--glow)] text-white text-xs font-black shadow-md shadow-indigo-500/25 hover:brightness-110 active:scale-95 transition-all cursor-pointer">
-                            <span>منصة القرارات</span>
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
-                        <button type="button" onclick="navigateToPlatform('/datasets/#approved-plans')" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-emerald-300/80 dark:border-emerald-700/80 text-emerald-800 dark:text-emerald-200 text-xs font-bold hover:bg-emerald-50 dark:hover:bg-slate-700 active:scale-95 transition-all shadow-sm cursor-pointer">
-                            <i class="fa-solid fa-file-shield text-emerald-600 dark:text-emerald-400"></i>
-                            <span>الخطط المعتمدة</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            // Broadcast event to parent window if inside iframe
+            // Broadcast event to parent window if inside iframe, or directly to document
             const eventPayload = { detail: { action: actionPayload, result: data } };
             window.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
-            try {
-                if (window.parent && window.parent !== window) {
-                    window.parent.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
-                }
-            } catch(e) {}
+            if (window.parent) {
+                window.parent.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
+            }
         } else {
-            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + (data.message || 'حدث خطأ أثناء الاعتماد');
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + data.message;
             btn.classList.replace('text-[var(--glow)]', 'text-rose-500');
             btn.style.pointerEvents = 'auto';
         }
     })
     .catch(err => {
         console.error('Error applying decision:', err);
-        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>تعذر الاتصال بالخادم';
+        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>خطأ في الاتصال';
         btn.style.pointerEvents = 'auto';
     });
 }
