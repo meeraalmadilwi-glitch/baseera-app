@@ -2456,7 +2456,7 @@ def export_note_report(request):
     
     safe_ascii = re.sub(r'[^\w\s-]', '', filename_param or 'report').strip().replace(' ', '_')
     encoded_name = urllib.parse.quote(f"{filename_param}_note.txt")
-    response['Content-Disposition'] = f"attachment; filename="{safe_ascii}_note.txt"; filename*=UTF-8''{encoded_name}"
+    response['Content-Disposition'] = f'attachment; filename="{safe_ascii}_note.txt"; filename*=UTF-8\'\'{encoded_name}\''
     return response
 
 
