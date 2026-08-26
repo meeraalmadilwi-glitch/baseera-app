@@ -280,7 +280,7 @@
                         </div>
 
                         <!-- Action Plan (Green) -->
-                        <div class="rounded-2xl p-4 bg-emerald-500/8 dark:bg-emerald-950/25 border border-emerald-500/20">
+                        <div id="action-plan" class="rounded-2xl p-4 bg-emerald-500/8 dark:bg-emerald-950/25 border border-emerald-500/20 transition-all duration-500">
                             <div class="flex items-center gap-2 mb-2.5 text-emerald-700 dark:text-emerald-400">
                                 <i data-lucide="check-circle-2" class="h-4.5 w-4.5"></i>
                                 <span class="text-sm font-extrabold">{% if trans.lang_code == 'ar' %}خطة العمل{% else %}Action Plan{% endif %}</span>
@@ -1816,6 +1816,28 @@
 
     // Start Live Sync on load
     startLiveSync();
+
+    // Smooth scroll and highlight Action Plan when navigated after applying decision
+    function checkActionPlanHighlight() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (window.location.hash === '#action-plan' || urlParams.get('applied') === 'true') {
+            const planEl = document.getElementById('action-plan');
+            if (planEl) {
+                setTimeout(() => {
+                    planEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    planEl.classList.add('ring-4', 'ring-emerald-400', 'shadow-2xl', 'shadow-emerald-500/30', 'scale-[1.01]');
+                    setTimeout(() => {
+                        planEl.classList.remove('scale-[1.01]');
+                    }, 400);
+                    setTimeout(() => {
+                        planEl.classList.remove('ring-4', 'ring-emerald-400', 'shadow-2xl', 'shadow-emerald-500/30');
+                    }, 4000);
+                }, 400);
+            }
+        }
+    }
+    window.addEventListener('DOMContentLoaded', checkActionPlanHighlight);
+    window.addEventListener('hashchange', checkActionPlanHighlight);
 
 </script>
 {% endblock %}

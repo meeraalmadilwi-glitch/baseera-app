@@ -12,6 +12,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     
     path("datasets/", views.datasets, name="datasets"),
+    path("documents/", views.datasets, name="documents"),
 
     # Impersonation and dataset actions
     path("impersonate/<int:user_id>/", views.impersonate_user, name="impersonate_user"),
@@ -53,6 +54,7 @@ urlpatterns = [
     
     # API endpoints
     path("api/insights/chat", views.chat_api, name="chat_api"),
+    path("api/documents/auto-save/", views.api_auto_save_document, name="api_auto_save_document"),
     path("api/record-ai-usage/", views.record_ai_usage, name="record_ai_usage"),
     path("api/committee/save-thread/", views.api_committee_save_thread, name="api_committee_save_thread"),
     path("api/committee/get-threads/", views.api_committee_get_threads, name="api_committee_get_threads"),

@@ -245,6 +245,30 @@
 <div class="flex h-screen overflow-hidden p-3 gap-3">
     {% include 'dashboard/sidebar.html' with active_page='ask' %}
 
+    <!-- Auto-Save Subtle Toast Notification -->
+    <div id="autoSaveToast" class="fixed bottom-6 {% if trans.lang_code == 'ar' %}left-6{% else %}right-6{% endif %} z-[999] transform translate-y-24 opacity-0 transition-all duration-400 ease-out pointer-events-none">
+        <div class="bg-slate-900/95 dark:bg-slate-800/95 text-white px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md border border-emerald-500/30 flex items-center gap-3.5 max-w-md pointer-events-auto">
+            <div class="h-9 w-9 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                <i data-lucide="file-check-2" class="h-5 w-5"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+                <div class="text-xs font-extrabold text-slate-100 flex items-center gap-1.5">
+                    <span>{% if trans.lang_code == 'ar' %}تم حفظ التحليل والتوصيات في المستندات{% else %}Analysis & Recommendations saved to Documents{% endif %}</span>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5 truncate">
+                    <span id="autoSaveToastSubtitle" class="truncate font-mono text-emerald-300/80">{% if trans.lang_code == 'ar' %}الأرشيف التنفيذي الذكي{% else %}Executive AI Archive{% endif %}</span>
+                    <span>•</span>
+                    <a href="{% url 'datasets' %}#approved-plans" class="text-indigo-400 hover:text-indigo-300 font-bold underline shrink-0">
+                        {% if trans.lang_code == 'ar' %}عرض في المستندات{% else %}View in Documents{% endif %}
+                    </a>
+                </div>
+            </div>
+            <button onclick="dismissAutoSaveToast()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition shrink-0" title="إغلاق">
+                <i data-lucide="x" class="h-4 w-4"></i>
+            </button>
+        </div>
+    </div>
+
     <main class="flex-1 flex flex-col h-full gap-3 min-w-0 text-{{ trans.align }}">
         {% include 'dashboard/topbar.html' %}
         <section class="rounded-3xl glass px-6 py-5 flex items-center justify-between animate-fade-up shrink-0">
@@ -1587,6 +1611,13 @@
             chatHistory.push({ role: "assistant", content: cleanHistoryReply });
             saveChatHistory();
 
+            // Non-blocking Auto-Save analysis/recommendations to Documents
+            try {
+                autoSaveAnalysisToDocuments(text, cleanHistoryReply);
+            } catch (saveErr) {
+                console.warn("Auto-save trigger:", saveErr);
+            }
+
             // Persist committee thread to backend
             if (isMultiAgent) {
                 fetch('/api/committee/save-thread/', {
@@ -2138,6 +2169,104 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function autoSaveAnalysisToDocuments(userQuery, replyText) {
+    if (!replyText || replyText.length < 80) return;
+    
+    // Don't auto-save simple one-line greetings or acknowledgements
+    const lower = replyText.toLowerCase();
+    const isSimpleGreeting = replyText.length < 160 && (
+        lower.includes('كيف يمكنني مساعدتك') || 
+        lower.includes('how can i help') || 
+        lower.includes('أهلاً بك') || 
+        lower.includes('hello!') || 
+        lower.includes('hi there')
+    ) && !replyText.includes('###') && !replyText.includes('-');
+
+    if (isSimpleGreeting) return;
+
+    // Check if it has executive structure, analysis, headers, or recommendations
+    const hasReportStructure = replyText.includes('###') || 
+                               replyText.includes('---') || 
+                               replyText.includes('1.') || 
+                               replyText.includes('•') || 
+                               replyText.includes('- ') ||
+                               replyText.includes('خطة') || 
+                               replyText.includes('توصيات') || 
+                               replyText.includes('استراتيجية') || 
+                               replyText.includes('Recommendations') || 
+                               replyText.includes('Strategy') || 
+                               replyText.includes('Analysis') ||
+                               replyText.length > 220;
+
+    if (!hasReportStructure) return;
+
+    // Extract clean title from first heading if present, else from userQuery
+    let docTitle = '';
+    const titleMatch = replyText.match(/###\s*([^\n\r]+)/);
+    if (titleMatch && titleMatch[1]) {
+        docTitle = titleMatch[1].replace(/[#*_`🛡️📈📋💡]/g, '').trim();
+    }
+    
+    if (!docTitle) {
+        const cleanQ = (userQuery || '').replace(/[?؟.,!]/g, '').trim();
+        const dateStr = new Date().toLocaleDateString('{% if trans.lang_code == "ar" %}ar-EG{% else %}en-US{% endif %}', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        docTitle = cleanQ ? `{% if trans.lang_code == "ar" %}تحليل: {% else %}Analysis: {% endif %}${cleanQ.substring(0, 35)} (${dateStr})` : `{% if trans.lang_code == "ar" %}تقرير تحليلي تنفيذي{% else %}Executive Insights Report{% endif %} (${dateStr})`;
+    }
+
+    // Asynchronous non-blocking background save
+    fetch('/api/documents/auto-save/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') || '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            title: docTitle,
+            content: replyText,
+            category: '{% if trans.lang_code == "ar" %}تحليلات واستراتيجيات تنفيذية{% else %}Executive Insights & Strategies{% endif %}',
+            source: 'Ask Basira',
+            user_query: userQuery
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            showAutoSaveToast(data.title);
+        }
+    })
+    .catch(err => {
+        console.warn('Background auto-save notice:', err);
+    });
+}
+
+function showAutoSaveToast(docTitle) {
+    const toast = document.getElementById('autoSaveToast');
+    if (!toast) return;
+    
+    const titleEl = document.getElementById('autoSaveToastSubtitle');
+    if (titleEl && docTitle) {
+        titleEl.textContent = docTitle;
+    }
+    
+    toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    if (window._autoSaveTimer) clearTimeout(window._autoSaveTimer);
+    window._autoSaveTimer = setTimeout(() => {
+        dismissAutoSaveToast();
+    }, 4500);
+}
+
+function dismissAutoSaveToast() {
+    const toast = document.getElementById('autoSaveToast');
+    if (toast) {
+        toast.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+    }
+}
+
 function executeAgentAction(btn, actionPayload) {
     if(!actionPayload) return;
     
@@ -2150,14 +2279,14 @@ function executeAgentAction(btn, actionPayload) {
         planContent = (clone.innerText || clone.textContent || '').trim();
     }
     
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>جاري الاعتماد وتوثيق الخطة...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>{% if trans.lang_code == "ar" %}جاري تطبيق القرار وتحديث منصة القرارات...{% else %}Applying recommendation to Decision Platform...{% endif %}';
     btn.style.pointerEvents = 'none';
 
     fetch('/api/dashboard/apply-agent-decision/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken')
+            'X-CSRFToken': getCookie('csrftoken') || '{{ csrf_token }}'
         },
         body: JSON.stringify({
             action_payload: actionPayload,
@@ -2167,7 +2296,7 @@ function executeAgentAction(btn, actionPayload) {
     .then(res => res.json())
     .then(data => {
         if(data.status === 'success') {
-            btn.innerHTML = '<i class="fa-solid fa-check me-2"></i>' + data.message;
+            btn.innerHTML = '<i class="fa-solid fa-check me-2"></i>' + (data.message || '{% if trans.lang_code == "ar" %}تم التطبيق والتوجيه لمنصة القرارات!{% else %}Applied! Redirecting to Decision Platform...{% endif %}');
             btn.classList.replace('text-[var(--glow)]', 'text-emerald-500');
             btn.classList.replace('border-[var(--glow)]/30', 'border-emerald-500/30');
             btn.classList.replace('bg-[var(--glow)]/10', 'bg-emerald-500/10');
@@ -2177,15 +2306,21 @@ function executeAgentAction(btn, actionPayload) {
             if (window.parent) {
                 window.parent.dispatchEvent(new CustomEvent('agent-action-applied', eventPayload));
             }
+
+            // Seamlessly route to Decision Platform so the user sees live effects
+            const redirectUrl = data.redirect_url || '/dashboard/?applied=true#action-plan';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 800);
         } else {
-            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + (data.message || 'حدث خطأ');
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-2"></i>' + (data.message || '{% if trans.lang_code == "ar" %}حدث خطأ{% else %}An error occurred{% endif %}');
             btn.classList.replace('text-[var(--glow)]', 'text-rose-500');
             btn.style.pointerEvents = 'auto';
         }
     })
     .catch(err => {
         console.error('Error applying decision:', err);
-        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>تعذر الاتصال بالخادم';
+        btn.innerHTML = '<i class="fa-solid fa-xmark me-2"></i>{% if trans.lang_code == "ar" %}تعذر الاتصال بالخادم{% else %}Server connection error{% endif %}';
         btn.style.pointerEvents = 'auto';
     });
 }
