@@ -929,6 +929,11 @@
       });
     }
 
+    function fixArabicVisualText(text) {
+      if (text === null || text === undefined) return '';
+      return String(text);
+    }
+
     function renderRevenueChart(revenue) {
       const chartEl = document.getElementById('revenueChart');
       if (!chartEl) return;
