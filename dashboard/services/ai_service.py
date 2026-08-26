@@ -263,7 +263,7 @@ Code Execution:
                 from dashboard.models import AgentMemory
                 from django.contrib.auth.models import User
                 user = User.objects.get(id=user_id)
-                memories = AgentMemory.objects.filter(user=user)
+                memories = AgentMemory.objects.filter(user=user)[:20]  # Limit to 20 memories max
                 if memories.exists() and hasattr(self, 'client') and self.client and hasattr(self.client, 'models'):
                     emb_res = self.client.models.embed_content(
                         model="text-embedding-004",
@@ -272,8 +272,9 @@ Code Execution:
                     query_emb = emb_res.embeddings[0].values
                     scored_memories = []
                     for m in memories:
-                        score = cosine_similarity(query_emb, m.embedding)
-                        scored_memories.append((score, m.content))
+                        if m.embedding:
+                            score = cosine_similarity(query_emb, m.embedding)
+                            scored_memories.append((score, m.content))
                     
                     scored_memories.sort(key=lambda x: x[0], reverse=True)
                     top_mems = scored_memories[:3]
@@ -283,7 +284,8 @@ Code Execution:
                         for i, mem in enumerate(top_mems):
                             memory_context += f"{i+1}. {mem[1]}\n"
             except Exception as e:
-                print(f"Error retrieving memory: {e}")
+                print(f"Memory retrieval skipped: {e}")
+                memory_context = ""  # Don't block on memory errors
 
         base_system_prompt = self.system_prompt_ar if lang == "ar" else self.system_prompt_en
         
@@ -380,7 +382,7 @@ Code Execution:
                     return
 
                 stream = self.client.models.generate_content_stream(
-                    model="gemini-2.5-flash",
+                    model="gemini-2.0-flash",
                     contents=current_prompt
                 )
                 
@@ -727,7 +729,7 @@ Requirements:
                         q.put(action_btn)
                     else:
                         stream = self.client.models.generate_content_stream(
-                            model="gemini-2.5-flash",
+                            model="gemini-2.0-flash",
                             contents=agent_prompt
                         )
                         
